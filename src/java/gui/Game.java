@@ -1,4 +1,4 @@
-package main;
+package gui;
 
 public class Game {
     private GamePanel gamePanel;
