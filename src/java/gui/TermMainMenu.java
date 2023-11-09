@@ -9,7 +9,7 @@ public class TermMainMenu {
     String ascii = "";
     public TermMainMenu(){
         initialized = true;
-        try(BufferedReader br = new BufferedReader(new FileReader("src/resources/ascii.txt"))) {
+        try(BufferedReader br = new BufferedReader(new FileReader("src/resources/ascii2.txt"))) {
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
 
