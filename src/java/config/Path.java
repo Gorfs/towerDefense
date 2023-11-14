@@ -7,6 +7,7 @@ public class Path extends Cell {
     private boolean isEmpty;
     private Monster monster;
     private Cell nextPath;
+
     private boolean isSpawn;
     private boolean isBase;
 
