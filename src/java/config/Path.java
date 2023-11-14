@@ -1,0 +1,63 @@
+package config;
+
+import model.Monster;
+
+public class Path extends Cell {
+    
+    private boolean isEmpty;
+    private Monster monster;
+    private Path nextPath;
+    private boolean isSpawn;
+    private boolean isBase;
+
+    public Path(Path nextPath, int x, int y){
+        super(x,y);
+        this.monster = null;
+        this.isEmpty = true;
+        this.nextPath = nextPath;
+    }
+
+    public Path(boolean isSpawn, int x, int y){
+        super(x,y);
+        this.isSpawn = true;
+        this.isEmpty = true;
+        this.nextPath = null;
+    }
+    public Path(boolean isSpawn, boolean isBase, int x, int y){
+        this(false, x, y);
+        this.isBase = true;
+    }
+    public boolean isBase(){
+        return isBase;
+    }
+
+    public Path(int x, int y){
+        this(false, x, y);
+    }
+
+    public void setSpawn(boolean isSpawn){
+        this.isSpawn = isSpawn;
+    }
+    public boolean isSpawn(){
+        return this.isSpawn;
+    }
+
+    public Path getNextPath(){
+        return this.nextPath;
+    }
+    public boolean isEmpty(){
+        return this.isEmpty;
+    }
+    public Monster getMonster(){
+        return this.monster;
+    }
+
+    public String toString(){
+        if(this.isEmpty()){
+            return "[] ";
+        }else{
+            return this.monster.toString();
+        }
+    }
+
+}
