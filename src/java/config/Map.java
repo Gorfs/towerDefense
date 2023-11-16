@@ -57,10 +57,7 @@ public class Map {
         int prevY = initPath.getY();
         ArrayList<Cell> surroundingTiles;
         while(!temp.isBase()){
-            Debug.printMapCoords();
-            System.out.println(temp);
             surroundingTiles = getSurroundingCoordinates(temp.getX(), temp.getY());
-            System.out.println(surroundingTiles);
             for(Cell cell:surroundingTiles){
                 if ((cell instanceof Path) && (cell.getX() != prevX || cell.getY() != prevY)){
                    temp.setNextPath(cell); 

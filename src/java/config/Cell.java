@@ -14,6 +14,9 @@ public class Cell {
         return y;
     }
     public String toString(){
-        return x + " " + y;
+        return "XX ";
+    }
+    public String debugString(){
+       return x + " " + y; 
     }
 }
