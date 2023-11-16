@@ -7,7 +7,5 @@ public class Slot extends Cell{
     public Slot(int x, int y){
         super(x, y);
     }
-
-    
-    
+   
 }

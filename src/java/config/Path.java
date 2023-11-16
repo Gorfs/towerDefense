@@ -63,5 +63,4 @@ public class Path extends Cell {
             return this.monster.toString();
         }
     }
-
 }
