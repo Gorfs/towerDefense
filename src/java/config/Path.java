@@ -6,7 +6,7 @@ public class Path extends Cell {
     
     private boolean isEmpty;
     private Monster monster;
-    private Path nextPath;
+    private Cell nextPath;
     private boolean isSpawn;
     private boolean isBase;
 
@@ -30,6 +30,9 @@ public class Path extends Cell {
     public boolean isBase(){
         return isBase;
     }
+    public void setNextPath(Cell next){
+        this.nextPath =  next;
+    }
 
     public Path(int x, int y){
         this(false, x, y);
@@ -42,7 +45,7 @@ public class Path extends Cell {
         return this.isSpawn;
     }
 
-    public Path getNextPath(){
+    public Cell getNextPath(){
         return this.nextPath;
     }
     public boolean isEmpty(){
@@ -52,12 +55,12 @@ public class Path extends Cell {
         return this.monster;
     }
 
-    public String toString(){
-        if(this.isEmpty()){
-            return "[] ";
-        }else{
-            return this.monster.toString();
-        }
-    }
+    // public String toString(){
+    //     if(this.isEmpty()){
+    //         return "[] ";
+    //     }else{
+    //         return this.monster.toString();
+    //     }
+    // }
 
 }
