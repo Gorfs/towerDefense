@@ -16,6 +16,5 @@ public class GameState {
         }
         //loading path for the monsters
         
-        Debug.printPath();
     }
 }
