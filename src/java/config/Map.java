@@ -32,7 +32,6 @@ public class Map {
                             Path cell = new Path(false,true,i,n);
                             map[n][i] = cell;
                         }
-
                         case "P" -> {
                             Path tempCell = new Path(i, n);
                             map[n][i] = tempCell; 
@@ -90,6 +89,7 @@ public class Map {
         }
         return result;
     }
+
 
 
     public static Path getInitPath(){
