@@ -15,6 +15,11 @@ public class TermMainMenu {
         return levelSelect;
     }
 
+    public static void clearScreen() {  
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
+    } 
+
 
     public static void runTermMainMenu(){
         running = true;
@@ -52,6 +57,7 @@ public class TermMainMenu {
                     // call settings menu
                 }
                 case "l" ->{
+                    clearScreen();
                     levelSelect = TermLevelMenu();
                     running = false;
                 }
@@ -69,6 +75,8 @@ public class TermMainMenu {
             System.out.println(" " + counter + " : " + fileEntry.getName());
         }
         System.out.println("\n\n Votre Choix: ");
-        return sc.nextInt();
+        int levelChoice = sc.nextInt();
+        clearScreen();
+        return levelChoice;
     }
 }
