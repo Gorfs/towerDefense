@@ -1,15 +1,22 @@
 package gui;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.Scanner;
 
 
 public class TermMainMenu {
-    Scanner sc = new Scanner(System.in);
-    boolean running = false;
-    String ascii = "";
-    String choice;
-    public TermMainMenu(){
+    private static Scanner sc = new Scanner(System.in);
+    private static boolean running = false;
+    private static String choice;
+    private static int levelSelect = 0;
+
+    public static int getLevelSelect(){
+        return levelSelect;
+    }
+
+
+    public static void runTermMainMenu(){
         running = true;
         while(running){ 
             running = true;
@@ -45,11 +52,23 @@ public class TermMainMenu {
                     // call settings menu
                 }
                 case "l" ->{
-                    // call level select menu
+                    levelSelect = TermLevelMenu();
+                    running = false;
                 }
             }
         }
     }    
     
     
+    public static int TermLevelMenu(){
+        // this is the menu that is called when we want to choose a level.
+        int counter = 0;
+        System.out.println("Les levels disponibles:");
+        final File folder = new File("src/resources/map");
+        for(final File fileEntry: folder.listFiles()){
+            System.out.println(" " + counter + " : " + fileEntry.getName());
+        }
+        System.out.println("\n\n Votre Choix: ");
+        return sc.nextInt();
+    }
 }
