@@ -1,5 +1,8 @@
 package config;
 
 public class Config {
-    int test;
+    int initLife;
+    int armour;
+
+    public int gameSpeed;
 }
