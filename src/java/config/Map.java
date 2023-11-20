@@ -12,10 +12,10 @@ public class Map {
     private static Cell[][] map = new Cell[10][13];
     private static Path initPath;
 
-    public static void generateMap(String file) {
-        map = new Cell[10][13];
+    public static void generateMap(int file) {
+        String fileString = "level_" + file;
         // Get the file that contains the map
-        File maze = new File("src/resources/map/" + file + ".txt");
+        File maze = new File("src/resources/map/" + fileString + ".txt");
         Scanner myReader;
         try {
             myReader = new Scanner(maze);
@@ -26,7 +26,6 @@ public class Map {
 
                 // For every 2 string
                 for (int i = 0; i < data.length; i ++) {
-                    // create a cell based on what there is inside(NOTHING, DOT, etc.)
                     switch (data[i]) {
                         case "B" -> {
                             Path cell = new Path(false,true,i,n);
@@ -37,7 +36,7 @@ public class Map {
                             map[n][i] = tempCell; 
                             if(initPath == null){initPath = tempCell;}
                         } 
-                        case "S" -> map[n][i] = new Slot(i, n);
+                        case "S" -> map[n][i] = new Path(true, i, n);
                         default -> map[n][i] = new Slot(i, n);
                     }
                 }
@@ -49,7 +48,7 @@ public class Map {
         }
     }
 
-    public void generatePath(){
+    public static void generatePath(){
 
         // takes the generated map and linkes all the Paths together to make a linked list
         Path temp = initPath;
@@ -72,7 +71,7 @@ public class Map {
     }
 
 
-    public ArrayList<Cell> getSurroundingCoordinates(int x, int y){
+    private static ArrayList<Cell> getSurroundingCoordinates(int x, int y){
         // should return all the tiles around the current tile
         ArrayList<Cell> result = new ArrayList<Cell>();
         if (x > 0){
@@ -97,21 +96,18 @@ public class Map {
     }
 
 
-    public int getWidth() {
+    public static int getWidth() {
         return map[0].length;
     }
 
-    public int getHeight() {
+    public static int getHeight() {
         return map.length;
     }
 
-    public Cell getCell(int x, int y) {
+    public static Cell getCell(int x, int y) {
         return map[x][y];
     }
-    public Map(){
-        generateMap("level_1");
-        generatePath();
-    }
+    
     public static Cell[][] getMap(){
         return map;
     }
