@@ -7,7 +7,9 @@ import misc.Debug;
 import java.util.Scanner;
 
 public class TermGame {
+    private static int updates = 0;
     private static Cell[][] map;
+    private static boolean isRunning = false;
     public static void runGame(int level) {
         // Create a Scanner object
         // Scanner myObj = new Scanner(System.in);
@@ -18,6 +20,8 @@ public class TermGame {
         GameState.initGameState(level);
         map = GameState.getMap();
         printMap();
+        run();
+        
         // Debug.printMap(map);
 
     }
@@ -34,4 +38,21 @@ public class TermGame {
     public Cell[][] getMap() {
         return map;
     }
+
+
+    public static void animate(){
+        System.out.println(updates);
+
+    }
+    public static void run(){
+            isRunning = true;
+            long priorTime = System.nanoTime();
+            while(System.nanoTime() - priorTime < 1660000){
+                updates++;
+                animate();
+                if(isRunning){priorTime = System.nanoTime();}
+            }
+            
+        }
+
 }
