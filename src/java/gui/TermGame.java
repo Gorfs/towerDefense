@@ -11,8 +11,7 @@ public class TermGame {
     private static Cell[][] map;
     private static boolean isRunning = false;
     private static long startTime = System.nanoTime();
-    private static long timeElapsed = 10000; // is in nanoseconds, +1 to avoid division by zero errors
-    private static int deltaUpdates = 0;
+    private static long timeElapsedSinceLastUpdate = 10000; // is in nanoseconds, +1 to avoid division by zero errors
 
 
     public static void runGame(int level) {
@@ -49,18 +48,19 @@ public class TermGame {
     public static void animate(){
         // this is where our main animation cycle is going to be...
         printMap();
+        System.out.println("fps -> " + 1.0f/(timeElapsedSinceLastUpdate*1E-9));
     }
 
-    
+
     public static void run(){
             isRunning = true;
             long priorTime = System.nanoTime();
             while(isRunning){
                 if(System.nanoTime() - priorTime > 16600000){
                     // 1/60th of a second has passed, updating gameView
-                    priorTime = System.nanoTime();
-                    timeElapsed = (System.nanoTime()) + 1 - startTime; 
+                    timeElapsedSinceLastUpdate = (System.nanoTime()) - priorTime; 
                     updates++;
+                    priorTime = System.nanoTime();
                     animate();
                 }
             }
