@@ -58,7 +58,7 @@ public class Path extends Cell {
 
     public String toString(){
         if(this.isEmpty()){
-            return "[] ";
+            return "[]";
         }else{
             // TODO: With this only 1 monster can be displayed at a timer. Discuss and come back to.
             return this.monster.toString();
