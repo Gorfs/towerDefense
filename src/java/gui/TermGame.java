@@ -4,7 +4,8 @@ import model.GameState;
 import config.*;
 import misc.*;
 
-import java.util.Scanner;
+import model.Towers;
+import java.util.ArrayList;
 
 public class TermGame {
     private static int updates = 0;
