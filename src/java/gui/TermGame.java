@@ -4,10 +4,12 @@ import model.GameState;
 import config.*;
 import misc.Debug;
 
-import java.util.Scanner;
+import model.Towers;
+import java.util.ArrayList;
 
 public class TermGame {
     private static Cell[][] map;
+    public static ArrayList<Towers> towers = new ArrayList<>();
     public static void runGame(int level) {
         // Create a Scanner object
         // Scanner myObj = new Scanner(System.in);
