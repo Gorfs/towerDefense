@@ -24,8 +24,9 @@ public class TermPrepMenu {
         System.out.println(" a -> add a tower \n d -> destroy a tower \n x -> start the level\n\n");
         String choice = sc.nextLine();
         switch(choice){
-            case "a" ->{
+            case "a" :{
                 addTowerMenu();
+                break;
             }
         }
 
