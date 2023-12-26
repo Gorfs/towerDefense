@@ -35,8 +35,8 @@ public class Towers {
     }
 
     public boolean IsInRange(RealCoordinates mPos, int factor) {
-        return (pos.x() * pos.x() + Math.abs(mPos.x() - pos.x()) * Math.abs(mPos.x() - pos.x()) <= this.getRange(factor) &&
-                pos.y() * pos.y() + Math.abs(mPos.y() - pos.y()) * Math.abs(mPos.y() - pos.y()) <= this.getRange(factor));
+        return (pos.x * pos.x + Math.abs(mPos.x - pos.x) * Math.abs(mPos.x - pos.x) <= this.getRange(factor) &&
+                pos.y * pos.y + Math.abs(mPos.y - pos.y) * Math.abs(mPos.y - pos.y) <= this.getRange(factor));
     }
 
     public int getId() {
