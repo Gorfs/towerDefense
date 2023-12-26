@@ -16,7 +16,20 @@ public class GameState {
         }
         //loading path for the monsters
     }
+
+
+
     public static Cell[][] getMap(){
         return gameMap;
+    }
+
+    public void addTower(Towers tower, int x, int y){
+        if(gameMap[x][y] instanceof Slot){
+            ((Slot) gameMap[x][y]).setTower(tower);
+        }
+        else{
+            System.out.println("ERROR -> tried to add a tower to a non slot tile");
+        }
+
     }
 }

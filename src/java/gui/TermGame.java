@@ -25,6 +25,7 @@ public class TermGame {
         
         GameState.initGameState(level);
         map = GameState.getMap();
+        TermPrepMenu.startPreparationPhase();
         printMap();
         run();
         
@@ -46,9 +47,16 @@ public class TermGame {
         return map;
     }
 
+    public static void updateGameState() {
+       // we assume that the game is already in a prepared state so no need to check.
+        
+
+    }
+
 
     public static void animate(){
         // this is where our main animation cycle is going to be...
+        updateGameState();
         printMap();
         System.out.println("fps -> " + 1.0f/(timeElapsedSinceLastUpdate*1E-9));
     }
