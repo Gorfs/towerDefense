@@ -27,17 +27,20 @@ public class Map {
                 // For every 2 string
                 for (int i = 0; i < data.length; i ++) {
                     switch (data[i]) {
-                        case "B" -> {
+                        case "B" : {
                             Path cell = new Path(false,true,i,n);
                             map[n][i] = cell;
+                            break;
                         }
-                        case "P" -> {
+                        case "P" : {
                             Path tempCell = new Path(i, n);
                             map[n][i] = tempCell; 
-                            if(initPath == null){initPath = tempCell;}
+                            if(initPath == null){initPath = tempCell;
+                            break;
+                        }
                         } 
-                        case "S" -> map[n][i] = new Path(true, i, n);
-                        default -> map[n][i] = new Slot(i, n);
+                        case "S" : map[n][i] = new Path(true, i, n);break;
+                        default : map[n][i] = new Slot(i, n);break;
                     }
                 }
                 n++;
