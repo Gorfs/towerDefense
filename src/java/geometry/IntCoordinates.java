@@ -1,8 +1,8 @@
 package geometry;
 
 public class IntCoordinates {
-    private final int x;
-    private final int y;
+    public final int x;
+    public final int y;
 
     public IntCoordinates(int x, int y) {
         this.x = x;

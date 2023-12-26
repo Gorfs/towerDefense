@@ -6,8 +6,8 @@ import java.util.Set;
 
 public class RealCoordinates {
 
-    private final double x;
-    private final double y;
+    public final double x;
+    public final double y;
 
     public RealCoordinates(double x, double y) {
         this.x = x;
