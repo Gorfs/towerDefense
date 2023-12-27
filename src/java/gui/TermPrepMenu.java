@@ -31,11 +31,13 @@ public class TermPrepMenu {
         String choice = sc.nextLine();
         switch(choice){
             case "a" :{
+                TermMainMenu.clearScreen();
                 addTowerMenu();
                 preperationMenu();
                 break;
             }
             case "d":{
+                TermMainMenu.clearScreen();
                 removeTowerMenu();
                 preperationMenu();
                 break;
@@ -55,11 +57,11 @@ public class TermPrepMenu {
         int x = choice.charAt(0) - 'A'; 
         int y = Character.getNumericValue(choice.charAt(1));
         if (!(model.GameState.getMap()[x][y] instanceof Slot)){
-            System.out.println("Error, not a valid slot");
             removeTowerMenu();
         }else{
             Slot slot = (Slot) model.GameState.getMap()[x][y];
             if(slot.getTower() == null){
+                TermMainMenu.clearScreen();
                 System.out.println("Error, no tower on this slot");
                 removeTowerMenu();
             }else{
@@ -78,6 +80,7 @@ public class TermPrepMenu {
         int y = Character.getNumericValue(choice.charAt(1));
         Debug.out("x = " + x + " y = " + y);
         if (!(model.GameState.getMap()[x][y] instanceof Slot)){
+            TermMainMenu.clearScreen();
             System.out.println("Error, not a valid slot");
             addTowerMenu();
         }else{
@@ -124,6 +127,7 @@ public class TermPrepMenu {
                 } 
             }
             slot.setTower(tower);
+            TermMainMenu.clearScreen();
         }
     }
 }
