@@ -6,10 +6,13 @@ import config.Slot;
 import geometry.IntCoordinates;
 import misc.*;
 import model.*;
+import java.util.ArrayList;
 
 public class TermPrepMenu {
     private static Scanner sc = new Scanner(System.in);
     private static boolean run = true;
+    private static ArrayList<Slot> towerList = new ArrayList<>();
+    
     
     // class used for methodes that deal with the preparation phase of the game
 
@@ -19,6 +22,9 @@ public class TermPrepMenu {
             preperationMenu();
         }
     }
+    public static ArrayList<Slot> getTowerList(){
+        return towerList;
+    }   
 
 
 
@@ -130,6 +136,7 @@ public class TermPrepMenu {
                     break;
                 } 
             }
+            towerList.add(slot);
             slot.setTower(tower);
             TermMainMenu.clearScreen();
         }

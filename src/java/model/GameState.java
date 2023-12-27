@@ -9,6 +9,8 @@ public class GameState {
     private static int timesMonstersMoved = 0;
     static Cell[][] gameMap = Map.getMap();
     private static ArrayList<Monster> monsters = new ArrayList<>();
+    private static ArrayList<Slot> towers = gui.TermPrepMenu.getTowerList();
+
     private static Path initPath;
     
 
@@ -61,6 +63,11 @@ public class GameState {
         if(timesUpdated % 15 == 0 && timesUpdated > 1){
             timesMonstersMoved++;
             for(Monster monster: monsters){
+                for(Slot slot : towers){
+                    if (slot.getTower().IsInRange(monster.getPos(), 1)){
+                        monster.
+                    } 
+                }
                 monster.move();
             }
         }

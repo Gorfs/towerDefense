@@ -28,7 +28,6 @@ public class TermGame {
         // String filename = myObj.nextLine();
         
         GameState.initGameState(level);
-        
         map = GameState.getMap();
         TermMainMenu.clearScreen();
         TermPrepMenu.startPreparationPhase();

@@ -28,6 +28,14 @@ public class Monster {
         return new RealCoordinates(this.path.getX(), this.path.getY());
     }
 
+    public void takeDamage(int damage){
+        this.health[0] -= damage;
+        if (this.health[0] <= 0){
+            this.path.removeMonster();
+            Player.getInstance().addMoney(10);
+        }
+    }
+
     public boolean move(){ // returns true if the enemy has made it to the end, else it returns false
         if (this.path.getNextPath() == null){
             this.path.removeMonster();
