@@ -2,17 +2,23 @@ package gui;
 
 import model.GameState;
 import config.*;
+import main.TermMain;
 import misc.*;
 
-import java.util.Scanner;
+import model.Towers;
+import java.util.ArrayList;
 
 public class TermGame {
     private static int updates = 0;
     private static Cell[][] map;
+    public static ArrayList<Towers> towers = new ArrayList<>();
     private static boolean isRunning = false;
     private static long startTime = System.nanoTime();
     private static long timeElapsedSinceLastUpdate = 10000; // is in nanoseconds, +1 to avoid division by zero errors
 
+    public int getUpdates() {
+        return updates;
+    }
 
     public static void runGame(int level) {
         // Create a Scanner object
@@ -23,7 +29,9 @@ public class TermGame {
         
         GameState.initGameState(level);
         map = GameState.getMap();
-        printMap();
+        TermMainMenu.clearScreen();
+        TermPrepMenu.startPreparationPhase();
+        TermMainMenu.clearScreen();
         run();
         
         // Debug.printMap(map);
@@ -31,13 +39,18 @@ public class TermGame {
     }
 
     public static void printMap() {
-        Print.clearScreen();
+        printMap("");
+    }
+        
+    public static void printMap(String str){
+        System.out.println(str);
         for (int x = 0; x < Map.getHeight(); x++) {
             for (int y = 0; y < Map.getWidth(); y++)
                 System.out.print(Map.getCell(x, y));
             System.out.println();
         }
     }
+    
 
 
     public Cell[][] getMap() {
@@ -47,6 +60,8 @@ public class TermGame {
 
     public static void animate(){
         // this is where our main animation cycle is going to be...
+        // TODO create a function in GameState that updates the gameState
+        TermMainMenu.clearScreen();
         printMap();
         System.out.println("fps -> " + 1.0f/(timeElapsedSinceLastUpdate*1E-9));
     }
