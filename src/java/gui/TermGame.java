@@ -28,6 +28,7 @@ public class TermGame {
         // String filename = myObj.nextLine();
         
         GameState.initGameState(level);
+        
         map = GameState.getMap();
         TermMainMenu.clearScreen();
         TermPrepMenu.startPreparationPhase();
@@ -69,6 +70,7 @@ public class TermGame {
 
 
     public static void run(){
+        // we assume the main menu and the preperation phase a finished, this is the main game loop for gameplay
             isRunning = true;
             long priorTime = System.nanoTime();
             while(isRunning){

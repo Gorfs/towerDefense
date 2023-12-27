@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import config.Slot;
 import geometry.IntCoordinates;
-import misc.Debug;
+import misc.*;
 import model.*;
 
 public class TermPrepMenu {
@@ -57,6 +57,8 @@ public class TermPrepMenu {
         int y = choice.charAt(0) - 'A'; 
         int x = Character.getNumericValue(choice.charAt(1));
         if (!(model.GameState.getMap()[x][y] instanceof Slot)){
+            misc.Print.clearScreen();
+            System.out.println("Error, not a valid slot");
             removeTowerMenu();
         }else{
             Slot slot = (Slot) model.GameState.getMap()[x][y];
@@ -65,6 +67,7 @@ public class TermPrepMenu {
                 System.out.println("Error, no tower on this slot");
                 removeTowerMenu();
             }else{
+                misc.Print.clearScreen();
                 slot.removeTower();
             }
         }
@@ -121,6 +124,7 @@ public class TermPrepMenu {
                     break;
                 }
                 default :{
+                    misc.Print.clearScreen();
                     System.out.println("Error, not a valid tower");
                     addTowerMenu();
                     break;
