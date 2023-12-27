@@ -9,6 +9,6 @@ public class TowerAdvanced extends Towers {
 
     @Override
     public String toString(){
-        return "AT";
+        return "AT ";
     }
 }

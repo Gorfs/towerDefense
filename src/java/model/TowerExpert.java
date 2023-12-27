@@ -9,6 +9,6 @@ public class TowerExpert extends Towers {
 
     @Override
     public String toString(){
-        return "ET";
+        return "ET ";
     }
 }

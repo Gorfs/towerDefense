@@ -9,6 +9,6 @@ public class TowerUltimate extends Towers {
 
     @Override
     public String toString(){
-        return "UT";
+        return "UT ";
     }
 }

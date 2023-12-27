@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import config.Slot;
 import geometry.IntCoordinates;
+import misc.Debug;
 import model.*;
 
 public class TermPrepMenu {
@@ -34,6 +35,36 @@ public class TermPrepMenu {
                 preperationMenu();
                 break;
             }
+            case "d":{
+                removeTowerMenu();
+                preperationMenu();
+                break;
+            }
+            case "x":{
+                run = false;
+                break;
+            }
+        }
+
+    }
+
+    public static void removeTowerMenu(){
+        TermGame.printMap();
+        System.out.println("where should we remove the Tower? format = A7");
+        String choice = sc.nextLine();
+        int x = choice.charAt(0) - 'A'; 
+        int y = Character.getNumericValue(choice.charAt(1));
+        if (!(model.GameState.getMap()[x][y] instanceof Slot)){
+            System.out.println("Error, not a valid slot");
+            removeTowerMenu();
+        }else{
+            Slot slot = (Slot) model.GameState.getMap()[x][y];
+            if(slot.getTower() == null){
+                System.out.println("Error, no tower on this slot");
+                removeTowerMenu();
+            }else{
+                slot.removeTower();
+            }
         }
 
     }
@@ -44,7 +75,8 @@ public class TermPrepMenu {
         System.out.println("where should we add the Tower? format = A7");
         String choice = sc.nextLine();
         int x = choice.charAt(0) - 'A'; 
-        int y = choice.charAt(1) - 'A';
+        int y = Character.getNumericValue(choice.charAt(1));
+        Debug.out("x = " + x + " y = " + y);
         if (!(model.GameState.getMap()[x][y] instanceof Slot)){
             System.out.println("Error, not a valid slot");
             addTowerMenu();

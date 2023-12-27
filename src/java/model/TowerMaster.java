@@ -9,6 +9,6 @@ public class TowerMaster extends Towers {
 
     @Override
     public String toString(){
-        return "MT";
+        return "MT ";
     }
 }

@@ -9,6 +9,6 @@ public class TowerBasic extends Towers {
 
     @Override
     public String toString(){
-        return "BT";
+        return "BT ";
     }
 }

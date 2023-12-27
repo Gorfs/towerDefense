@@ -10,15 +10,24 @@ public class Slot extends Cell{
         super(x, y);
         isEmpty = true;
     }
+
+    public Towers getTower(){
+        return tower;
+    }
     public void setTower(Towers tower){
         this.isEmpty = false;
         this.tower = tower;
     }
 
+    public void removeTower(){
+        this.isEmpty = true;
+        this.tower = null;
+    }
+
     @Override
     public String toString(){
         if(isEmpty){
-            return "XX";
+            return "XX ";
         }else{
             return tower.toString();
         }
