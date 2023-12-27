@@ -34,11 +34,9 @@ public class Map {
                         case "P" : {
                             Path tempCell = new Path(i, n);
                             map[n][i] = tempCell; 
-                            if(initPath == null){initPath = tempCell;
                             break;
-                        }
                         } 
-                        case "S" : map[n][i] = new Path(true, i, n);break;
+                        case "S" : map[n][i] = new Path(true, i, n);initPath = (Path) map[n][i];break;
                         default : map[n][i] = new Slot(i, n);break;
                     }
                 }

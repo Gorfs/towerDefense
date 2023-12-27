@@ -41,4 +41,7 @@ public class Monster {
     public int[] getHealth() {
         return health;
     }
+    public String toString(){
+        return "M  ";
+    }
 }
