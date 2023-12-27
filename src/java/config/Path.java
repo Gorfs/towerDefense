@@ -56,6 +56,12 @@ public class Path extends Cell {
         return this.monster;
     }
 
+
+    public void setMonster(Monster monster){
+        this.isEmpty = false;
+        this.monster = monster;
+    }
+
     public String toString(){
         if(this.isEmpty()){
             return "[] ";
