@@ -64,8 +64,9 @@ public class GameState {
             timesMonstersMoved++;
             for(Monster monster: monsters){
                 for(Slot slot : towers){
+                    // TODO set factors to a variable rather than a constant 1.
                     if (slot.getTower().IsInRange(monster.getPos(), 1)){
-                        monster.
+                        monster.takeDamage(slot.getTower().getAttack(1));
                     } 
                 }
                 monster.move();
