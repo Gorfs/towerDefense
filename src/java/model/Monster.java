@@ -28,11 +28,14 @@ public class Monster {
         return new RealCoordinates(this.path.getX(), this.path.getY());
     }
 
-    public void takeDamage(int damage){
+    public boolean takeDamage(int damage){ // returns a boolean if the monster is dead
         this.health[0] -= damage;
         if (this.health[0] <= 0){
             this.path.removeMonster();
             Player.getInstance().addMoney(10);
+            return true;
+        }else{
+            return false;
         }
     }
 

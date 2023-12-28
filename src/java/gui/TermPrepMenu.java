@@ -60,8 +60,8 @@ public class TermPrepMenu {
         TermGame.printMap();
         System.out.println("where should we remove the Tower? format = A7");
         String choice = sc.nextLine();
-        int y = choice.charAt(0) - 'A'; 
-        int x = Character.getNumericValue(choice.charAt(1));
+        int x = choice.charAt(0) - 'A'; 
+        int y = Character.getNumericValue(choice.charAt(1));
         if (!(model.GameState.getMap()[x][y] instanceof Slot)){
             misc.Print.clearScreen();
             System.out.println("Error, not a valid slot");
@@ -85,8 +85,8 @@ public class TermPrepMenu {
         TermGame.printMap();
         System.out.println("where should we add the Tower? format = A7");
         String choice = sc.nextLine();
-        int y = choice.charAt(0) - 'A'; 
-        int x = Character.getNumericValue(choice.charAt(1));
+        int x = choice.charAt(0) - 'A'; 
+        int y = Character.getNumericValue(choice.charAt(1));
         Debug.out("x = " + x + " y = " + y);
         if (!(model.GameState.getMap()[x][y] instanceof Slot)){
             TermMainMenu.clearScreen();
