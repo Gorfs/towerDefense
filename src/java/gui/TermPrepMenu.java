@@ -4,12 +4,15 @@ import java.util.Scanner;
 
 import config.Slot;
 import geometry.IntCoordinates;
-import misc.Debug;
+import misc.*;
 import model.*;
+import java.util.ArrayList;
 
 public class TermPrepMenu {
     private static Scanner sc = new Scanner(System.in);
     private static boolean run = true;
+    private static ArrayList<Slot> towerList = new ArrayList<>();
+    
     
     // class used for methodes that deal with the preparation phase of the game
 
@@ -19,6 +22,9 @@ public class TermPrepMenu {
             preperationMenu();
         }
     }
+    public static ArrayList<Slot> getTowerList(){
+        return towerList;
+    }   
 
 
 
@@ -57,6 +63,8 @@ public class TermPrepMenu {
         int y = choice.charAt(0) - 'A'; 
         int x = Character.getNumericValue(choice.charAt(1));
         if (!(model.GameState.getMap()[x][y] instanceof Slot)){
+            misc.Print.clearScreen();
+            System.out.println("Error, not a valid slot");
             removeTowerMenu();
         }else{
             Slot slot = (Slot) model.GameState.getMap()[x][y];
@@ -65,6 +73,7 @@ public class TermPrepMenu {
                 System.out.println("Error, no tower on this slot");
                 removeTowerMenu();
             }else{
+                misc.Print.clearScreen();
                 slot.removeTower();
             }
         }
@@ -121,11 +130,13 @@ public class TermPrepMenu {
                     break;
                 }
                 default :{
+                    misc.Print.clearScreen();
                     System.out.println("Error, not a valid tower");
                     addTowerMenu();
                     break;
                 } 
             }
+            towerList.add(slot);
             slot.setTower(tower);
             TermMainMenu.clearScreen();
         }

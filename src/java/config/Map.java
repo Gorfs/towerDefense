@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import misc.Debug;
 
 
 public class Map {
@@ -59,7 +60,7 @@ public class Map {
             surroundingTiles = getSurroundingCoordinates(temp.getX(), temp.getY());
             for(Cell cell:surroundingTiles){
                 if ((cell instanceof Path) && (cell.getX() != prevX || cell.getY() != prevY)){
-                   temp.setNextPath(cell); 
+                    temp.setNextPath(cell); 
                     prevX = temp.getX();
                     prevY = temp.getY();
                     temp = (Path) cell;

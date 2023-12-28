@@ -6,13 +6,17 @@ import java.util.ArrayList;
 
 public class GameState {
     private static int timesUpdated = 0;
+    private static int timesMonstersMoved = 0;
     static Cell[][] gameMap = Map.getMap();
     private static ArrayList<Monster> monsters = new ArrayList<>();
+    private static ArrayList<Slot> towers = gui.TermPrepMenu.getTowerList();
+
     private static Path initPath;
     
 
     public static void initGameState(int level){
         Map.generateMap(level);
+        Map.generatePath();
         gameMap = Map.getMap();
         initPath = config.Map.getInitPath();
         // Debug.printMap(gameMap);
@@ -53,8 +57,20 @@ public class GameState {
         // every time this function is called it is considered that one frame has passed since the last update
         timesUpdated++;
         if (timesUpdated == 100){
-            spawnMonster(new Monster(new RealCoordinates(initPath.getX(), initPath.getY()), 2, 1, 2));
-        }     
+            spawnMonster(new Monster(initPath, 2, 1, 2));
+        }
+        // TODO make the timer based on difficulty rather then set at once per second
+        if(timesUpdated % 15 == 0 && timesUpdated > 1){
+            timesMonstersMoved++;
+            for(Monster monster: monsters){
+                for(Slot slot : towers){
+                    if (slot.getTower().IsInRange(monster.getPos(), 1)){
+                        monster.
+                    } 
+                }
+                monster.move();
+            }
+        }
     }
   
 }
