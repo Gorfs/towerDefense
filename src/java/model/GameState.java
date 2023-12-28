@@ -66,13 +66,11 @@ public class GameState {
         monstersToRemoveNextUpdate = new ArrayList<>();
         // TODO make the timer based on difficulty rather then set at once per second
         if(timesUpdated % (30/gameSpeed) == 0 && timesUpdated > 1){ // game speed is devided to basically invert the factor that multiplies the framerate 
-            timesMonstersMoved++;
-
+            timesMonstersMoved++; // basic stats, not very useful.
             for(Monster monster: monsters){
                 for(Slot slot : towers){
                     // TODO set factors to a variable rather than a constant 1.
                     if (slot.getTower().IsInRange(monster.getPos(), 1)){
-                        System.out.println(monster.getHealth()[0]);
                         if (monster.takeDamage(slot.getTower().getAttack(1))){
                             monstersToRemoveNextUpdate.add(monster);
                         }
@@ -80,6 +78,7 @@ public class GameState {
                 }
                 monster.move();
             }
+            // we cannot modify the arrayList while we are reading it, so we store the information in another list to remove them once the main loop has finished.
             for(Monster monster: monstersToRemoveNextUpdate){
                 monster.getPath().removeMonster();
                 monsters.remove(monster);
