@@ -1,6 +1,6 @@
 package gui;
 
-import model.GameState;
+import model.*;
 import config.*;
 import main.TermMain;
 import misc.*;
@@ -65,6 +65,23 @@ public class TermGame {
         GameState.updateGameState();
         printMap();
         System.out.println("fps -> " + 1.0f/(timeElapsedSinceLastUpdate*1E-9));
+        ArrayList<Monster> monsters = GameState.getMonsters();
+        ArrayList<Slot> towers = GameState.getTowers();
+        for(Monster monster : monsters){
+            System.out.println(monster.getId() + " health:"  + monster.getHealth()[0] + " position : " + monster.getPos().x + " " + monster.getPos().y);
+        }
+        for(Slot tower : towers){
+            // TODO, change damage factor to variable rather than just 1
+            System.out.println(tower.toString() + " position : " + tower.getX() + " " + tower.getY() + " range :" + tower.getTower().getRange(1));
+        }
+        for(Monster monster: monsters){
+            for(Slot tower: towers){
+                System.out.println("monster " + monster.getId() + " range status to : x: " + tower.getX() + " y:" + tower.getY() + " is "  
+                + tower.getTower().IsInRange(monster.getPos(), 1) + " distance to tower is =" 
+                + tower.getTower().getDistance(monster.getPos()));
+            }
+        }
+        
     }
 
 

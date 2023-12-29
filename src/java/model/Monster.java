@@ -41,7 +41,6 @@ public class Monster {
 
     public boolean move(){ // returns true if the enemy has made it to the end, else it returns false
         if (this.path.getNextPath() == null){
-            this.path.removeMonster();
                 // the enemy has made it to the end of the map, reduce health of player and deleted the monster
             Player.getInstance().takeDamage(this.attack);
             return false;

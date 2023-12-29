@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class GameState {
     private static int timesUpdated = 0;
     private static int timesMonstersMoved = 0;
-    private static int gameSpeed = 1;
+    private static double gameSpeed = 2;
 
     private static ArrayList<Monster> monstersToRemoveNextUpdate = new ArrayList<>();
 
@@ -30,6 +30,13 @@ public class GameState {
             System.exit(1);
         }
         //loading path for the monsters
+    }
+
+    public static ArrayList<Monster> getMonsters(){
+        return monsters;
+    }
+    public static ArrayList<Slot> getTowers(){
+        return towers;
     }
 
 
@@ -61,7 +68,9 @@ public class GameState {
         // every time this function is called it is considered that one frame has passed since the last update
         timesUpdated++;
         if (timesUpdated == 100){
-            spawnMonster(new Monster(initPath, 2, 1, 2));
+            spawnMonster(new Monster(initPath, 2, 1, 100));
+        }else if(timesUpdated == 200){
+            spawnMonster(new Monster(initPath, 2, 1, 50));
         }
         monstersToRemoveNextUpdate = new ArrayList<>();
         // TODO make the timer based on difficulty rather then set at once per second
