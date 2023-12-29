@@ -77,6 +77,7 @@ public class GameState {
         if(timesUpdated % (30/gameSpeed) == 0 && timesUpdated > 1){ // game speed is devided to basically invert the factor that multiplies the framerate 
             timesMonstersMoved++; // basic stats, not very useful.
             for(Monster monster: monsters){
+               
                 for(Slot slot : towers){
                     // TODO set factors to a variable rather than a constant 1.
                     if (slot.getTower().IsInRange(monster.getPos(), 1)){
@@ -85,7 +86,9 @@ public class GameState {
                         }
                     } 
                 }
-                monster.move();
+                if(monster.move()){
+                    monstersToRemoveNextUpdate.add(monster);
+                }
             }
             // we cannot modify the arrayList while we are reading it, so we store the information in another list to remove them once the main loop has finished.
             for(Monster monster: monstersToRemoveNextUpdate){

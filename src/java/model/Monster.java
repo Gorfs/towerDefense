@@ -31,7 +31,6 @@ public class Monster {
     public boolean takeDamage(int damage){ // returns a boolean if the monster is dead
         this.health[0] -= damage;
         if (this.health[0] <= 0){
-            this.path.removeMonster();
             Player.getInstance().addMoney(10);
             return true;
         }else{
@@ -43,12 +42,13 @@ public class Monster {
         if (this.path.getNextPath() == null){
                 // the enemy has made it to the end of the map, reduce health of player and deleted the monster
             Player.getInstance().takeDamage(this.attack);
-            return false;
+            this.path.removeMonster();
+            return true;
         }else{
             this.path.removeMonster();
             this.path = (Path) this.path.getNextPath();
             this.path.setMonster(this);
-            return true;
+            return false;
         }
 
     }
