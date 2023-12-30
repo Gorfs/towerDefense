@@ -2,13 +2,18 @@ package gui;
 
 import javax.swing.JFrame;
 
-public class GameWindow {
-    private JFrame jFrame;
-    public GameWindow(GamePanel gamePanel) {
-        jFrame = new JFrame();
-        jFrame.setSize(400, 400);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.add(gamePanel);
-        jFrame.setVisible(true);
+public class GameWindow{
+    private static JFrame root;
+
+
+    public GameWindow(Game game) {
+        root = new JFrame("Tower Defense");
+        root.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        root.setResizable(false);
+        root.add(game);
+        root.setLocationRelativeTo(null);
+        root.pack();
+        root.setVisible(true);
+    
     }
 }
