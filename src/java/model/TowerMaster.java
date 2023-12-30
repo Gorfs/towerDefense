@@ -4,7 +4,7 @@ import geometry.IntCoordinates;
 
 public class TowerMaster extends Towers {
     public TowerMaster(IntCoordinates pos) {
-        super(pos, 10, 1, 3, 50);
+        super(pos, 40, 1, 5, 150);
     }
 
     @Override

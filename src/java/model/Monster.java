@@ -28,25 +28,27 @@ public class Monster {
         return new RealCoordinates(this.path.getX(), this.path.getY());
     }
 
-    public void takeDamage(int damage){
+    public boolean takeDamage(int damage){ // returns a boolean if the monster is dead
         this.health[0] -= damage;
         if (this.health[0] <= 0){
-            this.path.removeMonster();
             Player.getInstance().addMoney(10);
+            return true;
+        }else{
+            return false;
         }
     }
 
     public boolean move(){ // returns true if the enemy has made it to the end, else it returns false
         if (this.path.getNextPath() == null){
-            this.path.removeMonster();
                 // the enemy has made it to the end of the map, reduce health of player and deleted the monster
             Player.getInstance().takeDamage(this.attack);
-            return false;
+            this.path.removeMonster();
+            return true;
         }else{
             this.path.removeMonster();
             this.path = (Path) this.path.getNextPath();
             this.path.setMonster(this);
-            return true;
+            return false;
         }
 
     }
