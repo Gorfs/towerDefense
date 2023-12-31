@@ -3,17 +3,19 @@ package gui;
 import javax.swing.*;
 
 public class Game {
+    
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 800;
+
+
     private GamePanel gamePanel;
     private GameWindow gameWindow;
+    private static boolean running = false;
 
     public Game() {
         gameWindow = new GameWindow();
-        JButton btn = new JButton("Click me!");
-        gameWindow.getContentPane().add(btn);
+        MainMenu mainMenu = new MainMenu();
+        gameWindow.add(mainMenu);
         gameWindow.setVisible(true);
-    }
-
-    public static void main(String[] args){
-        Game game = new Game();
     }
 }
