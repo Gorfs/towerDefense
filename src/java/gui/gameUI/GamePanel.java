@@ -19,6 +19,8 @@ public class GamePanel extends JPanel {
     private GamePlayPanel gamePlayPanel = new GamePlayPanel();
 
 
+    private JButton startRoundBtn = new JButton("Start");
+
 
     public GamePanel() {
         super();
@@ -30,18 +32,34 @@ public class GamePanel extends JPanel {
         title.setFont(title.getFont().deriveFont(30.0f));
         title.setForeground(Color.white);
 
-        gamePlayPanel.setPreferredSize(new Dimension(1000, 400));
-        gamePlayPanel.setBorder(BorderFactory.createLineBorder(Color.black)); // Add border here
-        JPanel centerPanel = new JPanel();
-        centerPanel.add(gamePlayPanel);
-        mainPanel.add(centerPanel);
-        centerPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+        // gamePlayPanel.setPreferredSize(new Dimension(1000, 400));
+        gamePlayPanel.setBorder(BorderFactory.createLineBorder(Color.red)); // Add border here
+        gamePlayPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
 
+        startRoundBtn.setBackground(MainMenu.buttonBackgroundColor);
+        startRoundBtn.setForeground(Color.white);
+        startRoundBtn.setFocusPainted(false);
+        startRoundBtn.setMaximumSize(new Dimension(100, 30));
+        startRoundBtn.addActionListener(e -> {
+            Game.startRound();
+        });
+
+        JPanel centerPanel = new JPanel();
+        centerPanel.setBackground(MainMenu.backgroundColor);
+        centerPanel.add(gamePlayPanel);
+
+        mainPanel.add(centerPanel);
+        this.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
+        // centerPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+
+        this.add(startRoundBtn, BorderLayout.SOUTH);
         this.add(title, BorderLayout.NORTH);
         this.add(mainPanel, BorderLayout.CENTER);
     }
+
     public void update(){
         gamePlayPanel.update();
+        this.title.setText("Level " + Game.getLevel());
     }
 
     

@@ -59,10 +59,10 @@ public class LevelSelectMenu extends JPanel implements ActionListener  {
         for(LevelPanel levelPanel: levelPanels){
             if(e.getSource() == levelPanel.playBtn){
                 Debug.out("Play button pressed");
-                Game.start();
-                try {Thread.sleep(1000);} catch (InterruptedException e1) {e1.printStackTrace();}
-                Game.changePanel("game");
                 Game.setlevel(levelPanel.getNum());
+                Game.start();
+                // try {Thread.sleep(1000);} catch (InterruptedException e1) {e1.printStackTrace();}
+                Game.changePanel("game");
             }
         }
         System.out.println("Action performed" + e.getSource());

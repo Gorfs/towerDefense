@@ -13,6 +13,8 @@ import config.*;
 public class MapPanel extends JPanel {
     // this panel contains the Main Map with each tile and the towers etc...
 
+    private final static int TILE_SIZE = Tile.TILE_SIZE;
+
     Cell[][] prevMap;
     public MapPanel() {
         super();
@@ -41,6 +43,9 @@ public class MapPanel extends JPanel {
                             Debug.out("Clicked");
                         }
                     });
+                    tile.setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
+                    // tile.setMaximumSize(new Dimension(TILE_SIZE, TILE_SIZE));
+
                     this.add(tile);
                 }
             }

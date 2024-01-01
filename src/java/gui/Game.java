@@ -52,18 +52,23 @@ public class Game {
         return levelSelect;
     }
 
+    public static void startRound(){
+        gameLoop();
+    }
+
     public static void start(){
         running = true;
         GameState.initGameState(levelSelect);
         map = GameState.getMap();
-        gameLoop();
+        updateGUI();
+        // TODO setup preperation phase then moving to game phase
         // TODO setup going back to main menu after loosing of winning a round.
     }
 
     public static void updateGUI(){
         gamePanel.update();
-        //!! if the graphics start acting weird, uncomment the following line, it should do something interesting.
-        // gameWindow.validate();
+        //!!  The line under this comment somehow fixes a load of graphical bugs, do not remove.
+        gameWindow.validate();
     }
 
     public static void gameLoop(){
@@ -77,7 +82,6 @@ public class Game {
                     Debug.out("fps -> " + 1.0f/((System.nanoTime() - priorTime)*1E-9)); 
                     priorTime = System.nanoTime();
                     GameState.updateGameState(updates);
-                    
                     updateGUI();
                 }
             }

@@ -5,11 +5,12 @@ import java.awt.*;
 
 public class Tile extends JLabel{
 
-    private final int TILE_SIZE = 10;
+    public static final int TILE_SIZE = 50;
+
     public Tile(ImageIcon image) {
         super(image);
         this.setMaximumSize(new Dimension(TILE_SIZE, TILE_SIZE));   
-        this.setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
+        // this.setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
     }
 
 
