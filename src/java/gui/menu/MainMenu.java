@@ -78,7 +78,7 @@ public class MainMenu extends JPanel implements ActionListener {
 
     public  void actionPerformed(ActionEvent e) {
         if (e.getSource() == playBtn) {
-            Debug.out("Play button pressed");
+            Debug.out("LevelSelect button pressed");
             Game.changePanel("level");
         } else if (e.getSource() == settingsBtn) {
             Debug.out("Settings button pressed");

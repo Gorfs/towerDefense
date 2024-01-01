@@ -5,7 +5,6 @@ import misc.Debug;
 import java.util.ArrayList;
 
 public class GameState {
-    private static int timesUpdated = 0;
     private static int timesMonstersMoved = 0;
     private static double gameSpeed = 2;
 
@@ -64,9 +63,8 @@ public class GameState {
         }
     }
 
-    public static void updateGameState(){  
+    public static void updateGameState(int timesUpdated){  
         // every time this function is called it is considered that one frame has passed since the last update
-        timesUpdated++;
         if (timesUpdated == 100){
             spawnMonster(new Monster(initPath, 2, 1, 100));
         }else if(timesUpdated == 200){

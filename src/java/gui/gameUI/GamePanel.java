@@ -15,6 +15,9 @@ public class GamePanel extends JPanel {
     // this panel contains the shop and the gameplay area
     private JPanel mainPanel = new JPanel();
 
+    // the panel where most of the gamePlay happens 
+    private GamePlayPanel gamePlayPanel = new GamePlayPanel();
+
 
 
     public GamePanel() {
@@ -28,9 +31,15 @@ public class GamePanel extends JPanel {
         title.setForeground(Color.white);
 
 
+        mainPanel.add(gamePlayPanel);
+
+
         this.add(title, BorderLayout.NORTH);
         this.add(mainPanel, BorderLayout.CENTER);
 
+    }
+    public void update(){
+        gamePlayPanel.update();
     }
 
     

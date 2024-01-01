@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Color;
 
+import misc.Debug;
+
 public class LevelSelectMenu extends JPanel implements ActionListener  {
     private static JLabel title = new JLabel("Select a level:", SwingConstants.CENTER);
     private static JPanel menuPanel = new JPanel();
@@ -56,9 +58,11 @@ public class LevelSelectMenu extends JPanel implements ActionListener  {
         // TODO set the action to start the level in the main game panel.
         for(LevelPanel levelPanel: levelPanels){
             if(e.getSource() == levelPanel.playBtn){
-                System.out.println("Play button pressed");
-                Game.setlevel(levelPanel.getNum());
+                Debug.out("Play button pressed");
                 Game.start();
+                try {Thread.sleep(1000);} catch (InterruptedException e1) {e1.printStackTrace();}
+                Game.changePanel("game");
+                Game.setlevel(levelPanel.getNum());
             }
         }
         System.out.println("Action performed" + e.getSource());

@@ -37,11 +37,10 @@ public class Game {
         gameWindow = new GameWindow();
         gameWindow.add(mainPanel);
         // TODO: move gamePanel lower than mainMenu to avoid starting game on launch
-        mainPanel.add(gamePanel, "game");
         mainPanel.add(mainMenu, "main");
         mainPanel.add(levelMenu, "level");
         mainPanel.add(settingsMenu, "settings");
-        
+        mainPanel.add(gamePanel, "game");
         
         gameWindow.setVisible(true);
     }
@@ -60,18 +59,25 @@ public class Game {
         // TODO setup going back to main menu after loosing of winning a round.
     }
 
+    public static void updateGUI(){
+        gamePanel.update();
+    }
+
     public static void gameLoop(){
-        long priorTime = System.nanoTime();
-        while(running){
-            if(System.nanoTime() - priorTime > 16600000){
-                // 1/60th of a second has passed, updating gameView
-                updates++;
-                Debug.out("fps -> " + 1.0f/((System.nanoTime() - priorTime)*1E-9)); 
-                priorTime = System.nanoTime();
-                GameState.updateGameState();
+        //!! do not remove thread, the gameloop needs to run on a different thread to the rest of the application
+        new Thread(()->{
+            long priorTime = System.nanoTime();
+            while(running){
+                if(System.nanoTime() - priorTime > 16600000){
+                    // 1/60th of a second has passed, updating gameView
+                    updates++;
+                    Debug.out("fps -> " + 1.0f/((System.nanoTime() - priorTime)*1E-9)); 
+                    priorTime = System.nanoTime();
+                    GameState.updateGameState(updates);
+                    updateGUI();
+                }
             }
-        }
- 
+        }).start();
     }
 
 
@@ -87,6 +93,9 @@ public class Game {
                 break;
             case "level":
                 cardLayout.show(mainPanel, "level");
+                break;
+            case "game":
+                cardLayout.show(mainPanel, "game");
                 break;
             default:
                 System.out.println("Error: panelName not found");

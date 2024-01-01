@@ -62,7 +62,7 @@ public class TermGame {
         // this is where our main animation cycle is going to be...
         // TODO create a function in GameState that updates the gameState
         TermMainMenu.clearScreen();
-        GameState.updateGameState();
+        GameState.updateGameState(updates);
         printMap();
         System.out.println("fps -> " + 1.0f/(timeElapsedSinceLastUpdate*1E-9));
 
