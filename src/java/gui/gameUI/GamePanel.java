@@ -30,13 +30,15 @@ public class GamePanel extends JPanel {
         title.setFont(title.getFont().deriveFont(30.0f));
         title.setForeground(Color.white);
 
-
-        mainPanel.add(gamePlayPanel);
-
+        gamePlayPanel.setPreferredSize(new Dimension(1000, 400));
+        gamePlayPanel.setBorder(BorderFactory.createLineBorder(Color.black)); // Add border here
+        JPanel centerPanel = new JPanel();
+        centerPanel.add(gamePlayPanel);
+        mainPanel.add(centerPanel);
+        centerPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
 
         this.add(title, BorderLayout.NORTH);
         this.add(mainPanel, BorderLayout.CENTER);
-
     }
     public void update(){
         gamePlayPanel.update();

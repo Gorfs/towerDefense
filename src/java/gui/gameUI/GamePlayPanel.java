@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class GamePlayPanel extends JPanel {
 
     // the label that says what phase of the game we are currently in. ex: preperation / wave 2/ wave 3/etc...
-    JLabel infoTitle = new JLabel("h", SwingConstants.CENTER);
+    JLabel infoTitle = new JLabel("Wave #:", SwingConstants.CENTER);
 
     private MapPanel mapPanel = new MapPanel();
 
@@ -22,6 +22,8 @@ public class GamePlayPanel extends JPanel {
             
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(infoTitle);
+
+        mapPanel.setMaximumSize(new Dimension(800, 400));
         this.add(mapPanel);
     }
     public void update(){

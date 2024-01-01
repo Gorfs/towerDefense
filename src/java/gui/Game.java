@@ -12,17 +12,17 @@ import config.*;
 public class Game {
     
 
-    public static final int WIDTH = 1100;
+    public static final int WIDTH = 1101;
     public static final int HEIGHT = 800;
 
     private static Cell[][] map;
 
-    private static GameWindow gameWindow;
     private static boolean running = false;
 
     private static CardLayout cardLayout = new CardLayout();
     private static JPanel mainPanel = new JPanel(cardLayout);
 
+    private static GameWindow gameWindow = new GameWindow();
     private static MainMenu mainMenu = new MainMenu();
     private static LevelSelectMenu levelMenu = new LevelSelectMenu();
     private static SettingsMenu settingsMenu = new SettingsMenu();
@@ -33,10 +33,11 @@ public class Game {
 
     public static int updates = 0;
 
+    
+
     public Game() {
         gameWindow = new GameWindow();
         gameWindow.add(mainPanel);
-        // TODO: move gamePanel lower than mainMenu to avoid starting game on launch
         mainPanel.add(mainMenu, "main");
         mainPanel.add(levelMenu, "level");
         mainPanel.add(settingsMenu, "settings");
@@ -61,6 +62,8 @@ public class Game {
 
     public static void updateGUI(){
         gamePanel.update();
+        //!! if the graphics start acting weird, uncomment the following line, it should do something interesting.
+        // gameWindow.validate();
     }
 
     public static void gameLoop(){
@@ -74,6 +77,7 @@ public class Game {
                     Debug.out("fps -> " + 1.0f/((System.nanoTime() - priorTime)*1E-9)); 
                     priorTime = System.nanoTime();
                     GameState.updateGameState(updates);
+                    
                     updateGUI();
                 }
             }

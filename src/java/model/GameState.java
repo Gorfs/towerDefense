@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class GameState {
     private static int timesMonstersMoved = 0;
-    private static double gameSpeed = 2;
+    private static double gameSpeed = 1;
 
     private static ArrayList<Monster> monstersToRemoveNextUpdate = new ArrayList<>();
 

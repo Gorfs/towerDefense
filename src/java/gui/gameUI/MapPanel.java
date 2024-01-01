@@ -13,12 +13,15 @@ import config.*;
 public class MapPanel extends JPanel {
     // this panel contains the Main Map with each tile and the towers etc...
 
+    Cell[][] prevMap;
     public MapPanel() {
         super();
         this.setBackground(gui.menu.MainMenu.backgroundColor);
         update();
         
     }
+
+
     public void update(){
         this.removeAll();
         int heightOfMap = GameState.getMap().length;
