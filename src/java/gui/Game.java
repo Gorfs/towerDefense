@@ -3,16 +3,20 @@ package gui;
 import javax.swing.*;
 import java.awt.CardLayout;
 
+import gui.gameUI.GamePanel;
 import gui.menu.*;
 import misc.Debug;
+import model.*;
+import config.*;
 
 public class Game {
     
-    public static final int WIDTH = 800;
+
+    public static final int WIDTH = 1100;
     public static final int HEIGHT = 800;
 
+    private static Cell[][] map;
 
-    private static GamePanel gamePanel;
     private static GameWindow gameWindow;
     private static boolean running = false;
 
@@ -22,18 +26,55 @@ public class Game {
     private static MainMenu mainMenu = new MainMenu();
     private static LevelSelectMenu levelMenu = new LevelSelectMenu();
     private static SettingsMenu settingsMenu = new SettingsMenu();
-    // TODO: add the initiliazer for the other menus as well as the game panel.
 
+    private static GamePanel gamePanel = new GamePanel();
+
+    public static int levelSelect;
+
+    public static int updates = 0;
 
     public Game() {
         gameWindow = new GameWindow();
         gameWindow.add(mainPanel);
+        // TODO: move gamePanel lower than mainMenu to avoid starting game on launch
+        mainPanel.add(gamePanel, "game");
         mainPanel.add(mainMenu, "main");
         mainPanel.add(levelMenu, "level");
         mainPanel.add(settingsMenu, "settings");
         
+        
         gameWindow.setVisible(true);
     }
+    public static void setlevel(int n){
+        levelSelect = n;
+    }
+    public static int getLevel(){
+        return levelSelect;
+    }
+
+    public static void start(){
+        running = true;
+        GameState.initGameState(levelSelect);
+        map = GameState.getMap();
+        gameLoop();
+        // TODO setup going back to main menu after loosing of winning a round.
+    }
+
+    public static void gameLoop(){
+        long priorTime = System.nanoTime();
+        while(running){
+            if(System.nanoTime() - priorTime > 16600000){
+                // 1/60th of a second has passed, updating gameView
+                updates++;
+                Debug.out("fps -> " + 1.0f/((System.nanoTime() - priorTime)*1E-9)); 
+                priorTime = System.nanoTime();
+                GameState.updateGameState();
+            }
+        }
+ 
+    }
+
+
 
     public static void changePanel(String panelName) {
         Debug.out("Changing panel to " + panelName);
