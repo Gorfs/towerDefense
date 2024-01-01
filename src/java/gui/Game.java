@@ -20,6 +20,7 @@ public class Game {
     private static JPanel mainPanel = new JPanel(cardLayout);
 
     private static MainMenu mainMenu = new MainMenu();
+    private static LevelSelectMenu levelMenu = new LevelSelectMenu();
     private static SettingsMenu settingsMenu = new SettingsMenu();
     // TODO: add the initiliazer for the other menus as well as the game panel.
 
@@ -28,6 +29,7 @@ public class Game {
         gameWindow = new GameWindow();
         gameWindow.add(mainPanel);
         mainPanel.add(mainMenu, "main");
+        mainPanel.add(levelMenu, "level");
         mainPanel.add(settingsMenu, "settings");
         
         gameWindow.setVisible(true);
@@ -41,6 +43,9 @@ public class Game {
                 break;
             case "settings":
                 cardLayout.show(mainPanel, "settings");
+                break;
+            case "level":
+                cardLayout.show(mainPanel, "level");
                 break;
             default:
                 System.out.println("Error: panelName not found");
