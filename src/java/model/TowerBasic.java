@@ -8,7 +8,12 @@ public class TowerBasic extends Towers {
     }
 
     @Override
-    public String toString(){
+    public String getName() {
+        return "Basic Tower";
+    }
+
+    @Override
+    public String toString() {
         return "BT ";
     }
 }

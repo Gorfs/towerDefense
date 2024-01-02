@@ -2,6 +2,7 @@ package gui.gameUI;
 
 import javax.swing.*;
 
+import gui.Game;
 import main.Main;
 
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class GamePlayPanel extends JPanel {
 
     // the label that says what phase of the game we are currently in. ex: preperation / wave 2/ wave 3/etc...
-    JLabel infoTitle = new JLabel("Wave #:", SwingConstants.CENTER);
+    JLabel infoTitle = new JLabel("Preperation Phase", SwingConstants.CENTER);
     UIPanel uiPanel = new UIPanel();
 
 
@@ -39,8 +40,9 @@ public class GamePlayPanel extends JPanel {
         this.add(uiPanel);
     }
     public void update(){
-        mapPanel.update()
-        ;
+        mapPanel.update();
         uiPanel.update();
+        //TODO set the wave number on this label
+        infoTitle.setText((Game.isPreperationPhase) ? "Preperation Phase" : ("Wave "));
     }
 }

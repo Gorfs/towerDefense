@@ -17,7 +17,8 @@ public class Game {
 
     private static Cell[][] map;
 
-    private static boolean running = false;
+    public static boolean running = false;
+    public static boolean isPreperationPhase = false;
 
     private static CardLayout cardLayout = new CardLayout();
     private static JPanel mainPanel = new JPanel(cardLayout);
@@ -53,11 +54,11 @@ public class Game {
     }
 
     public static void startRound(){
+        running = true;
         gameLoop();
     }
 
     public static void start(){
-        running = true;
         GameState.initGameState(levelSelect);
         map = GameState.getMap();
         updateGUI();
@@ -104,9 +105,11 @@ public class Game {
                 break;
             case "game":
                 cardLayout.show(mainPanel, "game");
+                isPreperationPhase = true;
                 break;
             default:
                 System.out.println("Error: panelName not found");
         }
+        updateGUI();
     }
 }

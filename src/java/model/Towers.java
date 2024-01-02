@@ -29,6 +29,10 @@ public class Towers {
     public Set<Monster> getMonstersInRange() {
         return monstersInRange;
     }
+    
+    public String getName(){
+        return "Null Tower";
+    }
 
     public void setMonstersInRange(Monster monster, int factor) {
         if (this.IsInRange(monster.getPos(), factor)) this.monstersInRange.add(monster);

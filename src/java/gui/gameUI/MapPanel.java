@@ -16,15 +16,16 @@ public class MapPanel extends JPanel {
     private final static int TILE_SIZE = Tile.TILE_SIZE;
 
     Cell[][] prevMap;
+    private addTowerPopUp popUp = new addTowerPopUp();
+
     public MapPanel() {
         super();
         this.setBackground(gui.menu.MainMenu.backgroundColor);
         update();
-        
+
     }
 
-
-    public void update(){
+    public void update() {
         this.removeAll();
         int heightOfMap = GameState.getMap().length;
         int lengthOfMap = GameState.getMap()[0].length;
@@ -36,20 +37,23 @@ public class MapPanel extends JPanel {
                 } else {
                     Tile tile = new Tile(Tile.getImage(Map.getMap()[i][j].toString()));
                     // tile.setBorder(BorderFactory.createLineBorder(Color.red)); // Add border here
-
                     tile.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(java.awt.event.MouseEvent evt) {
                             Debug.out("Clicked");
+                            // addTowerPopUp popUp = new addTowerPopUp();
+                            popUp.update();
+                            popUp.show(evt.getComponent(), evt.getX(), evt.getY());
+                            
                         }
                     });
-                    tile.setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
+                    // tile.setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
                     // tile.setMaximumSize(new Dimension(TILE_SIZE, TILE_SIZE));
 
                     this.add(tile);
                 }
             }
-            }
         }
+    }
 
 }

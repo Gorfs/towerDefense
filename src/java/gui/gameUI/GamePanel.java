@@ -42,6 +42,8 @@ public class GamePanel extends JPanel {
         startRoundBtn.setMaximumSize(new Dimension(100, 30));
         startRoundBtn.addActionListener(e -> {
             Game.startRound();
+            Game.isPreperationPhase = false;
+            Game.running = true;
         });
 
         JPanel centerPanel = new JPanel();
