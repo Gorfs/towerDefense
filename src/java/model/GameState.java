@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class GameState {
     private static int timesMonstersMoved = 0;
     private static double gameSpeed = 1;
-    private static int money = 100;
-    private static int lives = 3;
+    public static int money = Player.getMoney();
+    private int health = Player.getHealth()[0];
 
     private static ArrayList<Monster> monstersToRemoveNextUpdate = new ArrayList<>();
 
@@ -21,16 +21,21 @@ public class GameState {
         if (gameMap[y][x] instanceof Slot && (towers.contains(gameMap[y][x]) == false)) {
             ((Slot) gameMap[y][x]).setTower(tower);
             towers.add((Slot) gameMap[y][x]);
+            Player.removeMoney(tower.getCost());
+            Debug.out("Tower added, money is now " + Player.getMoney());
         } else {
             System.out.println("ERROR -> tried to add a tower to a non slot tile");
         }
 
     }
 
-    public static void removeTower(int x, int y){
+    public static void removeTower(int x, int y) {
         if (gameMap[y][x] instanceof Slot) {
+            Towers tower = ((Slot) gameMap[y][x]).getTower();
             ((Slot) gameMap[y][x]).removeTower();
             towers.remove((Slot) gameMap[y][x]);
+            Player.addMoney(tower.getCost());
+            Debug.out("Tower removed, money is now " + Player.getMoney());
         } else {
             System.out.println("ERROR -> tried to remove a tower from a non slot tile");
         }
@@ -38,13 +43,6 @@ public class GameState {
 
     private static Path initPath;
 
-    public static int getMoney() {
-        return money;
-    }
-
-    public static int getLives() {
-        return lives;
-    }
 
     public static void initGameState(int level) {
         Map.generateMap(level);
@@ -87,6 +85,8 @@ public class GameState {
         // every time this function is called it is considered that one frame has passed
         // since the last update
         // Debug.out(towers.toString());
+        Debug.out("" + Player.getHealth()[0]);
+        Debug.out("" + Player.getMoney());
         if (timesUpdated == 100) {
             spawnMonster(new Monster(initPath, 2, 1, 100));
         } else if (timesUpdated == 200) {
@@ -109,7 +109,7 @@ public class GameState {
                 }
                 if (monster.move()) { // is true if the enemy has made it to the end of the map
                     monstersToRemoveNextUpdate.add(monster);
-                    lives--;
+                    Player.takeDamage(monster.getAttack());
                 }
             }
             // we cannot modify the arrayList while we are reading it, so we store the

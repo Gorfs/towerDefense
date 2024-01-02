@@ -33,7 +33,7 @@ public class GamePanel extends JPanel {
         title.setForeground(Color.white);
 
         // gamePlayPanel.setPreferredSize(new Dimension(1000, 400));
-        gamePlayPanel.setBorder(BorderFactory.createLineBorder(Color.red)); // Add border here
+        // gamePlayPanel.setBorder(BorderFactory.createLineBorder(Color.red)); // Add border here
         gamePlayPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
 
         startRoundBtn.setBackground(MainMenu.buttonBackgroundColor);

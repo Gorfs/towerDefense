@@ -3,8 +3,7 @@ package gui.gameUI;
 import javax.swing.*;
 
 import misc.Debug;
-import model.GameState;
-import model.Towers;
+import model.*;
 
 public class towerAddPanel extends JPanel {
 
@@ -36,8 +35,8 @@ public class towerAddPanel extends JPanel {
     }
 
     public void update() {
-        Debug.out(GameState.getMoney() + " " + tower.getPrice());
-        if (GameState.getMoney() < tower.getPrice()) {
+        Debug.out(Player.getMoney() + " " + tower.getPrice());
+        if (Player.getMoney() < tower.getPrice()) {
             this.setBackground(java.awt.Color.red);
             enabled = false;
         } else {

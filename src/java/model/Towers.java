@@ -28,6 +28,9 @@ public class Towers {
     public void setPos(IntCoordinates pos){
         this.pos = pos;
     }
+    public int getCost(){
+        return price;
+    }
 
     public Set<Monster> getMonstersInRange() {
         return monstersInRange;
