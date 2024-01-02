@@ -9,17 +9,17 @@ import model.*;
 import java.util.ArrayList;
 
 public class TermPrepMenu {
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
     private static boolean run = true;
-    private static ArrayList<Slot> towerList = new ArrayList<>();
+    private static final ArrayList<Slot> towerList = new ArrayList<>();
     
     
-    // class used for methodes that deal with the preparation phase of the game
+    // class used for methods that deal with the preparation phase of the game
 
 
     public static void startPreparationPhase(){
         while(run){
-            preperationMenu();
+            preparationMenu();
         }
     }
     public static ArrayList<Slot> getTowerList(){
@@ -28,9 +28,9 @@ public class TermPrepMenu {
 
 
 
-    public static void preperationMenu(){
+    public static void preparationMenu(){
         // the main function that is called when the preparation phase is to the started
-        System.out.println("Preperation time");
+        System.out.println("Preparation time");
         TermGame.printMap();
         System.out.println("what would you like to do?");
         System.out.println(" a -> add a tower \n d -> destroy a tower \n x -> start the level\n\n");
@@ -39,13 +39,13 @@ public class TermPrepMenu {
             case "a" :{
                 TermMainMenu.clearScreen();
                 addTowerMenu();
-                preperationMenu();
+                preparationMenu();
                 break;
             }
             case "d":{
                 TermMainMenu.clearScreen();
                 removeTowerMenu();
-                preperationMenu();
+                preparationMenu();
                 break;
             }
             case "x":{

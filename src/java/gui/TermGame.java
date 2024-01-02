@@ -63,15 +63,15 @@ public class TermGame {
         // Display everything
         display[2] = money + wave + timer;
         display[3] = "+---+----------------------------------------+-------------------+";
-        display[4] = "|///|  A  B  C  D  E  F  G  H  I  J  K  L  M | ";
+        display[4] = "|///|  1  2  3  4  5  6  7  8  9 10 11 12 13 | ";
         display[5] = "+---+----------------------------------------+ ";
         display[16] = display[3];
 
+        char[] chara = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'};
         for (int x = 0; x < Map.getHeight(); x++) {
-            if (x >= 9) display[x + 6] = ("|" + (x + 1) + " | ");
-            else display[x + 6] = ("| " + (x + 1) + " | ");
+            display[x + 6] = ("| " + chara[x] + " | ");
             for (int y = 0; y < Map.getWidth(); y++)
-                display[x + 6] = display[x + 6] + Map.getCell(x, y) + " ";
+                display[x + 6] = display[x + 6] + Map.getCell(x, y);
             display[x + 6] = display[x + 6] + "| ";
         }
 
