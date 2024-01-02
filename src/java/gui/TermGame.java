@@ -17,8 +17,7 @@ public class TermGame {
         String[] display = new String[17];
         display[0] = "+--------------------------------------------+-------------------+";
         // Update health percentage
-        float healthPercent = (float) 85L
-                / Player.INSTANCE.getHealth()[1] * 100;
+        float healthPercent = (float) Player.INSTANCE.getHealth()[1] / Player.INSTANCE.getHealth()[0] * 100;
         String HPPercent;
         if (healthPercent < 100.0f) HPPercent = " " + healthPercent;
         else HPPercent = "" + healthPercent;
@@ -29,10 +28,18 @@ public class TermGame {
             else HPBar.append(".");
         }
         display[1] = String.format("|         HP   [%s]   %s", HPBar, HPPercent) + "%         |      Timer :      |";
-        // TODO: Change the money, the wave and the timer.
-        String money = "|     Money : 10$      ";
-        String wave = "|      Wave n°2       ";
-        String timer = "|       00:10       |";
+        // Initialize money
+        String money = "|     Money : " + Player.INSTANCE.getMoney() + "$       ";
+        // Initialize timer
+        String timer = "|       " + Player.INSTANCE.getTimer() + "       |";
+        // Initialize wave
+        StringBuilder wave = new StringBuilder("|      Wave n°");
+        if (Player.INSTANCE.getWave() < 1000) wave.append(Player.INSTANCE.getWave());
+        else wave.append("999");
+        int n;
+        if (Player.INSTANCE.getWave() < 10) n = 7; else if (Player.INSTANCE.getWave() < 100) n = 6; else n = 5;
+        wave.append(" ".repeat(n));
+        // Display everything
         display[2] = money + wave + timer;
         display[3] = "+---+----------------------------------------+-------------------+";
         display[4] = "|///|  A  B  C  D  E  F  G  H  I  J  K  L  M | ";
