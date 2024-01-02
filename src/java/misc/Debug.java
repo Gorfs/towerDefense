@@ -2,6 +2,14 @@ package misc;
 import config.*;
 
 public class Debug {
+    public static boolean isDebugging = true;
+
+    public static boolean isDebugging() {
+        return isDebugging;
+    }
+    public static void toggleDebugging(){
+        isDebugging = !isDebugging;
+    }
 
     public static void printPath(){
         System.out.println("current path is ");
@@ -12,6 +20,7 @@ public class Debug {
         }
     }
     public static void out(String str){
+        if(isDebugging)
         System.out.println("DEBUG>>> " + str);
     }
     public static void printMapCoords(){

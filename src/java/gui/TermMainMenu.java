@@ -47,16 +47,17 @@ public class TermMainMenu {
             System.out.println("Q : Exit");
             choice = sc.next();
             switch(choice.toLowerCase()){
-                case "q" ->{
+                case "q":{
                     System.exit(0);
+                    break;
                 }
-                case "c" -> {
+                case "c" : {
                     // call the change difficulty menu
                 }
-                case "s" ->{
+                case "s" :{
                     // call settings menu
                 }
-                case "l" ->{
+                case "l" :{
                     clearScreen();
                     levelSelect = TermLevelMenu();
                     running = false;

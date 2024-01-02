@@ -34,9 +34,36 @@ public class Towers {
         if (this.IsInRange(monster.getPos(), factor)) this.monstersInRange.add(monster);
     }
 
+
+    // Desole pour le code commenter, j'ai passe 3 heures a tester des facons differents de faire.
+
+    // public boolean IsInRange(RealCoordinates mPos, int factor) {
+    //        return (((Math.sqrt(Math.pow((mPos.getX() - pos.getX()),2) + (Math.pow((mPos.getY() - pos.getY()),2))))) <= this.getRange(factor));
+    //      return (((Math.abs(mPos.getX() - pos.getX())) <= this.getRange(factor)) && ((Math.abs(mPos.getY() - pos.getY())) <= this.getRange(factor)));
+    //     return (pos.x * pos.x + Math.abs(mPos.x - pos.x) * Math.abs(mPos.x - pos.x) <= (Math.pow(this.getRange(factor),2)) &&
+    //             pos.y * pos.y + Math.abs(mPos.y - pos.y) * Math.abs(mPos.y - pos.y) <= (Math.pow(this.getRange(factor),2)));
+    // }
+
     public boolean IsInRange(RealCoordinates mPos, int factor) {
-        return (pos.x() * pos.x() + Math.abs(mPos.x() - pos.x()) * Math.abs(mPos.x() - pos.x()) <= this.getRange(factor) &&
-                pos.y() * pos.y() + Math.abs(mPos.y() - pos.y()) * Math.abs(mPos.y() - pos.y()) <= this.getRange(factor));
+        return this.getDistance(mPos) * factor <= this.getRange(factor); 
+        // return (Math.abs(mPos.getX() - pos.getX()) * Math.abs(mPos.getX() - pos.getX()) +
+        //         Math.abs(mPos.getY() - pos.getY()) * Math.abs(mPos.getY() - pos.getY())
+        //         <= this.getRange(factor) * this.getRange(factor));
+    }
+
+    public double getDistance(RealCoordinates mPos){
+        return 
+        Math.max(
+            Math.max(
+                Math.abs(pos.getX() - mPos.getX()),
+                Math.abs(pos.getY() - mPos.getY())
+                ), 
+            Math.max(
+                Math.abs(mPos.getX() - pos.getX()),
+                Math.abs(mPos.getY() - pos.getY())
+                ));
+        // return Math.sqrt(Math.pow((mPos.getX() - pos.getX()), 2) +
+        //         Math.pow((mPos.getY() - pos.getY()),2));
     }
 
     public int getId() {
