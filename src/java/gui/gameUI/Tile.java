@@ -27,8 +27,20 @@ public class Tile extends JLabel{
         else if (type.matches(".*\\[\\].*")){
             return new ImageIcon("src/resources/art/path.png");
         }
-        else if (type.matches(".T.*")){
-            return new ImageIcon("src/resources/art/tower.png");
+        else if (type.matches("BT.*")){
+            return new ImageIcon("src/resources/art/towerb.png");
+        }
+        else if (type.matches("AT.*")){
+            return new ImageIcon("src/resources/art/towera.png");
+        }
+        else if (type.matches("ET.*")){
+            return new ImageIcon("src/resources/art/towere.png");
+        }
+        else if (type.matches("MT.*")){
+            return new ImageIcon("src/resources/art/towerm.png");
+        }
+        else if (type.matches("UT.*")){
+            return new ImageIcon("src/resources/art/toweru.png");
         }
         else if (type.matches(".*M.*")){
             return new ImageIcon("src/resources/art/enemy.png");

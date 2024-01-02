@@ -18,7 +18,7 @@ public class GameState {
     private static ArrayList<Slot> towers = new ArrayList<>();
 
     public static void addTower(Towers tower, int x, int y) {
-        if (gameMap[y][x] instanceof Slot) {
+        if (gameMap[y][x] instanceof Slot && (towers.contains(gameMap[y][x]) == false)) {
             ((Slot) gameMap[y][x]).setTower(tower);
             towers.add((Slot) gameMap[y][x]);
         } else {
@@ -86,6 +86,7 @@ public class GameState {
     public static void updateGameState(int timesUpdated) {
         // every time this function is called it is considered that one frame has passed
         // since the last update
+        // Debug.out(towers.toString());
         if (timesUpdated == 100) {
             spawnMonster(new Monster(initPath, 2, 1, 100));
         } else if (timesUpdated == 200) {

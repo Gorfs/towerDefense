@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 
 import config.*;
+import gui.Game;
 
 public class MapPanel extends JPanel {
     // this panel contains the Main Map with each tile and the towers etc...
@@ -37,19 +38,42 @@ public class MapPanel extends JPanel {
                 } else {
                     Tile tile = new Tile(Tile.getImage(GameState.getMap()[i][j]), GameState.getMap()[i][j]);
                     // tile.setBorder(BorderFactory.createLineBorder(Color.red)); // Add border here
-                    if (tile.cell.toString().equals("XX ")){
-                    tile.addMouseListener(new MouseAdapter() {
+                    if (!tile.cell.toString().equals("[] ")) {
+                        tile.addMouseListener(new MouseAdapter() {
                             @Override
                             public void mouseClicked(java.awt.event.MouseEvent evt) {
                                 Debug.out("Clicked");
                                 // addTowerPopUp popUp = new addTowerPopUp();
                                 popUp.update();
                                 popUp.setCell(tile.cell.getX(), tile.cell.getY());
-                                popUp.show(evt.getComponent(), evt.getX(), evt.getY());
-                            
+                                if (!tile.cell.toString().matches(".*T.*")) {
+                                    popUp.show(evt.getComponent(), evt.getX(), evt.getY());
+                                }else{
+                                    GameState.removeTower(tile.cell.getX(), tile.cell.getY());
+                                }
+
+                                Game.updateGUI();
+
+                            }
+
+                            @Override
+                            // TODO setup a nicer border for the tiles
+                            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                Debug.out("Entered");
+                                if(tile.cell.toString().matches(".*T.*")){
+                                    tile.setBorder(BorderFactory.createLineBorder(Color.red));
+                                }else{tile.setBorder(BorderFactory.createLineBorder(Color.blue));
+                                }
+                            }
+
+                            @Override
+                            public void mouseExited(java.awt.event.MouseEvent evt) {
+                                Debug.out("Exited");
+                                tile.setBorder(null);
+
                             }
                         });
-                    }   
+                    }
                     // tile.setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
                     // tile.setMaximumSize(new Dimension(TILE_SIZE, TILE_SIZE));
 
