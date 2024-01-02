@@ -1,44 +1,43 @@
 package model;
 
+import gui.Game;
+import misc.Debug;
+
 public class Player {
-    public static Player INSTANCE = new Player();
-    private final int[] health = new int[]{100,100};
-    private int money = 0;
-    public Player() {
-        money = 0;
-    }
+    private static final int[] health = new int[]{100,100};
+    private static int money = 100;
 
-    public static Player getInstance() {
-        INSTANCE = new Player();
-        return INSTANCE;
-    }
 
-    public void resetPlayer() {
+    public static void resetPlayer() {
         health[1] = health[0];
         money = 0;
     }
 
-    public int getMoney() {
+    public static int getMoney() {
         return money;
     }
 
-    public void addMoney(int money) {
-        this.money += money;
+    public static void addMoney(int price) {
+        Debug.out("Money added");
+        money += price ;
+        Debug.out("money = " + money);
     }
 
-    public void removeMoney(int money) {
-        this.money -= money;
+    public static void removeMoney(int price){
+        Debug.out("Money removed");
+        money -= price;
+        Debug.out("money = " + money);
     }
 
-    public int[] getHealth() {
+    public static int[] getHealth() {
         return health;
     }
 
-    public void heal(int health) {
-        this.health[1] += health;
+    public static void heal(int hp) {
+        health[0] += hp;
     }
 
-    public void takeDamage(int health) {
-        this.health[1] -= health;
+    public static void takeDamage(int hp) {
+        health[0] -= hp;
     }
 }

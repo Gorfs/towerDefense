@@ -1,8 +1,12 @@
 package gui.menu;
 
 import javax.swing.*;
+
+import gui.Game;
+
 import java.awt.color.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.awt.BorderLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
@@ -11,9 +15,12 @@ import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Color;
 
+import misc.Debug;
+
 public class LevelSelectMenu extends JPanel implements ActionListener  {
     private static JLabel title = new JLabel("Select a level:", SwingConstants.CENTER);
     private static JPanel menuPanel = new JPanel();
+    private static ArrayList<LevelPanel> levelPanels = new ArrayList<>();
     public LevelSelectMenu() {
         super();
         this.setLayout(new BorderLayout());
@@ -30,7 +37,8 @@ public class LevelSelectMenu extends JPanel implements ActionListener  {
 
         this.add(title, BorderLayout.NORTH);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
-        for (LevelPanel levelPanel : createLevelPanels(TermLevelNums())) {
+        levelPanels = createLevelPanels(TermLevelNums());
+        for (LevelPanel levelPanel : levelPanels) {
             menuPanel.add(levelPanel);
             levelPanel.playBtn.addActionListener(this);
             menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -48,6 +56,15 @@ public class LevelSelectMenu extends JPanel implements ActionListener  {
 
     public void actionPerformed(ActionEvent e) {
         // TODO set the action to start the level in the main game panel.
+        for(LevelPanel levelPanel: levelPanels){
+            if(e.getSource() == levelPanel.playBtn){
+                Debug.out("Play button pressed");
+                Game.setlevel(levelPanel.getNum());
+                Game.start();
+                // try {Thread.sleep(1000);} catch (InterruptedException e1) {e1.printStackTrace();}
+                Game.changePanel("game");
+            }
+        }
         System.out.println("Action performed" + e.getSource());
     }
 
