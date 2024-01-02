@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class TermPrepMenu {
     private static Scanner sc = new Scanner(System.in);
     private static boolean run = true;
-    private static ArrayList<Slot> towerList = new ArrayList<>();
     
     
     // class used for methodes that deal with the preparation phase of the game
@@ -22,9 +21,7 @@ public class TermPrepMenu {
             preperationMenu();
         }
     }
-    public static ArrayList<Slot> getTowerList(){
-        return towerList;
-    }   
+ 
 
 
 
@@ -74,8 +71,7 @@ public class TermPrepMenu {
                 removeTowerMenu();
             }else{
                 misc.Print.clearScreen();
-                slot.removeTower();
-                towerList.remove(slot);
+                GameState.removeTower(x, y);
             }
         }
 
@@ -138,8 +134,7 @@ public class TermPrepMenu {
                     break;
                 } 
             }
-            towerList.add(slot);
-            slot.setTower(tower);
+            GameState.addTower(tower, x, y);
             TermMainMenu.clearScreen();
         }
     }

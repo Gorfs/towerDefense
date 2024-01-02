@@ -6,16 +6,20 @@ import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
+import geometry.IntCoordinates;
+import gui.Game;
 import misc.Debug;
 
 import java.util.ArrayList;
 
+import model.GameState;
 import model.TowerAdvanced;
 import model.TowerBasic;
 import model.TowerExpert;
 import model.TowerMaster;
 import model.TowerUltimate;
 import model.Towers;
+import config.*;
 
 public class addTowerPopUp extends JPopupMenu{
 
@@ -23,13 +27,23 @@ public class addTowerPopUp extends JPopupMenu{
     private static JPanel towersPanel = new JPanel();
     private static JPanel towerPanel = new JPanel();
 
-    towerAddPanel basicTowerPanel = new towerAddPanel(new TowerBasic(null));
-    towerAddPanel advancedTowerPanel = new towerAddPanel(new TowerAdvanced(null));
-    towerAddPanel expertTowerPanel = new towerAddPanel(new TowerExpert(null));
-    towerAddPanel masterTowerPanel = new towerAddPanel(new TowerMaster(null));
-    towerAddPanel ultimateTowerPanel = new towerAddPanel(new TowerUltimate(null));
+    public towerAddPanel basicTowerPanel = new towerAddPanel(new TowerBasic(null));
+    public towerAddPanel advancedTowerPanel = new towerAddPanel(new TowerAdvanced(null));
+    public towerAddPanel expertTowerPanel = new towerAddPanel(new TowerExpert(null));
+    public towerAddPanel masterTowerPanel = new towerAddPanel(new TowerMaster(null));
+    public towerAddPanel ultimateTowerPanel = new towerAddPanel(new TowerUltimate(null));
 
     ArrayList<towerAddPanel> towers = new ArrayList<towerAddPanel>();
+
+    private int cellX = 0;
+    private int cellY = 0;
+    private Slot cell;
+
+    public void setCell(int x, int y){
+        cellX = x;
+        cellY = y;
+        this.cell = (Slot) GameState.getMap()[y][x];
+    }
 
 
     public addTowerPopUp(){
@@ -50,11 +64,6 @@ public class addTowerPopUp extends JPopupMenu{
 
         towersPanel.setLayout(new BoxLayout(towersPanel, BoxLayout.Y_AXIS));
         towersPanel.setBackground(gui.menu.MainMenu.backgroundColor);
-        // towersPanel.add(new towerAddPanel(new TowerBasic(null)));
-        // towersPanel.add(new towerAddPanel(new TowerAdvanced(null)));
-        // towersPanel.add(new towerAddPanel(new TowerExpert(null)));
-        // towersPanel.add(new towerAddPanel(new TowerMaster(null)));
-        // towersPanel.add(new towerAddPanel(new TowerUltimate(null)));
         update();
 
 
@@ -62,32 +71,34 @@ public class addTowerPopUp extends JPopupMenu{
     }
     public void update(){
         towersPanel.removeAll();
-        // towerAddPanel basicTowerPanel = new towerAddPanel(new TowerBasic(null));
-        // towerAddPanel advancedTowerPanel = new towerAddPanel(new TowerAdvanced(null));
-        // towerAddPanel expertTowerPanel = new towerAddPanel(new TowerExpert(null));
-        // towerAddPanel masterTowerPanel = new towerAddPanel(new TowerMaster(null));
-        // towerAddPanel ultimateTowerPanel = new towerAddPanel(new TowerUltimate(null));
-
-
         for(towerAddPanel tower: towers){
+            tower.update();
             tower.addMouseListener(new MouseListener(){
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     // TODO Auto-generated method stub
                     Debug.out(tower.getName() + " clicked");
+                    addTower(e, tower);
+                    Game.updateGUI();
+                    close(); // close the popup after adding a tower
                 }
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     // TODO Auto-generated method stub
                     Debug.out("Mouse entered" + tower.getName());
-                    tower.setBackground(gui.menu.MainMenu.buttonBackgroundColor);
+                    if(tower.enabled){
+                        tower.setBackground(gui.menu.MainMenu.buttonBackgroundColor);
+                    }else{
+                        tower.setBackground(java.awt.Color.red.darker());
+                    }
                     
                 }
                 @Override
                 public void mouseExited(MouseEvent e) {
                     // TODO Auto-generated method stub
                     Debug.out("Mouse exited" + tower.getName());
-                    tower.setBackground(gui.menu.MainMenu.backgroundColor);
+                    tower.setBackground(gui.menu.MainMenu.backgroundColor); // default it if the update function fails.
+                    tower.update();
                     
                 }
                 @Override
@@ -115,7 +126,18 @@ public class addTowerPopUp extends JPopupMenu{
         towersPanel.repaint();
 
     }
+    public void removeTower(MouseEvent e){
+        GameState.removeTower(cellX, cellY);
+    }
 
-  
-    
+    public void addTower(MouseEvent e, towerAddPanel tower){
+        Towers gameTower = tower.tower;
+        gameTower.setPos(new IntCoordinates(cellX, cellY));
+        GameState.addTower(gameTower, cellX, cellY);
+    }
+    public void close(){
+        this.setVisible(false);
+    }
+
+
 }

@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Towers {
     private static int id_num = 0;
-    private final IntCoordinates pos;
+    private IntCoordinates pos;
     private final int id;
     private final int attack;
     private final int speed;
@@ -24,6 +24,9 @@ public class Towers {
         this.speed = speed;
         this.range = range;
         this.price = price;
+    }
+    public void setPos(IntCoordinates pos){
+        this.pos = pos;
     }
 
     public Set<Monster> getMonstersInRange() {

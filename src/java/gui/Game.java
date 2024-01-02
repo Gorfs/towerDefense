@@ -67,6 +67,7 @@ public class Game {
     }
 
     public static void updateGUI(){
+        Debug.printMap(map);
         gamePanel.update();
         //!!  The line under this comment somehow fixes a load of graphical bugs, do not remove.
         gameWindow.validate();

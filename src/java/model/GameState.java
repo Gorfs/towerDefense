@@ -15,7 +15,26 @@ public class GameState {
 
     static Cell[][] gameMap = Map.getMap();
     private static ArrayList<Monster> monsters = new ArrayList<>();
-    private static ArrayList<Slot> towers = gui.TermPrepMenu.getTowerList();
+    private static ArrayList<Slot> towers = new ArrayList<>();
+
+    public static void addTower(Towers tower, int x, int y) {
+        if (gameMap[y][x] instanceof Slot) {
+            ((Slot) gameMap[y][x]).setTower(tower);
+            towers.add((Slot) gameMap[y][x]);
+        } else {
+            System.out.println("ERROR -> tried to add a tower to a non slot tile");
+        }
+
+    }
+
+    public static void removeTower(int x, int y){
+        if (gameMap[y][x] instanceof Slot) {
+            ((Slot) gameMap[y][x]).removeTower();
+            towers.remove((Slot) gameMap[y][x]);
+        } else {
+            System.out.println("ERROR -> tried to remove a tower from a non slot tile");
+        }
+    }
 
     private static Path initPath;
 
@@ -52,15 +71,6 @@ public class GameState {
 
     public static Cell[][] getMap() {
         return gameMap;
-    }
-
-    public void addTower(Towers tower, int x, int y) {
-        if (gameMap[x][y] instanceof Slot) {
-            ((Slot) gameMap[x][y]).setTower(tower);
-        } else {
-            System.out.println("ERROR -> tried to add a tower to a non slot tile");
-        }
-
     }
 
     public static void spawnMonster(Monster monster) {
