@@ -2,14 +2,14 @@ package gui.gameUI;
 
 import javax.swing.*;
 
-public class monsterStatsPanel extends JPanel {
+public class MonsterStatsPanel extends JPanel {
 
     private static int health;
     private static JLabel healthBar = new JLabel("Health: " + health);
 
 
 
-    public monsterStatsPanel( int health) {
+    public MonsterStatsPanel( int health) {
         super();
         healthBar.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 10));
         healthBar.setForeground(java.awt.Color.white);

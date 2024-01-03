@@ -5,7 +5,7 @@ import javax.swing.*;
 import misc.Debug;
 import model.*;
 
-public class towerAddPanel extends JPanel {
+public class TowerAddPanel extends JPanel {
 
     public JLabel name = new JLabel();
     public JLabel stats = new JLabel();
@@ -13,7 +13,7 @@ public class towerAddPanel extends JPanel {
     public Towers tower;
     public boolean enabled = false;
 
-    public towerAddPanel(Towers tower) {
+    public TowerAddPanel(Towers tower) {
         super();
         this.tower = tower;
         enabled = false;

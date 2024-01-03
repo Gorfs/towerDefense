@@ -89,9 +89,9 @@ public class Game {
                     Debug.out("fps -> " + 1.0f/((System.nanoTime() - priorTime)*1E-9)); 
                     priorTime = System.nanoTime();
                     GameState.updateGameState(updates);
-                    MapPanel.showPopUps();
-                    updateGUI();
                     // MapPanel.showPopUps();
+                    updateGUI();
+                    MapPanel.showPopUps();
                 }
             }
         }).start();

@@ -23,7 +23,7 @@ public class MapPanel extends JPanel {
     private addTowerPopUp popUp = new addTowerPopUp();
 
     private Popup p;
-    private static ArrayList<JPopupMenu> popUps = new ArrayList<JPopupMenu>();
+    private static ArrayList<Popup> popUps = new ArrayList<Popup>();
 
     private static ArrayList<Tile> tiles = new ArrayList<Tile>();
 
@@ -39,6 +39,7 @@ public class MapPanel extends JPanel {
         // p.setVisible(false);
         // }
         popUps.clear();
+        tiles.clear();
         this.removeAll();
         int heightOfMap = GameState.getMap().length;
         int lengthOfMap = GameState.getMap()[0].length;
@@ -92,10 +93,9 @@ public class MapPanel extends JPanel {
 
                     }
                     if (tile.cell.toString().matches(".*M.*")) {
-                        JPopupMenu p = new JPopupMenu();
-                        p.add(new monsterStatsPanel(((Path) tile.cell).getMonster().getHealth()[0]));
+                        MonsterStatsPanel monsterStatsPanel = new MonsterStatsPanel(((Path)tile.cell).getMonster().getHealth()[0]);
+                        Popup p = new PopupFactory().getPopup(tile, monsterStatsPanel, 0, 0);
                         tile.popUp = p;
-                        popUps.add(p);
 
                     }
                     // tile.setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
@@ -111,29 +111,29 @@ public class MapPanel extends JPanel {
     }
 
     public static void removePopUps() {
-        for (Tile tile : tiles) {
-            if (tile.popUp != null) {
-                try {
-                    tile.popUp.setVisible(false);
-                } catch (Exception e) {
-                    Debug.out("Error removing popup");
-                }
-            }
-
+        for (Popup p : popUps) {
+            p.hide();
+            
         }
+        popUps.clear();
+        tiles.clear();
+
     }
 
     public static void showPopUps() {
         for (Tile tile : tiles) {
-            if (tile.popUp != null && popUps.contains(tile.popUp)) {
+            if (tile.popUp != null ) {
                 try {
+                    MonsterStatsPanel monsterStatsPanel = new MonsterStatsPanel(((Path)tile.cell).getMonster().getHealth()[0]);
+                    Popup pop = new PopupFactory().getPopup(tile, monsterStatsPanel, tile.getLocation().x, tile.getLocation().y); 
                     Debug.out("Showing popup" + tile.cell.getX() + " " + tile.cell.getY());
-                    tile.popUp.show(tile, 0, 0);
+                    pop.show(); // Show popup at the tile's location on screen
+                    popUps.add(pop);
+                    tile.popUp = null;
                 } catch (Exception e) {
                     Debug.out("Error showing popup");
                 }
             }
-
         }
     }
 

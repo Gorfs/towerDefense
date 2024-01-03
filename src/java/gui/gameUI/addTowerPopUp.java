@@ -28,13 +28,13 @@ public class addTowerPopUp extends JPopupMenu {
     private static JPanel towersPanel = new JPanel();
     private static JPanel towerPanel = new JPanel();
 
-    public towerAddPanel basicTowerPanel = new towerAddPanel(new TowerBasic(null));
-    public towerAddPanel advancedTowerPanel = new towerAddPanel(new TowerAdvanced(null));
-    public towerAddPanel expertTowerPanel = new towerAddPanel(new TowerExpert(null));
-    public towerAddPanel masterTowerPanel = new towerAddPanel(new TowerMaster(null));
-    public towerAddPanel ultimateTowerPanel = new towerAddPanel(new TowerUltimate(null));
+    public TowerAddPanel basicTowerPanel = new TowerAddPanel(new TowerBasic(null));
+    public TowerAddPanel advancedTowerPanel = new TowerAddPanel(new TowerAdvanced(null));
+    public TowerAddPanel expertTowerPanel = new TowerAddPanel(new TowerExpert(null));
+    public TowerAddPanel masterTowerPanel = new TowerAddPanel(new TowerMaster(null));
+    public TowerAddPanel ultimateTowerPanel = new TowerAddPanel(new TowerUltimate(null));
 
-    ArrayList<towerAddPanel> towers = new ArrayList<towerAddPanel>();
+    ArrayList<TowerAddPanel> towers = new ArrayList<TowerAddPanel>();
 
     private int cellX = 0;
     private int cellY = 0;
@@ -72,7 +72,7 @@ public class addTowerPopUp extends JPopupMenu {
 
     public void update() {
         towersPanel.removeAll();
-        for (towerAddPanel tower : towers) {
+        for (TowerAddPanel tower : towers) {
             tower.update();
             tower.addMouseListener(new MouseListener() {
                 @Override
@@ -138,7 +138,7 @@ public class addTowerPopUp extends JPopupMenu {
         GameState.removeTower(cellX, cellY);
     }
 
-    public void addTower(MouseEvent e, towerAddPanel tower) {
+    public void addTower(MouseEvent e, TowerAddPanel tower) {
         Towers gameTower = tower.tower;
         gameTower.setPos(new IntCoordinates(cellX, cellY));
         GameState.addTower(gameTower, cellX, cellY);

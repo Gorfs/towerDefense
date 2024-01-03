@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class GameState {
     private static int timesMonstersMoved = 0;
-    private static double gameSpeed = 1;
+    private static double gameSpeed = 0.5;
     public static int money = Player.getMoney();
     private int health = Player.getHealth()[0];
 
@@ -44,7 +44,6 @@ public class GameState {
     }
 
     private static Path initPath;
-
 
     public static void initGameState(int level) {
         Map.generateMap(level);
@@ -99,7 +98,12 @@ public class GameState {
         if (timesUpdated % (30 / gameSpeed) == 0 && timesUpdated > 1) { // game speed is devided to basically invert the
                                                                         // factor that multiplies the framerate
             timesMonstersMoved++; // basic stats, not very useful.
-            
+            try {
+                Thread.sleep(10);
+            } catch (Exception e) {
+                Debug.out("Error -> " + e);
+            }
+
             for (Monster monster : monsters) {
 
                 for (Slot slot : towers) {
@@ -115,6 +119,10 @@ public class GameState {
                     Player.takeDamage(monster.getAttack());
                 }
             }
+            // if (Game.running) {
+            //     MapPanel.removePopUps();
+            //     MapPanel.showPopUps();
+            // }
             // information in another list to remove them once the main loop has finished.
             for (Monster monster : monstersToRemoveNextUpdate) {
                 monster.getPath().removeMonster();
