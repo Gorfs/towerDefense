@@ -36,7 +36,7 @@ public class MapPanel extends JPanel {
 
     public void update() {
         // for (JPopupMenu p : popUps) {
-            // p.setVisible(false);
+        // p.setVisible(false);
         // }
         popUps.clear();
         this.removeAll();
@@ -89,47 +89,47 @@ public class MapPanel extends JPanel {
 
                             }
                         });
-                    
-                    }if(tile.cell.toString().matches(".*M.*")){
-                        JPopupMenu p = new JPopupMenu();
-                        p.add(new monsterStatsPanel(((Path)tile.cell).getMonster().getHealth()[0]));
 
+                    }
+                    if (tile.cell.toString().matches(".*M.*")) {
+                        JPopupMenu p = new JPopupMenu();
+                        p.add(new monsterStatsPanel(((Path) tile.cell).getMonster().getHealth()[0]));
                         tile.popUp = p;
                         popUps.add(p);
-                        
+
                     }
                     // tile.setPreferredSize(new Dimension(TILE_SIZE, TILE_SIZE));
                     // tile.setMaximumSize(new Dimension(TILE_SIZE, TILE_SIZE));
 
                     this.add(tile);
                     tiles.add(tile);
-                    
-                    
 
-
+                }
             }
         }
-    }
 
     }
-    public static void removePopUps(){
-        for (Tile tile:tiles){
-            if(tile.popUp != null){
-                try{
-                tile.popUp.setVisible(false);
-                }catch(Exception e){
+
+    public static void removePopUps() {
+        for (Tile tile : tiles) {
+            if (tile.popUp != null) {
+                try {
+                    tile.popUp.setVisible(false);
+                } catch (Exception e) {
                     Debug.out("Error removing popup");
                 }
             }
 
         }
     }
-    public static void showPopUps(){
-        for (Tile tile:tiles){
-            if(tile.popUp != null){
-                try{
-                tile.popUp.show(tile, 0, 0);
-                }catch(Exception e){
+
+    public static void showPopUps() {
+        for (Tile tile : tiles) {
+            if (tile.popUp != null && popUps.contains(tile.popUp)) {
+                try {
+                    Debug.out("Showing popup" + tile.cell.getX() + " " + tile.cell.getY());
+                    tile.popUp.show(tile, 0, 0);
+                } catch (Exception e) {
                     Debug.out("Error showing popup");
                 }
             }

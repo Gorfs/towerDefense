@@ -99,10 +99,7 @@ public class GameState {
         if (timesUpdated % (30 / gameSpeed) == 0 && timesUpdated > 1) { // game speed is devided to basically invert the
                                                                         // factor that multiplies the framerate
             timesMonstersMoved++; // basic stats, not very useful.
-            if(Game.running){
-                MapPanel.removePopUps();
-                MapPanel.showPopUps();
-            }
+            
             for (Monster monster : monsters) {
 
                 for (Slot slot : towers) {
@@ -118,7 +115,6 @@ public class GameState {
                     Player.takeDamage(monster.getAttack());
                 }
             }
-            // we cannot modify the arrayList while we are reading it, so we store the
             // information in another list to remove them once the main loop has finished.
             for (Monster monster : monstersToRemoveNextUpdate) {
                 monster.getPath().removeMonster();

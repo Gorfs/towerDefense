@@ -85,9 +85,11 @@ public class Game {
                 if(System.nanoTime() - priorTime > 16600000){
                     // 1/60th of a second has passed, updating gameView
                     updates++;
+                    MapPanel.removePopUps();
                     Debug.out("fps -> " + 1.0f/((System.nanoTime() - priorTime)*1E-9)); 
                     priorTime = System.nanoTime();
                     GameState.updateGameState(updates);
+                    MapPanel.showPopUps();
                     updateGUI();
                     // MapPanel.showPopUps();
                 }
