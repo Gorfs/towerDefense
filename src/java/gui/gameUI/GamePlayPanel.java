@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import gui.Game;
 import main.Main;
+import model.GameState;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -43,6 +44,6 @@ public class GamePlayPanel extends JPanel {
         mapPanel.update();
         uiPanel.update();
         //TODO set the wave number on this label
-        infoTitle.setText((Game.isPreperationPhase) ? "Preperation Phase" : ("Wave "));
+        infoTitle.setText((Game.isPreperationPhase) ? "Preperation Phase" : ("Wave " + GameState.getWave()));
     }
 }

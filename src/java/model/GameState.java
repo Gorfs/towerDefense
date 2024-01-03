@@ -4,12 +4,56 @@ import config.*;
 import geometry.RealCoordinates;
 import misc.Debug;
 import java.util.ArrayList;
+import java.io.*;
 
 public class GameState {
     private static int timesMonstersMoved = 0;
     private static double gameSpeed = 1;
+    private static int level = -1;
     public static int money = Player.getMoney();
     private int health = Player.getHealth()[0];
+    private static int wave = 1; // -1 means that the game is in preperation phase
+    private static int[] waveInfo = new int[2]; // [0] is the amount of enemys, [1] is the speed at which they spawn
+    private static String waveString = "";
+    private static boolean spawning = false; // true if the game is currently spawning monsters
+    private static int updateOfLastSpawn = 0;
+    private static int monstersLeftToSpawn = 0; // the amount of monsters left to spawn in the current wave
+    private static int updateToStartNextWave = 0;
+    // once per second is the maximum speed possible.
+
+    public static void getWaveInfo() {
+        String e = "";
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new FileReader(("src/resources/mapInfo/level" + level + ".txt")));
+            while ((e = reader.readLine()) != null) {
+                waveString += e;
+            }
+        } catch (IOException er) {
+            System.out.println("ERROR -> could not find file for level " + level);
+            er.printStackTrace();
+        }
+    }
+
+    public static void updateWaveInfo() {
+        try {
+            int enemyCount = Integer.valueOf(waveString.split(";")[wave - 1].split(",")[0]);
+            int enemySpeed = Integer.valueOf(waveString.split(";")[wave - 1].split(",")[1]);
+            waveInfo[0] = enemyCount;
+            waveInfo[1] = enemySpeed;
+            monstersLeftToSpawn = enemyCount;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // the game has been won
+            System.out.println("Game won");
+            // TODO make this have a winning screen and go back to the main menu
+            System.exit(0);
+        }
+
+    }
+
+    public static int getWave() {
+        return wave;
+    }
 
     private static ArrayList<Monster> monstersToRemoveNextUpdate = new ArrayList<>();
 
@@ -43,9 +87,10 @@ public class GameState {
 
     private static Path initPath;
 
-
-    public static void initGameState(int level) {
-        Map.generateMap(level);
+    public static void initGameState(int levelChoice) {
+        Map.generateMap(levelChoice);
+        level = levelChoice;
+        updateWaveInfo();
         Map.generatePath();
         gameMap = Map.getMap();
         initPath = config.Map.getInitPath();
@@ -56,6 +101,7 @@ public class GameState {
                     " ERROR -> Game state was loaded before config files, therefore no map was loaded, exiting...");
             System.exit(1);
         }
+
         // loading path for the monsters
     }
 
@@ -81,16 +127,39 @@ public class GameState {
         }
     }
 
+    public static void waveEnded() {
+        if (wave == -1) {
+            wave = 0;
+        }
+        wave++;
+        spawning = false;
+        updateWaveInfo();
+    }
+
     public static void updateGameState(int timesUpdated) {
         // every time this function is called it is considered that one frame has passed
         // since the last update
         // Debug.out(towers.toString());
         Debug.out("" + Player.getHealth()[0]);
         Debug.out("" + Player.getMoney());
-        if (timesUpdated == 100) {
-            spawnMonster(new Monster(initPath, 2, 1, 100));
-        } else if (timesUpdated == 200) {
-            spawnMonster(new Monster(initPath, 2, 1, 50));
+        Debug.out("wave = " + wave);
+        if (updateToStartNextWave <= timesUpdated && updateToStartNextWave != -1) {
+            spawning = true;
+            updateToStartNextWave = -1;
+        }
+        if (monstersLeftToSpawn > 0 && spawning
+                && updateOfLastSpawn + 2 * (30 / gameSpeed) * waveInfo[1] < timesUpdated) {
+            spawnMonster(new Monster(initPath, 10, 1, 100));
+            monstersLeftToSpawn--;
+            updateOfLastSpawn = timesUpdated;
+
+        }
+        if (monsters.size() == 0 && monstersLeftToSpawn == 0 && spawning) {
+            spawning = false;
+            waveEnded();
+            updateToStartNextWave = (int) Math.floor(timesUpdated + 10 * 2 * (30 / gameSpeed)); // TODO set the 10 as
+                                                                                                // the time in seconds
+                                                                                                // between waves
         }
         monstersToRemoveNextUpdate = new ArrayList<>();
         // TODO make the timer based on difficulty rather then set at once per second
