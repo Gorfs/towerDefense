@@ -2,6 +2,8 @@ package model;
 
 import config.*;
 import geometry.RealCoordinates;
+import gui.Game;
+import gui.gameUI.MapPanel;
 import misc.Debug;
 import java.util.ArrayList;
 
@@ -85,8 +87,8 @@ public class GameState {
         // every time this function is called it is considered that one frame has passed
         // since the last update
         // Debug.out(towers.toString());
-        Debug.out("" + Player.getHealth()[0]);
-        Debug.out("" + Player.getMoney());
+        // Debug.out("" + Player.getHealth()[0]);
+        // Debug.out("" + Player.getMoney());
         if (timesUpdated == 100) {
             spawnMonster(new Monster(initPath, 2, 1, 100));
         } else if (timesUpdated == 200) {
@@ -97,6 +99,10 @@ public class GameState {
         if (timesUpdated % (30 / gameSpeed) == 0 && timesUpdated > 1) { // game speed is devided to basically invert the
                                                                         // factor that multiplies the framerate
             timesMonstersMoved++; // basic stats, not very useful.
+            if(Game.running){
+                MapPanel.removePopUps();
+                MapPanel.showPopUps();
+            }
             for (Monster monster : monsters) {
 
                 for (Slot slot : towers) {

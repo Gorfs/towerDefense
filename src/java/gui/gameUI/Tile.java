@@ -8,6 +8,7 @@ public class Tile extends JLabel{
 
     public static final int TILE_SIZE = 60;
     public Cell cell;
+    public JPopupMenu popUp;
 
     public Tile(ImageIcon image, Cell cell) {
         super(image);

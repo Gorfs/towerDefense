@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.CardLayout;
 
 import gui.gameUI.GamePanel;
+import gui.gameUI.MapPanel;
 import gui.menu.*;
 import misc.Debug;
 import model.*;
@@ -23,7 +24,7 @@ public class Game {
     private static CardLayout cardLayout = new CardLayout();
     private static JPanel mainPanel = new JPanel(cardLayout);
 
-    private static GameWindow gameWindow = new GameWindow();
+    public static GameWindow gameWindow = new GameWindow();
     private static MainMenu mainMenu = new MainMenu();
     private static LevelSelectMenu levelMenu = new LevelSelectMenu();
     private static SettingsMenu settingsMenu = new SettingsMenu();
@@ -67,9 +68,11 @@ public class Game {
     }
 
     public static void updateGUI(){
-        Debug.printMap(map);
+        // Debug.printMap(map);
         gamePanel.update();
         GameState.money = Player.getMoney();
+        // MapPanel.showPopUps();
+        
         //!!  The line under this comment somehow fixes a load of graphical bugs, do not remove.
         gameWindow.validate();
     }
@@ -86,6 +89,7 @@ public class Game {
                     priorTime = System.nanoTime();
                     GameState.updateGameState(updates);
                     updateGUI();
+                    // MapPanel.showPopUps();
                 }
             }
         }).start();
