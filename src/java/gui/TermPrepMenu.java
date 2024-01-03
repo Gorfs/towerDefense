@@ -61,11 +61,11 @@ public class TermPrepMenu {
         System.out.println("where should we remove the Tower? format = A7");
         String choice = sc.nextLine();
         int x = (Character.toUpperCase(choice.charAt(0))) - 'A'; 
-        int y = Character.getNumericValue(choice.charAt(1));
+        int y = Character.getNumericValue(choice.charAt(1)) - 1;
         if (!(model.GameState.getMap()[x][y] instanceof Slot)){
             misc.Print.clearScreen();
             System.out.println("Error, not a valid slot");
-            removeTowerMenu();
+            preparationMenu();
         }else{
             Slot slot = (Slot) model.GameState.getMap()[x][y];
             if(slot.getTower() == null){
@@ -78,7 +78,6 @@ public class TermPrepMenu {
                 towerList.remove(slot);
             }
         }
-
     }
 
     public static void addTowerMenu(){
@@ -87,7 +86,7 @@ public class TermPrepMenu {
         System.out.println("where should we add the Tower? format = A7");
         String choice = sc.nextLine();
         int x = (Character.toUpperCase(choice.charAt(0))) - 'A'; 
-        int y = Integer.valueOf(choice.substring(1, choice.length()));
+        int y = Integer.parseInt(choice.substring(1)) - 1;
         Debug.out("x = " + x + " y = " + y);
         if (!(model.GameState.getMap()[x][y] instanceof Slot)){
             TermMainMenu.clearScreen();
@@ -112,12 +111,12 @@ public class TermPrepMenu {
                     break;
                 }
                 case "2" :{
-                    // add a advanced tower
+                    // add an advanced tower
                     tower = new TowerAdvanced(new IntCoordinates(x,y));
                     break;
                 }
                 case "3" :{
-                    // add a expert tower
+                    // add an expert tower
                     tower = new TowerExpert(new IntCoordinates(x,y));
                     break;
                 }
@@ -127,7 +126,7 @@ public class TermPrepMenu {
                     break;
                 }
                 case "5" :{
-                    // add a ultimate tower
+                    // add an ultimate tower
                     tower = new TowerUltimate(new IntCoordinates(x,y));
                     break;
                 }

@@ -49,19 +49,25 @@ public class TermGame {
             else HPBar.append(".");
         }
         display[1] = String.format("|         HP   [%s]   %s", HPBar, HPPercent) + "%         |      Timer :      |";
+        int n;
         // Initialize money
-        String money = "|     Money : " + Player.INSTANCE.getMoney() + "$       ";
+        StringBuilder money = new StringBuilder("|     Money : " + Player.INSTANCE.getMoney() + "$");
+        if (Player.INSTANCE.getMoney() < 10) n = 7;
+        else if (Player.INSTANCE.getMoney() < 100) n = 6;
+        else if (Player.INSTANCE.getMoney() < 1000) n = 5;
+        else n = 4;
+        money.append(" ".repeat(n));
+
         // Initialize timer
         String timer = "|       " + Player.INSTANCE.getTimer() + "       |";
         // Initialize wave
         StringBuilder wave = new StringBuilder("|      Wave n°");
         if (Player.INSTANCE.getWave() < 1000) wave.append(Player.INSTANCE.getWave());
         else wave.append("999");
-        int n;
         if (Player.INSTANCE.getWave() < 10) n = 7; else if (Player.INSTANCE.getWave() < 100) n = 6; else n = 5;
         wave.append(" ".repeat(n));
         // Display everything
-        display[2] = money + wave + timer;
+        display[2] = String.format("%s%s%s", money, wave, timer);
         display[3] = "+---+----------------------------------------+-------------------+";
         display[4] = "|///|  1  2  3  4  5  6  7  8  9 10 11 12 13 | ";
         display[5] = "+---+----------------------------------------+ ";
@@ -119,6 +125,7 @@ public class TermGame {
                 if(System.nanoTime() - priorTime > 16600000){
                     // 1/60th of a second has passed, updating gameView
                     timeElapsedSinceLastUpdate = (System.nanoTime()) - priorTime;
+                    Player.INSTANCE.updateTimer(timeElapsedSinceLastUpdate);
                     updates++;
                     priorTime = System.nanoTime();
                     animate();

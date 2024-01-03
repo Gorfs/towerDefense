@@ -4,16 +4,13 @@ public class Player {
     public static Player INSTANCE = new Player();
     private final int[] health = new int[]{100,100};
     private double timer = 0.0;
-    private int money;
+    private int money = 10;
     private int wave = 1;
-    public Player() {
-        money = 0;
-    }
 
     public void resetPlayer() {
         health[1] = health[0];
         timer = 0.0;
-        money = 0;
+        money = 70;
     }
 
     public int getMoney() {
