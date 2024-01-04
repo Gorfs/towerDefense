@@ -4,9 +4,8 @@ import gui.Game;
 import misc.Debug;
 
 public class Player {
-    private static final int[] health = new int[]{100,100};
+    private static final int[] health = new int[] { 100, 100 };
     private static int money = 100;
-
 
     public static void resetPlayer() {
         health[1] = health[0];
@@ -19,11 +18,11 @@ public class Player {
 
     public static void addMoney(int price) {
         Debug.out("Money added");
-        money += price ;
+        money += price;
         Debug.out("money = " + money);
     }
 
-    public static void removeMoney(int price){
+    public static void removeMoney(int price) {
         Debug.out("Money removed");
         money -= price;
         Debug.out("money = " + money);
