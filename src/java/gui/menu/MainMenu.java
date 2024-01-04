@@ -22,6 +22,7 @@ public class MainMenu extends JPanel implements ActionListener {
     public static Color backgroundColor = new Color(90, 101, 117);
     public static Color buttonBackgroundColor = new Color(120, 131, 157);
 
+
     private JButton playBtn = new JButton("Play");
     private JButton settingsBtn = new JButton("Settings");
     private JButton exitBtn = new JButton("Exit");
