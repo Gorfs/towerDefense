@@ -17,6 +17,12 @@ public class Path extends Cell {
         this.isEmpty = true;
         this.nextPath = nextPath;
     }
+    public Path(){
+        super();
+        this.monster = null;
+        this.isEmpty = true;
+        this.nextPath = null;
+    }
 
     public Path(boolean isSpawn, int x, int y){
         super(x,y);

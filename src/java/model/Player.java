@@ -1,10 +1,13 @@
 package model;
 
+import gui.Game;
+import misc.Debug;
+
 public class Player {
     public static Player INSTANCE = new Player();
     private final int[] health = new int[]{100,100};
     private double timer = 0.0;
-    private int money = 10;
+    private int money = 70;
     private int wave = 1;
 
     public void resetPlayer() {
@@ -19,6 +22,12 @@ public class Player {
 
     public void updateMoney(int money) {
         this.money += money;
+    }
+
+    public void removeMoney(int price) {
+        Debug.out("Money removed");
+        money -= price;
+        Debug.out("money = " + money);
     }
 
     public int[] getHealth() {

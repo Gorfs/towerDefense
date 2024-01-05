@@ -22,9 +22,7 @@ public class TermPrepMenu {
             preparationMenu();
         }
     }
-    public static ArrayList<Slot> getTowerList(){
-        return towerList;
-    }   
+
 
 
 
@@ -74,8 +72,7 @@ public class TermPrepMenu {
                 removeTowerMenu();
             }else{
                 misc.Print.clearScreen();
-                slot.removeTower();
-                towerList.remove(slot);
+                GameState.removeTower(x, y);
             }
         }
     }
@@ -137,8 +134,7 @@ public class TermPrepMenu {
                     break;
                 } 
             }
-            towerList.add(slot);
-            slot.setTower(tower);
+            GameState.addTower(tower, x, y);
             TermMainMenu.clearScreen();
         }
     }

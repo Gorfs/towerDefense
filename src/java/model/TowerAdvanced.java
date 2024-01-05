@@ -8,7 +8,12 @@ public class TowerAdvanced extends Towers {
     }
 
     @Override
-    public String toString(){
+    public String getName() {
+        return "Advanced Tower";
+    }
+
+    @Override
+    public String toString() {
         return "AT ";
     }
 }

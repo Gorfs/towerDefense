@@ -8,7 +8,12 @@ public class TowerUltimate extends Towers {
     }
 
     @Override
-    public String toString(){
+    public String getName() {
+        return "Ultimate Tower";
+    }
+
+    @Override
+    public String toString() {
         return "UT ";
     }
 }

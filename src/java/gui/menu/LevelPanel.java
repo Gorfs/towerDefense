@@ -11,9 +11,11 @@ public class LevelPanel extends JPanel{
     
 
     private JLabel levelName;
+    public int levelNum;
     public JButton playBtn = new JButton();
     public LevelPanel(int num) {
         super();
+        levelNum = num;
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.setBackground(MainMenu.backgroundColor);
 
@@ -29,6 +31,9 @@ public class LevelPanel extends JPanel{
         this.add(levelName);
         this.add(Box.createRigidArea(new Dimension(10, 0)));
         this.add(playBtn);
+    }
+    public int getNum(){
+        return levelNum;
     }
 
 }
