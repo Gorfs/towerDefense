@@ -1,6 +1,5 @@
 package model;
 
-import gui.Game;
 import misc.Debug;
 
 public class Player {
