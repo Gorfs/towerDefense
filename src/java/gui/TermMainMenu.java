@@ -74,6 +74,7 @@ public class TermMainMenu {
         final File folder = new File("src/resources/map");
         for(final File fileEntry: folder.listFiles()){
             System.out.println(" " + counter + " : " + fileEntry.getName());
+            counter++;
         }
         System.out.println("\n\n Votre Choix: ");
         int levelChoice = sc.nextInt();
