@@ -81,7 +81,7 @@ public class Game {
         new Thread(()->{
             long priorTime = System.nanoTime();
             while(running){
-                if(System.nanoTime() - priorTime > 16600000){
+                if(System.nanoTime() - priorTime > 16600000*2){
                     // 1/60th of a second has passed, updating gameView
                     updates++;
                     Debug.out("fps -> " + 1.0f/((System.nanoTime() - priorTime)*1E-9)); 
