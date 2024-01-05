@@ -43,6 +43,8 @@ public class Game {
         mainPanel.add(levelMenu, "level");
         mainPanel.add(settingsMenu, "settings");
         mainPanel.add(gamePanel, "game");
+        mainPanel.add(new GameWonPanel(), "won");
+        mainPanel.add(new GameLostPanel(), "lost");
         
         gameWindow.setVisible(true);
     }
@@ -108,6 +110,12 @@ public class Game {
             case "game":
                 cardLayout.show(mainPanel, "game");
                 isPreperationPhase = true;
+                break;
+            case "lost":
+                cardLayout.show(mainPanel, "lost");
+                break;
+            case "won":
+                cardLayout.show(mainPanel, "won");
                 break;
             default:
                 System.out.println("Error: panelName not found");

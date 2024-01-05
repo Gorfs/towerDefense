@@ -39,5 +39,8 @@ public class Player {
 
     public static void takeDamage(int hp) {
         health[0] -= hp;
+        if(health[0] <= 0){
+            GameState.lose();
+        }
     }
 }

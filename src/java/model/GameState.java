@@ -2,6 +2,7 @@ package model;
 
 import config.*;
 import geometry.RealCoordinates;
+import gui.Game;
 import misc.Debug;
 import java.util.ArrayList;
 import java.io.*;
@@ -35,9 +36,21 @@ public class GameState {
     }
 
     public static void win() {
-        System.out.println("Game won");
-        // TODO make this have a winning screen and go back to the main menu
-        System.exit(0);
+        if (Game.running) {
+            Game.changePanel("won");
+            Game.running = false;
+        } else {
+            // TODO setup winning for terminal version of game.
+        }
+    }
+
+    public static void lose() {
+        if (Game.running) {
+            Game.changePanel("lose");
+            Game.running = false;
+        }else{
+            //TODO setup losing for terminal version of game.
+        }
     }
 
     public static boolean updateWaveInfo() {
@@ -150,9 +163,9 @@ public class GameState {
             wave = 0;
         }
         spawning = false;
-        if(wave + 1 > waveString.split(";").length){
+        if (wave + 1 > waveString.split(";").length) {
             win();
-        }else{
+        } else {
             wave++;
         }
     }
@@ -169,7 +182,7 @@ public class GameState {
         if (updateToStartNextWave <= timesUpdated && updateToStartNextWave != -1) {
             if (updateWaveInfo()) {
                 Debug.out("Game won");
-                
+
             }
             spawning = true;
             updateToStartNextWave = -1;
