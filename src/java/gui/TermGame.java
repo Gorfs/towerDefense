@@ -62,9 +62,9 @@ public class TermGame {
         String timer = "|       " + Player.INSTANCE.getTimer() + "       |";
         // Initialize wave
         StringBuilder wave = new StringBuilder("|      Wave n°");
-        if (Player.INSTANCE.getWave() < 1000) wave.append(Player.INSTANCE.getWave());
+        if (GameState.getWave() < 1000) wave.append(GameState.getWave());
         else wave.append("999");
-        if (Player.INSTANCE.getWave() < 10) n = 7; else if (Player.INSTANCE.getWave() < 100) n = 6; else n = 5;
+        if (GameState.getWave() < 10) n = 7; else if (GameState.getWave() < 100) n = 6; else n = 5;
         wave.append(" ".repeat(n));
         // Display everything
         display[2] = String.format("%s%s%s", money, wave, timer);
@@ -97,7 +97,10 @@ public class TermGame {
         GameState.updateGameState(updates);
         printMap();
         System.out.println("fps -> " + 1.0f/(timeElapsedSinceLastUpdate*1E-9));
-
+        if (Player.INSTANCE.getHealth()[1] <= 0) {
+            System.out.println("Game lost");
+            isRunning = false;
+        }
 
         //!! This is all just Debug code for the terminal version of the game.
 
