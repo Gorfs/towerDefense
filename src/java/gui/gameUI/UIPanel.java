@@ -14,12 +14,12 @@ public class UIPanel extends JPanel {
     int money;
 
     private JLabel livesLabel = new JLabel("Health: " + lives);
-    private JLabel moneyLabel = new JLabel("Money: " + Player.getMoney());
+    private JLabel moneyLabel = new JLabel("Money: " + Player.INSTANCE.getMoney());
 
     public UIPanel() {
         super();
-        this.lives = Player.getMoney();
-        this.money = Player.getMoney();
+        this.lives = Player.INSTANCE.getHealth()[1];
+        this.money = Player.INSTANCE.getMoney();
         livesLabel.setFont(new Font("Serif", Font.PLAIN, 20));
         livesLabel.setForeground(Color.white);
         livesLabel.setBackground(gui.menu.MainMenu.backgroundColor.darker());
@@ -37,9 +37,9 @@ public class UIPanel extends JPanel {
     }
     public void update(){
         Debug.out("UI updated");
-        this.lives = Player.getHealth()[0];
+        this.lives = Player.INSTANCE.getHealth()[0];
         livesLabel.setText("Health: " + this.lives);
-        this.money = Player.getMoney();
+        this.money = Player.INSTANCE.getMoney();
         moneyLabel.setText("Money: " + this.money);
     }
     

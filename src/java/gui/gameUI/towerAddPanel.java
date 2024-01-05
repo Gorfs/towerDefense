@@ -35,8 +35,8 @@ public class towerAddPanel extends JPanel {
     }
 
     public void update() {
-        Debug.out(Player.getMoney() + " " + tower.getPrice());
-        if (Player.getMoney() < tower.getPrice()) {
+        Debug.out(Player.INSTANCE.getMoney() + " " + tower.getPrice());
+        if (Player.INSTANCE.getMoney() < tower.getPrice()) {
             this.setBackground(java.awt.Color.red);
             enabled = false;
         } else {

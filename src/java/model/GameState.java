@@ -10,7 +10,7 @@ public class GameState {
     private static int timesMonstersMoved = 0;
     private static double gameSpeed = 2;
     private static int level = -1;
-    public static int money = Player.getMoney();
+    public static int money = Player.INSTANCE.getMoney();
     private static int wave = 1; // -1 means that the game is in preperation phase
     private static int[] waveInfo = new int[2]; // [0] is the amount of enemys, [1] is the speed at which they spawn
     private static String waveString = "";
@@ -53,8 +53,8 @@ public class GameState {
                 } else {
                     str = waveString.split(";")[wave - 1];
                 }
-                int enemyCount = Integer.valueOf(str.split(",")[0]);
-                int enemySpeed = Integer.valueOf(str.split(",")[1]);
+                int enemyCount = Integer.parseInt(str.split(",")[0]);
+                int enemySpeed = Integer.parseInt(str.split(",")[1]);
                 waveInfo[0] = enemyCount;
                 waveInfo[1] = enemySpeed;
                 monstersLeftToSpawn = enemyCount;
@@ -76,15 +76,15 @@ public class GameState {
     private static ArrayList<Monster> monstersToRemoveNextUpdate = new ArrayList<>();
 
     static Cell[][] gameMap = Map.getMap();
-    private static ArrayList<Monster> monsters = new ArrayList<>();
-    private static ArrayList<Slot> towers = new ArrayList<>();
+    private static final ArrayList<Monster> monsters = new ArrayList<>();
+    private static final ArrayList<Slot> towers = new ArrayList<>();
 
     public static void addTower(Towers tower, int x, int y) {
-        if (gameMap[y][x] instanceof Slot && (towers.contains(gameMap[y][x]) == false)) {
+        if (gameMap[y][x] instanceof Slot && (!towers.contains(gameMap[y][x]))) {
             ((Slot) gameMap[y][x]).setTower(tower);
             towers.add((Slot) gameMap[y][x]);
-            Player.removeMoney(tower.getCost());
-            Debug.out("Tower added, money is now " + Player.getMoney());
+            Player.INSTANCE.removeMoney(tower.getCost());
+            Debug.out("Tower added, money is now " + Player.INSTANCE.getMoney());
         } else {
             System.out.println("ERROR -> tried to add a tower to a non slot tile");
         }
@@ -96,8 +96,8 @@ public class GameState {
             Towers tower = ((Slot) gameMap[y][x]).getTower();
             ((Slot) gameMap[y][x]).removeTower();
             towers.remove((Slot) gameMap[y][x]);
-            Player.addMoney(tower.getCost());
-            Debug.out("Tower removed, money is now " + Player.getMoney());
+            Player.INSTANCE.updateMoney(tower.getCost());
+            Debug.out("Tower removed, money is now " + Player.INSTANCE.getMoney());
         } else {
             System.out.println("ERROR -> tried to remove a tower from a non slot tile");
         }
@@ -161,8 +161,8 @@ public class GameState {
         // every time this function is called it is considered that one frame has passed
         // since the last update
         // Debug.out(towers.toString());
-        Debug.out("" + Player.getHealth()[0]);
-        Debug.out("" + Player.getMoney());
+        Debug.out("" + Player.INSTANCE.getHealth()[0]);
+        Debug.out("" + Player.INSTANCE.getMoney());
         Debug.out("wave = " + wave);
         Debug.out("currentupdate = " + timesUpdated + " update to start next wave = " + updateToStartNextWave);
         Debug.out("waveString = " + waveString.split(";").length + " str = " + waveString);
@@ -205,7 +205,7 @@ public class GameState {
                 }
                 if (monster.move()) { // is true if the enemy has made it to the end of the map
                     monstersToRemoveNextUpdate.add(monster);
-                    Player.takeDamage(monster.getAttack());
+                    Player.INSTANCE.takeDamage(monster.getAttack());
                 }
             }
             // we cannot modify the arrayList while we are reading it, so we store the

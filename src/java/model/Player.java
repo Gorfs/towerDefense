@@ -1,42 +1,78 @@
 package model;
 
-import gui.Game;
 import misc.Debug;
 
 public class Player {
-    private static final int[] health = new int[] { 100, 100 };
-    private static int money = 100;
+    public static Player INSTANCE = new Player();
+    private final int[] health = new int[]{100,100};
+    private double timer = 0.0;
+    private int money = 70;
+    private int wave = 1;
 
-    public static void resetPlayer() {
+    public void resetPlayer() {
         health[1] = health[0];
-        money = 0;
+        timer = 0.0;
+        money = 70;
     }
 
-    public static int getMoney() {
+    public int getMoney() {
         return money;
     }
 
-    public static void addMoney(int price) {
-        Debug.out("Money added");
-        money += price;
-        Debug.out("money = " + money);
+    public void updateMoney(int money) {
+        this.money += money;
     }
 
-    public static void removeMoney(int price) {
+    public void removeMoney(int price) {
         Debug.out("Money removed");
         money -= price;
         Debug.out("money = " + money);
     }
 
-    public static int[] getHealth() {
+    public int[] getHealth() {
         return health;
     }
 
-    public static void heal(int hp) {
-        health[0] += hp;
+    public void heal(int health) {
+        this.health[1] += health;
     }
 
-    public static void takeDamage(int hp) {
-        health[0] -= hp;
+    public void takeDamage(int health) {
+        this.health[1] -= health;
+    }
+
+    public String getTimer() {
+        String STimer;
+        // Minutes
+        double minutes = timer/60;
+        String doubleAsString = String.valueOf(minutes);
+        int indexOfDecimal = doubleAsString.indexOf(".");
+
+        if (minutes >= 10) STimer = doubleAsString.substring(0, indexOfDecimal);
+        else STimer = "0" + doubleAsString.substring(0, indexOfDecimal);
+        STimer = STimer + ":";
+
+        // Seconds
+        double seconds = (Double.parseDouble("0" + doubleAsString.substring(indexOfDecimal))*60);
+        doubleAsString = String.valueOf(seconds);
+        indexOfDecimal = doubleAsString.indexOf(".");
+
+        if (seconds >= 10) STimer = STimer + doubleAsString.substring(0, indexOfDecimal);
+        else STimer = STimer + "0" + doubleAsString.substring(0, indexOfDecimal);
+
+        // return result
+        return STimer;
+    }
+
+    public void updateTimer(double timer) {
+        this.timer += timer * 1E-9;
+    }
+
+    public int getWave() {
+        return wave;
+    }
+
+    public void setWave(int wave) {
+        this.wave = wave;
     }
 }

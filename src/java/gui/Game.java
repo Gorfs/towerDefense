@@ -71,7 +71,7 @@ public class Game {
     public static void updateGUI(){
         // Debug.printMap(map);
         gamePanel.update();
-        GameState.money = Player.getMoney();
+        GameState.money = Player.INSTANCE.getMoney();
         //!!  The line under this comment somehow fixes a load of graphical bugs, do not remove.
         gameWindow.validate();
     }
