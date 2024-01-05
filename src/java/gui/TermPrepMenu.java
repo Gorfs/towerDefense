@@ -92,6 +92,7 @@ public class TermPrepMenu {
             addTowerMenu();
         }else{
             Slot slot = (Slot) model.GameState.getMap()[x][y];
+            boolean enoughMoney = false;
             System.out.println("what tower would you like to add?");
             System.out.println("1 -> basic tower");
             System.out.println("2 -> advanced tower");
@@ -105,26 +106,31 @@ public class TermPrepMenu {
                 case "1" :{
                     // add a basic tower
                     // Tower is already made since it is the default.
+                    if (Player.INSTANCE.getMoney() >= tower.getCost()) enoughMoney = true;
                     break;
                 }
                 case "2" :{
                     // add an advanced tower
                     tower = new TowerAdvanced(new IntCoordinates(x,y));
+                    if (Player.INSTANCE.getMoney() >= tower.getCost()) enoughMoney = true;
                     break;
                 }
                 case "3" :{
                     // add an expert tower
                     tower = new TowerExpert(new IntCoordinates(x,y));
+                    if (Player.INSTANCE.getMoney() >= tower.getCost()) enoughMoney = true;
                     break;
                 }
                 case "4" :{
                     // add a master tower
                     tower = new TowerMaster(new IntCoordinates(x,y));
+                    if (Player.INSTANCE.getMoney() >= tower.getCost()) enoughMoney = true;
                     break;
                 }
                 case "5" :{
                     // add an ultimate tower
                     tower = new TowerUltimate(new IntCoordinates(x,y));
+                    if (Player.INSTANCE.getMoney() >= tower.getCost()) enoughMoney = true;
                     break;
                 }
                 default :{
@@ -134,7 +140,8 @@ public class TermPrepMenu {
                     break;
                 } 
             }
-            GameState.addTower(tower, x, y);
+            if (enoughMoney) GameState.addTower(tower, x, y);
+            else System.out.println("Error, not enough money to buy the tower");
             TermMainMenu.clearScreen();
         }
     }
