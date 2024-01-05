@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.CardLayout;
 
 import gui.gameUI.GamePanel;
+import gui.gameUI.Tile;
 import gui.menu.*;
 import misc.Debug;
 import model.*;
@@ -60,6 +61,7 @@ public class Game {
 
     public static void start(){
         GameState.initGameState(levelSelect);
+        Tile.initImages();
         map = GameState.getMap();
         updateGUI();
         // TODO setup preperation phase then moving to game phase

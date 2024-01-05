@@ -10,6 +10,10 @@ public class Slot extends Cell{
         super(x, y);
         isEmpty = true;
     }
+    public Slot(){
+        super();
+        isEmpty = true;
+    }
 
     public Towers getTower(){
         return tower;
