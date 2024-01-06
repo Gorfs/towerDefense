@@ -1,11 +1,11 @@
 package config;
 
-import model.Monster;
+import model.monster.Monsters;
 
 public class Path extends Cell {
     
     private boolean isEmpty;
-    private Monster monster;
+    private Monsters monsters;
     private Cell nextPath;
 
     private boolean isSpawn;
@@ -13,13 +13,13 @@ public class Path extends Cell {
 
     public Path(Path nextPath, int x, int y){
         super(x,y);
-        this.monster = null;
+        this.monsters = null;
         this.isEmpty = true;
         this.nextPath = nextPath;
     }
     public Path(){
         super();
-        this.monster = null;
+        this.monsters = null;
         this.isEmpty = true;
         this.nextPath = null;
     }
@@ -58,18 +58,18 @@ public class Path extends Cell {
     public boolean isEmpty(){
         return this.isEmpty;
     }
-    public Monster getMonster(){
-        return this.monster;
+    public Monsters getMonster(){
+        return this.monsters;
     }
 
 
-    public void setMonster(Monster monster){
+    public void setMonster(Monsters monsters){
         this.isEmpty = false;
-        this.monster = monster;
+        this.monsters = monsters;
     }
     public void removeMonster(){
         this.isEmpty = true;
-        this.monster = null;
+        this.monsters = null;
     }   
 
     public String toString(){
@@ -77,7 +77,7 @@ public class Path extends Cell {
             return "   ";
         }else{
             // TODO: With this only 1 monster can be displayed at a timer. Discuss and come back to.
-            return this.monster.toString();
+            return this.monsters.toString();
         }
     }
 

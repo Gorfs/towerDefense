@@ -1,9 +1,12 @@
 package model;
 
 import config.*;
-import geometry.RealCoordinates;
 import gui.Game;
 import misc.Debug;
+import model.monster.MonsterBasic;
+import model.monster.Monsters;
+import model.tower.Towers;
+
 import java.util.ArrayList;
 import java.io.*;
 
@@ -86,10 +89,10 @@ public class GameState {
         return wave;
     }
 
-    private static ArrayList<Monster> monstersToRemoveNextUpdate = new ArrayList<>();
+    private static ArrayList<Monsters> monstersToRemoveNextUpdate = new ArrayList<>();
 
     static Cell[][] gameMap = Map.getMap();
-    private static final ArrayList<Monster> monsters = new ArrayList<>();
+    private static final ArrayList<Monsters> monsters = new ArrayList<>();
     private static final ArrayList<Slot> towers = new ArrayList<>();
 
     public static void addTower(Towers tower, int x, int y) {
@@ -99,9 +102,8 @@ public class GameState {
             Player.INSTANCE.removeMoney(tower.getCost());
             Debug.out("Tower added, money is now " + Player.INSTANCE.getMoney());
         } else {
-            System.out.println("ERROR -> tried to add a tower to a non slot tile");
+            System.out.println("ERROR -> tried to add a model.tower to a non slot tile");
         }
-
     }
 
     public static void removeTower(int x, int y) {
@@ -112,7 +114,7 @@ public class GameState {
             Player.INSTANCE.updateMoney(tower.getCost());
             Debug.out("Tower removed, money is now " + Player.INSTANCE.getMoney());
         } else {
-            System.out.println("ERROR -> tried to remove a tower from a non slot tile");
+            System.out.println("ERROR -> tried to remove a model.tower from a non slot tile");
         }
     }
 
@@ -136,7 +138,7 @@ public class GameState {
         // loading path for the monsters
     }
 
-    public static ArrayList<Monster> getMonsters() {
+    public static ArrayList<Monsters> getMonsters() {
         return monsters;
     }
 
@@ -148,11 +150,11 @@ public class GameState {
         return gameMap;
     }
 
-    public static void spawnMonster(Monster monster) {
+    public static void spawnMonster(Monsters monsters) {
 
         if (initPath.isEmpty()) {
-            initPath.setMonster(monster);
-            monsters.add(monster);
+            initPath.setMonster(monsters);
+            GameState.monsters.add(monsters);
         } else {
             Debug.out("Error, spawn path not empty when monster was spawned");
         }
@@ -189,12 +191,12 @@ public class GameState {
         }
         if (monstersLeftToSpawn > 0 && spawning
                 && (updateOfLastSpawn + ((30 / gameSpeed) * 2 * waveInfo[1])) < timesUpdated) {
-            spawnMonster(new Monster(initPath, 10, 1, 100));
+            spawnMonster(new MonsterBasic(initPath));
             monstersLeftToSpawn--;
             updateOfLastSpawn = timesUpdated;
 
         }
-        if (monsters.size() == 0 && monstersLeftToSpawn == 0 && spawning) {
+        if (monsters.isEmpty() && monstersLeftToSpawn == 0 && spawning) {
             waveEnded();
             updateToStartNextWave = ((int) Math.floor(timesUpdated + (3 * 2 * (30 / gameSpeed)))); // TODO set the 5 as
                                                                                                    // the time in
@@ -203,30 +205,29 @@ public class GameState {
         }
         monstersToRemoveNextUpdate = new ArrayList<>();
         // TODO make the timer based on difficulty rather then set at once per second
-        if (timesUpdated % (15 / gameSpeed) == 0 && timesUpdated > 1) { // game speed is devided to basically invert the
-            
+        if (timesUpdated % (15 / gameSpeed) == 0 && timesUpdated > 1) { // game speed is divided to basically invert the
                                                                         // factor that multiplies the framerate
             timesMonstersMoved++; // basic stats, not very useful.
-            for (Monster monster : monsters) {
+            for (Monsters monsters : GameState.monsters) {
 
                 for (Slot slot : towers) {
                     // TODO set factors to a variable rather than a constant 1.
-                    if (slot.getTower().IsInRange(monster.getPos(), 1)) {
-                        if (monster.takeDamage(slot.getTower().getAttack(1))) {
-                            monstersToRemoveNextUpdate.add(monster);
+                    if (slot.getTower().IsInRange(monsters.getPos(), 1)) {
+                        if (monsters.takeDamage(slot.getTower().getAttack(1))) {
+                            monstersToRemoveNextUpdate.add(monsters);
                         }
                     }
                 }
-                if (monster.move()) { // is true if the enemy has made it to the end of the map
-                    monstersToRemoveNextUpdate.add(monster);
-                    Player.INSTANCE.takeDamage(monster.getAttack());
+                if (monsters.move()) { // is true if the enemy has made it to the end of the map
+                    monstersToRemoveNextUpdate.add(monsters);
+                    Player.INSTANCE.takeDamage(monsters.getAttack());
                 }
             }
             // we cannot modify the arrayList while we are reading it, so we store the
             // information in another list to remove them once the main loop has finished.
-            for (Monster monster : monstersToRemoveNextUpdate) {
-                monster.getPath().removeMonster();
-                monsters.remove(monster);
+            for (Monsters monsters : monstersToRemoveNextUpdate) {
+                monsters.getPath().removeMonster();
+                GameState.monsters.remove(monsters);
             }
         }
     }

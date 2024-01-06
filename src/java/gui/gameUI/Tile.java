@@ -8,8 +8,9 @@ import java.io.File;
 
 import config.*;
 import misc.Debug;
-import model.*;
-import java.util.Random;
+import model.monster.Monsters;
+import model.tower.*;
+
 import java.util.ArrayList;
 
 public class Tile extends JLabel {
@@ -81,7 +82,7 @@ public class Tile extends JLabel {
         slot.setTower(new TowerUltimate(null));
         tower5Img = getBufferedImage(slot, 0);
         Path path = new Path(0, 0);
-        path.setMonster(new Monster(path, 0, 0, 0));
+        path.setMonster(new Monsters(path, 0, 0, 0));
         monsterImg = getBufferedImage(path, 0);
 
 

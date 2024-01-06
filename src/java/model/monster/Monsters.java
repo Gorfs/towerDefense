@@ -1,12 +1,10 @@
-package model;
+package model.monster;
 
-import misc.Debug;
-
-import geometry.IntCoordinates;
 import geometry.RealCoordinates;
 import config.Path;
+import model.Player;
 
-public class Monster {
+public class Monsters {
     private static int id_num = 0;
     private Path path;
     private final int id;
@@ -15,7 +13,7 @@ public class Monster {
     private final int speed;
 
 
-    public Monster(Path path, int attack, int speed, int health) {
+    public Monsters(Path path, int attack, int speed, int health) {
         this.path = path;
         this.id = id_num;
         id_num++;
@@ -76,6 +74,6 @@ public class Monster {
         return health;
     }
     public String toString(){
-        return "() ";
+        return "<> ";
     }
 }
