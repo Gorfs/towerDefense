@@ -9,6 +9,6 @@ public class MonsterAdvanced extends Monsters{
 
     @Override
     public String toString() {
-        return super.toString();
+        return "() ";
     }
 }
