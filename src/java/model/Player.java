@@ -37,10 +37,6 @@ public class Player {
         this.health[1] += health;
     }
 
-    public void takeDamage(int health) {
-        this.health[1] -= health;
-    }
-
     public String getTimer() {
         String STimer;
         // Minutes
@@ -74,5 +70,12 @@ public class Player {
 
     public void setWave(int wave) {
         this.wave = wave;
+    }
+
+    public void takeDamage(int hp) {
+        this.health[1] -= hp;
+        if(this.health[1] <= 0){
+            GameState.lose();
+        }
     }
 }
