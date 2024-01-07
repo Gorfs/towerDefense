@@ -19,6 +19,7 @@ public class GameState {
     private static int updateOfLastSpawn = 0;
     private static int monstersLeftToSpawn = 0; // the amount of monsters left to spawn in the current wave
     private static int updateToStartNextWave = 0;
+    private static int wavesTotal; // total number of waves in a round
     // once per second is the maximum speed possible.
 
     public static void getWaveInfo() {
@@ -39,6 +40,8 @@ public class GameState {
         if (Game.running) {
             Game.changePanel("won");
             Game.running = false;
+            Player.INSTANCE.updateMoney(Player.INSTANCE.getMoney() + 100);
+            Player.INSTANCE.heal(Player.INSTANCE.getHealth()[0] - Player.INSTANCE.getHealth()[1]);
         } else {
             // TODO setup winning for terminal version of game.
         }
@@ -48,6 +51,8 @@ public class GameState {
         if (Game.running) {
             Game.changePanel("lose");
             Game.running = false;
+            Player.INSTANCE.updateMoney(Player.INSTANCE.getMoney() + 100);
+            Player.INSTANCE.heal(Player.INSTANCE.getHealth()[0] - Player.INSTANCE.getHealth()[1]);
         }else{
             //TODO setup losing for terminal version of game.
         }
@@ -63,8 +68,10 @@ public class GameState {
                 String str = "";
                 if (waveString.split(";").length == 0) {
                     str = waveString;
+                    wavesTotal = 1;
                 } else {
                     str = waveString.split(";")[wave - 1];
+                    wavesTotal = waveString.split(";").length;
                 }
                 int enemyCount = Integer.parseInt(str.split(",")[0]);
                 int enemySpeed = Integer.parseInt(str.split(",")[1]);
@@ -84,6 +91,9 @@ public class GameState {
 
     public static int getWave() {
         return wave;
+    }
+    public static int getMaxWave(){
+        return wavesTotal;
     }
 
     private static ArrayList<Monster> monstersToRemoveNextUpdate = new ArrayList<>();

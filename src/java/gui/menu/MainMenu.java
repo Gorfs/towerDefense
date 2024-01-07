@@ -79,8 +79,8 @@ public class MainMenu extends JPanel implements ActionListener {
         // this.add(artPanel);
         this.add(backgroundLabel);
         JPanel centerPanel = new JPanel();
-        backgroundLabel.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
-        backgroundLabel.setPreferredSize(new Dimension(Game.WIDTH, Game.HEIGHT));
+        backgroundLabel.setMaximumSize(new Dimension(Game.gameWindow.getWidth(), Game.gameWindow.getHeight()));
+        backgroundLabel.setPreferredSize(new Dimension(Game.gameWindow.getWidth(), Game.gameWindow.getHeight()));
 
 
         centerPanel.setOpaque(false);

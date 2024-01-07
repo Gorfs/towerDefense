@@ -24,7 +24,7 @@ public class Game {
     private static CardLayout cardLayout = new CardLayout();
     private static JPanel mainPanel = new JPanel(cardLayout);
 
-    private static GameWindow gameWindow = new GameWindow();
+    public static GameWindow gameWindow = new GameWindow();
     private static MainMenu mainMenu = new MainMenu();
     private static LevelSelectMenu levelMenu = new LevelSelectMenu();
     private static SettingsMenu settingsMenu = new SettingsMenu();
