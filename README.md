@@ -16,7 +16,9 @@ Pour lancer le jeu on a 2 modes differents:
 jdk 11 ou version superieur
 ```
 
-### compilation des fichiers
+### utilisation avec linux
+
+#### compilation des fichiers
 ```
 cd path/to/project/towerDefense/
 ```
@@ -24,14 +26,16 @@ cd path/to/project/towerDefense/
 javac -cp src/java src/java/main/*.java
 ```
 
-### Lancer le mode graphic
+#### Lancer le mode graphic
 ```
 java -cp src/java main.Main
 ```
-### Lancer le mode Terminal
+#### Lancer le mode Terminal
 ```
 java -cp src/java main.TermMain
 ```
+### Utilsation avec Windows
+
 
 
 ## How to Play (mode graphic)
