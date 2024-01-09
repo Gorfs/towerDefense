@@ -2,10 +2,8 @@ package gui;
 
 import model.*;
 import config.*;
-import main.TermMain;
-import misc.*;
 
-import model.Towers;
+import model.tower.Towers;
 import java.util.ArrayList;
 import model.Player;
 
@@ -106,15 +104,15 @@ public class TermGame {
         // for(Monster monster : monsters){
         //     System.out.println(monster.getId() + " health:"  + monster.getHealth()[0] + " position : " + monster.getPos().x + " " + monster.getPos().y);
         // }
-        // for(Slot tower : towers){
+        // for(Slot model.tower : towers){
         //     // TODO, change damage factor to variable rather than just 1
-        //     System.out.println(tower.toString() + " position : " + tower.getX() + " " + tower.getY() + " range :" + tower.getTower().getRange(1));
+        //     System.out.println(model.tower.toString() + " position : " + model.tower.getX() + " " + model.tower.getY() + " range :" + model.tower.getTower().getRange(1));
         // }
         // for(Monster monster: monsters){
-        //     for(Slot tower: towers){
-        //         System.out.println("monster " + monster.getId() + " range status to : x: " + tower.getX() + " y:" + tower.getY() + " is "
-        //         + tower.getTower().IsInRange(monster.getPos(), 1) + " distance to tower is ="
-        //         + tower.getTower().getDistance(monster.getPos()));
+        //     for(Slot model.tower: towers){
+        //         System.out.println("monster " + monster.getId() + " range status to : x: " + model.tower.getX() + " y:" + model.tower.getY() + " is "
+        //         + model.tower.getTower().IsInRange(monster.getPos(), 1) + " distance to model.tower is ="
+        //         + model.tower.getTower().getDistance(monster.getPos()));
         //     }
         // }
         
