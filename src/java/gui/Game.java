@@ -13,7 +13,7 @@ import config.*;
 public class Game {
     
 
-    public static final int WIDTH = 1101;
+    public static final int WIDTH = 1280;
     public static final int HEIGHT = 800;
 
     private static Cell[][] map;

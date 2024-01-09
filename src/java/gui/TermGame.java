@@ -126,7 +126,7 @@ public class TermGame {
             isRunning = true;
             long priorTime = System.nanoTime();
             while(isRunning){
-                if(System.nanoTime() - priorTime > 16600000){
+                if(System.nanoTime() - priorTime > 16600000 * 2){
                     // 1/60th of a second has passed, updating gameView
                     timeElapsedSinceLastUpdate = (System.nanoTime()) - priorTime;
                     Player.INSTANCE.updateTimer(timeElapsedSinceLastUpdate);

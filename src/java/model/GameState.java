@@ -206,7 +206,7 @@ public class GameState {
         }
         if (monsters.size() == 0 && monstersLeftToSpawn == 0 && spawning) {
             waveEnded();
-            updateToStartNextWave = ((int) Math.floor(timesUpdated + (3 * 2 * (30 / gameSpeed)))); // TODO set the 5 as
+            updateToStartNextWave = ((int) Math.floor(timesUpdated + (10 * 2 * (30 / gameSpeed)))); // TODO set the 10 as
                                                                                                    // the time in
                                                                                                    // seconds
                                                                                                    // between waves
