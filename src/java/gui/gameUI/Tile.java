@@ -11,7 +11,6 @@ import misc.Debug;
 import model.monster.MonsterAdvanced;
 import model.monster.MonsterBasic;
 import model.monster.MonsterExpert;
-import model.monster.Monsters;
 import model.tower.*;
 
 import java.util.ArrayList;
@@ -42,31 +41,35 @@ public class Tile extends JLabel {
         this.cell = cell;
     }
 
+    /**
+     * @param cell
+     * @return ImageIcon
+     */
     public static ImageIcon getImage(Cell cell) {
         if (cell instanceof Slot) {
-            if(((Slot) cell).getTower() == null){
+            if (((Slot) cell).getTower() == null) {
                 return grass1Img;
             }
-            if (((Slot)cell).getTower() instanceof TowerBasic) {
+            if (((Slot) cell).getTower() instanceof TowerBasic) {
                 return tower1Img;
-            } else if (((Slot)cell).getTower() instanceof TowerAdvanced) {
+            } else if (((Slot) cell).getTower() instanceof TowerAdvanced) {
                 return tower2Img;
-            } else if(((Slot)cell).getTower() instanceof TowerExpert) {
+            } else if (((Slot) cell).getTower() instanceof TowerExpert) {
                 return tower3Img;
-            }else if(((Slot)cell).getTower() instanceof TowerMaster) {
+            } else if (((Slot) cell).getTower() instanceof TowerMaster) {
                 return tower4Img;
-           }else{
+            } else {
                 return tower5Img;
             }
-           
+
         } else if (cell instanceof Path) {
-            if(((Path)cell).isEmpty()){
+            if (((Path) cell).isEmpty()) {
                 return pathImg;
-            }else{
-                switch(((Path)cell).getMonster().toString()){
+            } else {
+                switch (((Path) cell).getMonster().toString()) {
                     case "() ":
                         return slimeImg;
-                    case "<> ": 
+                    case "<> ":
                         return zombieImg;
                     case "[] ":
                         return endermanImg;
@@ -101,10 +104,13 @@ public class Tile extends JLabel {
         path.setMonster(new MonsterExpert(null));
         endermanImg = getBufferedImage(path, 0);
 
-
-
     }
 
+    /**
+     * @param cell
+     * @param i
+     * @return ImageIcon
+     */
     private static ImageIcon getBufferedImage(Cell cell, int i) {
         BufferedImage img = null;
         String type = cell.toString();
@@ -122,16 +128,16 @@ public class Tile extends JLabel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else if (type == "<> "){
-            try{
+        } else if (type == "<> ") {
+            try {
                 img = ImageIO.read(new File("src/resources/art/assets/enemies/zombie.png"));
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else if (type == "[] ") {
-            try{
+        } else if (type == "[] ") {
+            try {
                 img = ImageIO.read(new File("src/resources/art/assets/enemies/enderman.png"));
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -174,7 +180,7 @@ public class Tile extends JLabel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
 
             return grass1Img;
         }

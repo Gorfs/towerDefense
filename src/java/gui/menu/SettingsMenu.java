@@ -39,7 +39,6 @@ public class SettingsMenu extends JPanel implements ActionListener {
         menuPanel.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
         // menuPanel.setBorder(BorderFactory.createLineBorder(Color.red)); // Add border
 
-
         title.setAlignmentX(CENTER_ALIGNMENT);
         // title.setBorder(BorderFactory.createLineBorder(Color.black));
         title.setForeground(Color.white);
@@ -50,15 +49,16 @@ public class SettingsMenu extends JPanel implements ActionListener {
 
         debugPanel.setLayout(new BoxLayout(debugPanel, BoxLayout.X_AXIS));
         debugPanel.setBackground(backgroundColor);
-        // debugPanel.setBorder(BorderFactory.createLineBorder(Color.black)); // Add border
-        
+        // debugPanel.setBorder(BorderFactory.createLineBorder(Color.black)); // Add
+        // border
+
         debugLabel.setForeground(Color.white);
         debugPanel.add(debugLabel);
         debugBtn.setBackground(Debug.isDebugging() ? Color.green : Color.red);
         debugBtn.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         debugBtn.addActionListener(this);
         debugPanel.add(debugBtn);
-        
+
         backBtn.setBackground(buttonBackgroundColor);
         backBtn.setForeground(Color.white);
         backBtn.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
@@ -71,27 +71,23 @@ public class SettingsMenu extends JPanel implements ActionListener {
         menuPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         menuPanel.add(backBtn);
 
-
         this.add(title, BorderLayout.NORTH);
         // MenuPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         this.add(menuPanel, BorderLayout.CENTER);
         // MenuPanel.add(Box.createRigidArea(new Dimension(0, 50)));
-               
-
-        // assembling the whole menu
-        // this.add(Box.createRigidArea(new Dimension(Game.WIDTH / 6, 1)));
-        // this.add(MenuPanel, BorderLayout.WEST);
 
     }
 
+    /**
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == debugBtn) {
             Debug.out("Switching debug mode : " + String.valueOf(Debug.isDebugging()));
             Debug.toggleDebugging();
             debugBtn.setBackground(Debug.isDebugging() ? Color.green : Color.red);
             debugBtn.setText(String.valueOf(Debug.isDebugging()));
-        }
-        else if (e.getSource() == backBtn) {
+        } else if (e.getSource() == backBtn) {
             Game.changePanel("main");
         }
     }

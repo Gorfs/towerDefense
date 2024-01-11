@@ -3,11 +3,9 @@ package gui.gameUI;
 import javax.swing.*;
 
 import misc.Debug;
-import model.GameState;
 import model.Player;
 
 import java.awt.*;
-
 
 public class UIPanel extends JPanel {
     int lives;
@@ -35,12 +33,13 @@ public class UIPanel extends JPanel {
         this.add(moneyLabel);
         this.setBackground(gui.menu.MainMenu.backgroundColor);
     }
-    public void update(){
+
+    public void update() {
         Debug.out("UI updated");
         this.lives = Player.INSTANCE.getHealth()[1];
         livesLabel.setText("Health: " + this.lives);
         this.money = Player.INSTANCE.getMoney();
         moneyLabel.setText("Money: " + this.money);
     }
-    
+
 }

@@ -1,15 +1,11 @@
 package gui.menu;
 
-import java.awt.Image;
-
 import javax.swing.*;
 
 import gui.Game;
 import misc.Debug;
-import gui.menu.*;
 
-
-public class GameLostPanel extends JLabel{
+public class GameLostPanel extends JLabel {
 
     JButton mainMenButton = new JButton("Main Menu");
 
@@ -32,10 +28,10 @@ public class GameLostPanel extends JLabel{
         mainMenButton.setMaximumSize(new java.awt.Dimension(200, 50));
         mainMenButton.setBackground(gui.menu.MainMenu.buttonBackgroundColor);
 
-        this.add(Box.createRigidArea(new java.awt.Dimension(Game.HEIGHT/3, 200)));
+        this.add(Box.createRigidArea(new java.awt.Dimension(Game.HEIGHT / 3, 200)));
         this.add(label);
         this.add(Box.createRigidArea(new java.awt.Dimension(20, 200)));
         this.add(mainMenButton);
     }
-    
+
 }

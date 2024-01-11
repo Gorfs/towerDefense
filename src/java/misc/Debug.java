@@ -4,6 +4,10 @@ import config.*;
 public class Debug {
     public static boolean isDebugging = true;
 
+    
+    /** 
+     * @return boolean
+     */
     public static boolean isDebugging() {
         return isDebugging;
     }
@@ -19,6 +23,10 @@ public class Debug {
             initPath = (Path) initPath.getNextPath();
         }
     }
+    
+    /** 
+     * @param str
+     */
     public static void out(String str){
         if(isDebugging)
         System.out.println("DEBUG>>> " + str);
@@ -33,6 +41,10 @@ public class Debug {
         }
     }
 
+    
+    /** 
+     * @param map
+     */
     public static void printMap(Cell[][] map){
         for(int i = 0 ; i < map.length ;i++){
             for(int j = 0; j < map[0].length ; j++){

@@ -3,8 +3,6 @@ package gui.menu;
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class LevelPanel extends JPanel {
 
@@ -27,10 +25,10 @@ public class LevelPanel extends JPanel {
         playBtn.setFocusPainted(false);
         playBtn.setMaximumSize(new Dimension(100, 30));
 
-        if(waves == -1){
+        if (waves == -1) {
             levelWaves.setText("Marathon mode");
-        }else{
-        levelWaves.setText("waves -> " + waves);
+        } else {
+            levelWaves.setText("waves -> " + waves);
         }
         levelWaves.setFont(levelWaves.getFont().deriveFont(20.0f));
 
@@ -41,6 +39,9 @@ public class LevelPanel extends JPanel {
         this.add(levelWaves);
     }
 
+    /**
+     * @return int
+     */
     public int getNum() {
         return levelNum;
     }

@@ -9,19 +9,32 @@ public class IntCoordinates {
         this.y = y;
     }
 
+    /**
+     * @return int
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * @return int
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * @return String
+     */
     @Override
     public String toString() {
         return "x: " + x + "    y: " + y;
     }
 
+    /**
+     * @param scale
+     * @return RealCoordinates
+     */
     public RealCoordinates toRealCoordinates(double scale) {
         return new RealCoordinates(x * scale, y * scale);
     }

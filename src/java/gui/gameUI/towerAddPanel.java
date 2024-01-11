@@ -31,6 +31,9 @@ public class towerAddPanel extends JPanel {
         this.add(stats);
     }
 
+    /**
+     * @return String
+     */
     public String getName() {
         return this.tower.getName();
     }

@@ -26,7 +26,6 @@ public class addTowerPopUp extends JPopupMenu {
 
     private static JLabel title = new JLabel("Add Tower");
     private static JPanel towersPanel = new JPanel();
-    private static JPanel towerPanel = new JPanel();
 
     public towerAddPanel basicTowerPanel = new towerAddPanel(new TowerBasic(null));
     public towerAddPanel advancedTowerPanel = new towerAddPanel(new TowerAdvanced(null));
@@ -40,6 +39,10 @@ public class addTowerPopUp extends JPopupMenu {
     private int cellY = 0;
     private Slot cell;
 
+    /**
+     * @param x
+     * @param y
+     */
     public void setCell(int x, int y) {
         cellX = x;
         cellY = y;
@@ -77,7 +80,6 @@ public class addTowerPopUp extends JPopupMenu {
             tower.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    // TODO Auto-generated method stub
                     if (tower.enabled) {
                         Debug.out(tower.getName() + " clicked");
                         addTower(e, tower);
@@ -88,7 +90,6 @@ public class addTowerPopUp extends JPopupMenu {
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    // TODO Auto-generated method stub
                     Debug.out("Mouse entered" + tower.getName());
                     if (tower.enabled) {
                         tower.setBackground(gui.menu.MainMenu.buttonBackgroundColor);
@@ -100,7 +101,6 @@ public class addTowerPopUp extends JPopupMenu {
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    // TODO Auto-generated method stub
                     Debug.out("Mouse exited" + tower.getName());
                     tower.setBackground(gui.menu.MainMenu.backgroundColor); // default it if the update function fails.
                     tower.update();
@@ -109,14 +109,12 @@ public class addTowerPopUp extends JPopupMenu {
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    // TODO Auto-generated method stub
                     Debug.out("Mouse Released" + tower.getName());
 
                 }
 
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    // TODO Auto-generated method stub
                     Debug.out("Mouse pressed" + tower.getName());
 
                 }
@@ -134,10 +132,17 @@ public class addTowerPopUp extends JPopupMenu {
 
     }
 
+    /**
+     * @param e
+     */
     public void removeTower(MouseEvent e) {
         GameState.removeTower(cellX, cellY);
     }
 
+    /**
+     * @param e
+     * @param tower
+     */
     public void addTower(MouseEvent e, towerAddPanel tower) {
         Towers gameTower = tower.tower;
         gameTower.setPos(new IntCoordinates(cellX, cellY));

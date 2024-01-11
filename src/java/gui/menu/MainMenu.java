@@ -82,7 +82,6 @@ public class MainMenu extends JPanel implements ActionListener {
         backgroundLabel.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
         backgroundLabel.setPreferredSize(new Dimension(Game.WIDTH, Game.HEIGHT));
 
-
         centerPanel.setOpaque(false);
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
         backgroundLabel.setLayout(new BoxLayout(backgroundLabel, BoxLayout.Y_AXIS));
@@ -91,7 +90,10 @@ public class MainMenu extends JPanel implements ActionListener {
         backgroundLabel.add(centerPanel);
     }
 
-    public  void actionPerformed(ActionEvent e) {
+    /**
+     * @param e
+     */
+    public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playBtn) {
             Debug.out("LevelSelect button pressed");
             Game.changePanel("level");

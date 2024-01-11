@@ -4,13 +4,10 @@ import javax.swing.*;
 
 import gui.Game;
 
-import java.awt.color.*;
 import java.util.ArrayList;
 import java.util.Scanner; // Added import statement for Scanner
 
-import java.util.logging.Level;
 import java.awt.BorderLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
@@ -51,6 +48,11 @@ public class LevelSelectMenu extends JPanel implements ActionListener {
         this.add(menuPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * @param numLevels
+     * @param levelWaves
+     * @return ArrayList<LevelPanel>
+     */
     public ArrayList<LevelPanel> createLevelPanels(int numLevels, ArrayList<Integer> levelWaves) {
         ArrayList<LevelPanel> levelPanels = new ArrayList<>();
         for (int i = 0; i < numLevels; i++) {
@@ -59,8 +61,10 @@ public class LevelSelectMenu extends JPanel implements ActionListener {
         return levelPanels;
     }
 
+    /**
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
-        // TODO set the action to start the level in the main game panel.
         for (LevelPanel levelPanel : levelPanels) {
             if (e.getSource() == levelPanel.playBtn) {
                 Debug.out("Play button pressed");
@@ -76,7 +80,6 @@ public class LevelSelectMenu extends JPanel implements ActionListener {
 
     public static void TermLevelNums() {
         // this is the menu that is called when we want to choose a level.
-        int counter = 0;
         final File folder = new File("src/resources/map");
         for (final File fileEntry : folder.listFiles()) {
             Debug.out(fileEntry.getName());
