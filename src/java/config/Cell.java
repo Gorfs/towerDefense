@@ -3,9 +3,9 @@ package config;
 public class Cell {
     private final int x, y;
 
-    public Cell(int x, int y){
-        this.x = x;
-        this.y = y;
+    public Cell(int x_coord, int y_coord){
+        this.x = x_coord;
+        this.y = y_coord;
     }
     public Cell(){
         this.x = 0;

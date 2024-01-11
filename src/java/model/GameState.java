@@ -209,7 +209,6 @@ public class GameState {
     }
 
     public static void waveEnded() {
-        Game.running = false;
         if (isMarathon) {
             marathonEnemiesWaves++;
             setRunning(false);
@@ -223,6 +222,7 @@ public class GameState {
             if (wave > waveString.split(";").length) {
                 win();
             } else {
+                // Game.running = false;
                 wave++;
                 Player.INSTANCE.updateWave(wave);
             }
@@ -309,8 +309,8 @@ public class GameState {
                     for (Slot slot : towers) {
                         // TODO set factors to a variable rather than a constant 1.
                         if (slot.getTower().IsInRange(monsters.getPos(), 1)) {
-                            // Debug.out("monster in range" + monsters.getPos().x + " " + monsters.getPos().y + " "
-                                    // + slot.getX() + " " + slot.getY());
+                            Debug.out("monster in range" + monsters.getPos().x + " " + monsters.getPos().y + " "
+                                    + slot.getX() + " " + slot.getY());
                             if (monsters.takeDamage(slot.getTower().getAttack(1))) {
                                 monstersToRemoveNextUpdate.add(monsters);
                             }
