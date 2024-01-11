@@ -219,7 +219,6 @@ public class GameState {
             updateWaveInfo();
             difficulty += 0.1;
         } else {
-
             if (wave == -1) {
                 wave = 0;
             }
