@@ -364,6 +364,7 @@ public class GameState {
                     break;
                 case 2:
                     monster = new MonsterAdvanced(initPath);
+                    break;
                 default:
                     monster = new MonsterExpert(initPath);
                     break;
