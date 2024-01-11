@@ -5,12 +5,15 @@ import gui.Game;
 import gui.TermGame;
 import gui.TermPrepMenu;
 import misc.Debug;
+import model.monster.MonsterAdvanced;
 import model.monster.MonsterBasic;
+import model.monster.MonsterExpert;
 import model.monster.Monsters;
 import model.tower.Towers;
 
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Random;
 
 public class GameState {
     private static int timesMonstersMoved = 0;
@@ -25,6 +28,7 @@ public class GameState {
     private static int monstersLeftToSpawn = 0; // the amount of monsters left to spawn in the current wave
     private static boolean isMarathon = false;
     private static int updateToStartNextWave = 0;
+    private static double difficulty = 20; // TODO change back to 0.5 once testing is done.
 
     private static boolean running = false;
     public static boolean hasAlreadyStarted = false;
@@ -213,6 +217,7 @@ public class GameState {
             marathonEnemiesWaves++;
             setRunning(false);
             updateWaveInfo();
+            difficulty += 0.1;
         } else {
 
             if (wave == -1) {
@@ -262,22 +267,39 @@ public class GameState {
         // since the last update
         // Debug.out(towers.toString());
 
-        if (!isMarathon){
+        if (!isMarathon) {
             infoString = "wave " + wave + " / " + waveString.split(";").length;
-        }else{
+        } else {
             infoString = "Marathon wave " + marathonEnemiesWaves;
         }
 
-
-
-
         hasAlreadyStarted = true;
+        // Choosing next monster to spawn randomly
+        
+
         if (running) {
             Debug.out("" + Player.INSTANCE.getHealth()[0]);
             Debug.out("" + Player.INSTANCE.getMoney());
             Debug.out("wave = " + wave);
             Debug.out("currentupdate = " + timesUpdated + " update to start next wave = " + updateToStartNextWave);
             Debug.out("waveString = " + waveString.split(";").length + " str = " + waveString);
+            Monsters monster;
+            Random rd = new Random();
+            double choiceNum = Math.random() * difficulty;
+            if (choiceNum > 1)
+                choiceNum = 1;
+            double choice = 1 + 2 * (choiceNum);
+            int choice2 = Math.round((float) choice);
+            switch (choice2) {
+                case 1:
+                    monster = new MonsterBasic(initPath);
+                    break;
+                case 2:
+                    monster = new MonsterAdvanced(initPath);
+                default:
+                    monster = new MonsterExpert(initPath);
+                    break;
+            }
             if (updateToStartNextWave <= timesUpdated && updateToStartNextWave != -1) {
                 if (updateWaveInfo()) {
                     Debug.out("Game won");
@@ -288,7 +310,8 @@ public class GameState {
             }
             if (monstersLeftToSpawn > 0 && spawning
                     && (updateOfLastSpawn + ((30 / gameSpeed) * 2 * waveInfo[1])) < timesUpdated) {
-                spawnMonster(new MonsterBasic(initPath));
+
+                spawnMonster(monster);
                 monstersLeftToSpawn--;
                 updateOfLastSpawn = timesUpdated;
 
