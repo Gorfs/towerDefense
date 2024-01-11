@@ -30,7 +30,7 @@ public class GameState {
     private static int monstersLeftToSpawn = 0; // the amount of monsters left to spawn in the current wave
     private static boolean isMarathon = false;
     private static int updateToStartNextWave = 0;
-    private static double difficulty = 1;
+    private static double difficulty = 0.1;
 
     private static boolean running = false;
     public static boolean hasAlreadyStarted = false;
@@ -108,13 +108,13 @@ public class GameState {
 
     public static void lose() {
         resetGame();
-        TermGame.unpause();
         if (graphicVersion) {
             if (Game.running) {
-                Game.changePanel("lose");
+                Game.changePanel("lost");
                 Game.running = false;
             }
         } else {
+            TermGame.unpause();
             TermGameOver.termGameOver(false);
         }
     }
