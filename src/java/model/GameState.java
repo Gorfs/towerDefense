@@ -28,7 +28,7 @@ public class GameState {
     private static int monstersLeftToSpawn = 0; // the amount of monsters left to spawn in the current wave
     private static boolean isMarathon = false;
     private static int updateToStartNextWave = 0;
-    private static double difficulty = 20; // TODO change back to 0.5 once testing is done.
+    private static double difficulty = 1;
 
     private static boolean running = false;
     public static boolean hasAlreadyStarted = false;
