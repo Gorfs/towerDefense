@@ -28,7 +28,7 @@ public class GameState {
     private static int monstersLeftToSpawn = 0; // the amount of monsters left to spawn in the current wave
     private static boolean isMarathon = false;
     private static int updateToStartNextWave = 0;
-    private static double difficulty = 0.1;
+    private static double difficulty = 0.40;
     private static Path initPath;
 
     private static boolean running = false;
@@ -362,6 +362,7 @@ public class GameState {
                     break;
                 case 2:
                     monster = new MonsterAdvanced(initPath);
+                    break;
                 default:
                     monster = new MonsterExpert(initPath);
                     break;
