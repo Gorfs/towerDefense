@@ -133,7 +133,7 @@ public class TermPrepMenu {
                     break;
                 } 
             }
-            if (enoughMoney) GameState.addTower(tower, y, x);
+            if (enoughMoney) GameState.addTower(tower, x, y);
             else System.out.println("Error, not enough money to buy the tower");
             TermMainMenu.clearScreen();
         }

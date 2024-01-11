@@ -27,10 +27,10 @@ public class LevelPanel extends JPanel {
         playBtn.setFocusPainted(false);
         playBtn.setMaximumSize(new Dimension(100, 30));
 
-        if (waves == -1) {
-            levelWaves.setText("marathon");
-        } else {
-            levelWaves.setText("waves -> " + waves);
+        if(waves == -1){
+            levelWaves.setText("Marathon mode");
+        }else{
+        levelWaves.setText("waves -> " + waves);
         }
         levelWaves.setFont(levelWaves.getFont().deriveFont(20.0f));
 

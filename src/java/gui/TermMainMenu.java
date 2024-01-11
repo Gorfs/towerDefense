@@ -19,7 +19,6 @@ public class TermMainMenu {
         System.out.flush();  
     } 
 
-
     public static void runTermMainMenu(){
         boolean running = true;
         while(running){
