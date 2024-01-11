@@ -260,7 +260,6 @@ public class GameState {
                 win();
             } else {
                 wave++;
-                Player.INSTANCE.updateWave(wave);
             }
             updateWaveInfo();
         }
