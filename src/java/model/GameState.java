@@ -2,6 +2,7 @@ package model;
 
 import config.*;
 import gui.Game;
+import main.TermMain;
 import misc.Debug;
 import model.monster.MonsterBasic;
 import model.monster.Monsters;
@@ -11,12 +12,11 @@ import java.util.ArrayList;
 import java.io.*;
 
 public class GameState {
-    private static int timesMonstersMoved = 0;
-    private static double gameSpeed = 2;
+    private static final double gameSpeed = 2;
     private static int level = -1;
     public static int money = Player.INSTANCE.getMoney();
     private static int wave = 1; // -1 means that the game is in preperation phase
-    private static int[] waveInfo = new int[2]; // [0] is the amount of enemys, [1] is the speed at which they spawn
+    private static final int[] waveInfo = new int[2]; // [0] is the amount of enemys, [1] is the speed at which they spawn
     private static String waveString = "";
     private static boolean spawning = false; // true if the game is currently spawning monsters
     private static int updateOfLastSpawn = 0;
@@ -34,7 +34,7 @@ public class GameState {
             }
         } catch (IOException er) {
             System.out.println("ERROR -> could not find file for level " + level);
-            er.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -63,7 +63,7 @@ public class GameState {
                 return true;
             } else {
                 getWaveInfo();
-                String str = "";
+                String str;
                 if (waveString.split(";").length == 0) {
                     str = waveString;
                 } else {
@@ -88,8 +88,6 @@ public class GameState {
     public static int getWave() {
         return wave;
     }
-
-    private static ArrayList<Monsters> monstersToRemoveNextUpdate = new ArrayList<>();
 
     static Cell[][] gameMap = Map.getMap();
     private static final ArrayList<Monsters> monsters = new ArrayList<>();
@@ -127,19 +125,11 @@ public class GameState {
         Map.generatePath();
         gameMap = Map.getMap();
         initPath = config.Map.getInitPath();
-        // Debug.printMap(gameMap);
-        // the amount of life the player has left.
         if (gameMap == null) {
             System.out.println(
                     " ERROR -> Game state was loaded before config files, therefore no map was loaded, exiting...");
             System.exit(1);
         }
-
-        // loading path for the monsters
-    }
-
-    public static ArrayList<Monsters> getMonsters() {
-        return monsters;
     }
 
     public static ArrayList<Slot> getTowers() {
@@ -203,18 +193,20 @@ public class GameState {
                                                                                                    // seconds
                                                                                                    // between waves
         }
-        monstersToRemoveNextUpdate = new ArrayList<>();
-        // TODO make the timer based on difficulty rather then set at once per second
+        ArrayList<Monsters> monstersToRemoveNextUpdate = new ArrayList<>();
         if (timesUpdated % (15 / gameSpeed) == 0 && timesUpdated > 1) { // game speed is divided to basically invert the
                                                                         // factor that multiplies the framerate
-            timesMonstersMoved++; // basic stats, not very useful.
             for (Monsters monsters : GameState.monsters) {
 
                 for (Slot slot : towers) {
-                    // TODO set factors to a variable rather than a constant 1.
                     if (slot.getTower().IsInRange(monsters.getPos(), 1)) {
+                        String tower = slot.toString().substring(0,slot.toString().length()-1);
+                        String monster = monsters.toString().substring(0,monsters.toString().length()-1);
+                        TermMain.log.addLog(tower + "->" + monster + "-" + slot.getTower().getAttack(1) + " |");
                         if (monsters.takeDamage(slot.getTower().getAttack(1))) {
                             monstersToRemoveNextUpdate.add(monsters);
+                            TermMain.log.addLog(monsters + "died   |");
+                            TermMain.log.addLog("+10$      |");
                         }
                     }
                 }
@@ -231,5 +223,4 @@ public class GameState {
             }
         }
     }
-
 }

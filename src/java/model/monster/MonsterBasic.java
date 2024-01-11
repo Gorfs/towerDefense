@@ -4,7 +4,7 @@ import config.Path;
 
 public class MonsterBasic extends Monsters{
     public MonsterBasic(Path path) {
-        super(path, 10, 1, 20);
+        super(path, 10, 20);
     }
 
     @Override

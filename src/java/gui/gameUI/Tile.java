@@ -82,7 +82,7 @@ public class Tile extends JLabel {
         slot.setTower(new TowerUltimate(null));
         tower5Img = getBufferedImage(slot, 0);
         Path path = new Path(0, 0);
-        path.setMonster(new Monsters(path, 0, 0, 0));
+        path.setMonster(new Monsters(path, 0, 0));
         monsterImg = getBufferedImage(path, 0);
 
 
