@@ -14,6 +14,7 @@ public class TermPrepMenu {
 
     // class used for methods that deal with the preparation phase of the game
     public static void startPreparationPhase(){
+        run = true;
         while(run){
             preparationMenu();
         }

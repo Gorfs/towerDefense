@@ -11,7 +11,7 @@ public class TermGame {
     private static int updates = 0;
     private static Cell[][] map;
     public static ArrayList<Towers> towers = new ArrayList<>();
-    private static boolean isRunning = false;
+    private static boolean running = false;
     private static long startTime = System.nanoTime();
     private static long timeElapsedSinceLastUpdate = 10000; // is in nanoseconds, +1 to avoid division by zero errors
 
@@ -30,6 +30,10 @@ public class TermGame {
 
         // Debug.printMap(map);
 
+    }
+
+    public static void setRunning(boolean running) {
+        TermGame.running = running;
     }
 
     public static void printMap() {
@@ -95,35 +99,14 @@ public class TermGame {
         GameState.updateGameState(updates);
         printMap();
         System.out.println("fps -> " + 1.0f/(timeElapsedSinceLastUpdate*1E-9));
-
-
-        //!! This is all just Debug code for the terminal version of the game.
-
-        // ArrayList<Monster> monsters = GameState.getMonsters();
-        // ArrayList<Slot> towers = GameState.getTowers();
-        // for(Monster monster : monsters){
-        //     System.out.println(monster.getId() + " health:"  + monster.getHealth()[0] + " position : " + monster.getPos().x + " " + monster.getPos().y);
-        // }
-        // for(Slot model.tower : towers){
-        //     // TODO, change damage factor to variable rather than just 1
-        //     System.out.println(model.tower.toString() + " position : " + model.tower.getX() + " " + model.tower.getY() + " range :" + model.tower.getTower().getRange(1));
-        // }
-        // for(Monster monster: monsters){
-        //     for(Slot model.tower: towers){
-        //         System.out.println("monster " + monster.getId() + " range status to : x: " + model.tower.getX() + " y:" + model.tower.getY() + " is "
-        //         + model.tower.getTower().IsInRange(monster.getPos(), 1) + " distance to model.tower is ="
-        //         + model.tower.getTower().getDistance(monster.getPos()));
-        //     }
-        // }
-        
     }
 
 
     public static void run(){
         // we assume the main menu and the preperation phase a finished, this is the main game loop for gameplay
-            isRunning = true;
+            running = true;
             long priorTime = System.nanoTime();
-            while(isRunning){
+            while(running){
                 if(System.nanoTime() - priorTime > 16600000){
                     // 1/60th of a second has passed, updating gameView
                     timeElapsedSinceLastUpdate = (System.nanoTime()) - priorTime;

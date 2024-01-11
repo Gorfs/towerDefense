@@ -2,6 +2,7 @@ package model;
 
 import config.*;
 import gui.Game;
+import gui.TermGameOver;
 import misc.Debug;
 import model.monster.MonsterBasic;
 import model.monster.Monsters;
@@ -12,6 +13,7 @@ import java.io.*;
 
 public class GameState {
     private static int timesMonstersMoved = 0;
+    private static boolean graphicVersion = false;
     private static double gameSpeed = 2;
     private static int level = -1;
     public static int money = Player.INSTANCE.getMoney();
@@ -38,21 +40,34 @@ public class GameState {
         }
     }
 
+    public static void resetGame() {
+        Player.INSTANCE.resetPlayer();
+        monstersToRemoveNextUpdate.addAll(monsters);
+        towers.clear();
+        wave = 0;
+    }
+
     public static void win() {
-        if (Game.running) {
-            Game.changePanel("won");
-            Game.running = false;
+        resetGame();
+        if (graphicVersion) {
+            if (Game.running) {
+                Game.changePanel("won");
+                Game.running = false;
+            }
         } else {
-            // TODO setup winning for terminal version of game.
+            TermGameOver.termGameOver(true);
         }
     }
 
     public static void lose() {
-        if (Game.running) {
-            Game.changePanel("lose");
-            Game.running = false;
-        }else{
-            //TODO setup losing for terminal version of game.
+        resetGame();
+        if (graphicVersion) {
+            if (Game.running) {
+                Game.changePanel("lose");
+                Game.running = false;
+            }
+        } else {
+            TermGameOver.termGameOver(false);
         }
     }
 
@@ -232,4 +247,7 @@ public class GameState {
         }
     }
 
+    public static void setGraphicVersion(boolean graphicVersion) {
+        GameState.graphicVersion = graphicVersion;
+    }
 }
