@@ -8,6 +8,9 @@ import java.io.File;
 
 import config.*;
 import misc.Debug;
+import model.monster.MonsterAdvanced;
+import model.monster.MonsterBasic;
+import model.monster.MonsterExpert;
 import model.monster.Monsters;
 import model.tower.*;
 
@@ -26,7 +29,9 @@ public class Tile extends JLabel {
     static public ImageIcon tower3Img;
     static public ImageIcon tower4Img;
     static public ImageIcon tower5Img;
-    static public ImageIcon monsterImg;
+    static public ImageIcon zombieImg;
+    static public ImageIcon slimeImg;
+    static public ImageIcon endermanImg;
 
     private static ArrayList<ImageIcon> images = new ArrayList<ImageIcon>();
 
@@ -58,7 +63,14 @@ public class Tile extends JLabel {
             if(((Path)cell).isEmpty()){
                 return pathImg;
             }else{
-                return monsterImg;
+                switch(((Path)cell).getMonster().toString()){
+                    case "() ":
+                        return slimeImg;
+                    case "<> ": 
+                        return zombieImg;
+                    case "[] ":
+                        return endermanImg;
+                }
             }
         }
         return getBufferedImage(cell, 1);
@@ -82,8 +94,13 @@ public class Tile extends JLabel {
         slot.setTower(new TowerUltimate(null));
         tower5Img = getBufferedImage(slot, 0);
         Path path = new Path(0, 0);
-        path.setMonster(new Monsters(path, 0, 0, 0));
-        monsterImg = getBufferedImage(path, 0);
+        path.setMonster(new MonsterAdvanced(null));
+        zombieImg = getBufferedImage(path, 0);
+        path.setMonster(new MonsterBasic(null));
+        slimeImg = getBufferedImage(path, 0);
+        path.setMonster(new MonsterExpert(null));
+        endermanImg = getBufferedImage(path, 0);
+
 
 
     }
@@ -101,11 +118,24 @@ public class Tile extends JLabel {
             }
         } else if (type == "() ") {
             try {
-                img = ImageIO.read(new File("src/resources/art/assets/enemies/zombie.png"));
+                img = ImageIO.read(new File("src/resources/art/assets/enemies/slime.png"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-                } else if (type.matches("BT.*")) {
+        }else if (type == "<> "){
+            try{
+                img = ImageIO.read(new File("src/resources/art/assets/enemies/zombie.png"));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else if (type == "[] ") {
+            try{
+                img = ImageIO.read(new File("src/resources/art/assets/enemies/enderman.png"));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        } else if (type.matches("BT.*")) {
             try {
                 img = ImageIO.read(new File("src/resources/art/assets/towers/arrow.png"));
             } catch (Exception e) {

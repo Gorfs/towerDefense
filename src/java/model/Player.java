@@ -19,6 +19,10 @@ public class Player {
         return money;
     }
 
+    public void updateWave(int w){
+        this.wave = w;
+    }
+
     public void updateMoney(int money) {
         this.money += money;
     }

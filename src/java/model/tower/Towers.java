@@ -2,6 +2,7 @@ package model.tower;
 
 import geometry.IntCoordinates;
 import geometry.RealCoordinates;
+import gui.Game;
 import model.monster.Monsters;
 
 import java.util.HashSet;
@@ -63,15 +64,16 @@ public class Towers {
     }
 
     public double getDistance(RealCoordinates mPos){
+   
         return 
         Math.max(
             Math.max(
-                Math.abs(pos.getX() - mPos.getX()),
-                Math.abs(pos.getY() - mPos.getY())
+                Math.abs(pos.getX() - mPos.getY()), // !! coordinates inverted due to map being a list of lists.
+                Math.abs(pos.getY() - mPos.getX())
                 ), 
             Math.max(
-                Math.abs(mPos.getX() - pos.getX()),
-                Math.abs(mPos.getY() - pos.getY())
+                Math.abs(mPos.getX() - pos.getY()),
+                Math.abs(mPos.getY() - pos.getX())
                 ));
         // return Math.sqrt(Math.pow((mPos.getX() - pos.getX()), 2) +
         //         Math.pow((mPos.getY() - pos.getY()),2));
