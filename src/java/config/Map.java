@@ -5,16 +5,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import misc.Debug;
 
 
 public class Map {
-    private static Cell[][] map = new Cell[10][13];
+    private static final Cell[][] map = new Cell[10][13];
     private static Path initPath;
 
-    
     /** 
-     * @param file
+     * @param file file level
      */
     public static void generateMap(int file) {
         String fileString = "level" + file;
@@ -75,16 +73,14 @@ public class Map {
         }
     }
 
-
-    
     /** 
-     * @param x
-     * @param y
+     * @param x pos x
+     * @param y pos y
      * @return ArrayList<Cell>
      */
     private static ArrayList<Cell> getSurroundingCoordinates(int x, int y){
         // should return all the tiles around the current tile
-        ArrayList<Cell> result = new ArrayList<Cell>();
+        ArrayList<Cell> result = new ArrayList<>();
         if (x > 0){
             result.add(map[y][x-1]);
         }
@@ -99,9 +95,6 @@ public class Map {
         }
         return result;
     }
-
-
-
     
     /** 
      * @return Path
@@ -109,8 +102,6 @@ public class Map {
     public static Path getInitPath(){
         return initPath;
     }
-
-
     
     /** 
      * @return int
@@ -119,25 +110,22 @@ public class Map {
         return map[0].length;
     }
 
-    
     /** 
      * @return int
      */
     public static int getHeight() {
         return map.length;
     }
-
     
     /** 
-     * @param x
-     * @param y
+     * @param x pos x
+     * @param y pos y
      * @return Cell
      */
     public static Cell getCell(int x, int y) {
         return map[x][y];
     }
-    
-    
+
     /** 
      * @return Cell[][]
      */

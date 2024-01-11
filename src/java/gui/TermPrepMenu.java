@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import config.Slot;
 import geometry.IntCoordinates;
-import main.TermMain;
 import misc.*;
 import model.*;
 import model.tower.*;
