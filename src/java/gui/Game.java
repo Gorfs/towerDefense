@@ -8,7 +8,6 @@ import gui.gameUI.Tile;
 import gui.menu.*;
 import misc.Debug;
 import model.*;
-import config.*;
 
 public class Game {
     
@@ -16,20 +15,18 @@ public class Game {
     public static final int WIDTH = 1101;
     public static final int HEIGHT = 800;
 
-    private static Cell[][] map;
-
     public static boolean running = false;
-    public static boolean isPreperationPhase = false;
+    public static boolean isPreparationPhase = false;
 
-    private static CardLayout cardLayout = new CardLayout();
-    private static JPanel mainPanel = new JPanel(cardLayout);
+    private static final CardLayout cardLayout = new CardLayout();
+    private static final JPanel mainPanel = new JPanel(cardLayout);
 
     private static GameWindow gameWindow = new GameWindow();
-    private static MainMenu mainMenu = new MainMenu();
-    private static LevelSelectMenu levelMenu = new LevelSelectMenu();
-    private static SettingsMenu settingsMenu = new SettingsMenu();
+    private static final MainMenu mainMenu = new MainMenu();
+    private static final LevelSelectMenu levelMenu = new LevelSelectMenu();
+    private static final SettingsMenu settingsMenu = new SettingsMenu();
 
-    private static GamePanel gamePanel = new GamePanel();
+    private static final GamePanel gamePanel = new GamePanel();
 
     public static int levelSelect;
 
@@ -51,9 +48,9 @@ public class Game {
     }
     
     /** 
-     * @param n
+     * @param n level
      */
-    public static void setlevel(int n){
+    public static void setLevel(int n){
         levelSelect = n;
     }
     
@@ -72,14 +69,10 @@ public class Game {
     public static void start(){
         GameState.initGameState(levelSelect);
         Tile.initImages();
-        map = GameState.getMap();
         updateGUI();
-        // TODO setup preperation phase then moving to game phase
-        // TODO setup going back to main menu after loosing of winning a round.
     }
 
     public static void updateGUI(){
-        // Debug.printMap(map);
         gamePanel.update();
         GameState.money = Player.INSTANCE.getMoney();
         //!!  The line under this comment somehow fixes a load of graphical bugs, do not remove.
@@ -87,7 +80,7 @@ public class Game {
     }
 
     public static void gameLoop(){
-        //!! do not remove thread, the gameloop needs to run on a different thread to the rest of the application
+        //!! do not remove thread, the game loop needs to run on a different thread to the rest of the application
         new Thread(()->{
             long priorTime = System.nanoTime();
             while(running){
@@ -107,7 +100,7 @@ public class Game {
 
     
     /** 
-     * @param panelName
+     * @param panelName panel name
      */
     public static void changePanel(String panelName) {
         Debug.out("Changing panel to " + panelName);
@@ -123,7 +116,7 @@ public class Game {
                 break;
             case "game":
                 cardLayout.show(mainPanel, "game");
-                isPreperationPhase = true;
+                isPreparationPhase = true;
                 break;
             case "lost":
                 cardLayout.show(mainPanel, "lost");

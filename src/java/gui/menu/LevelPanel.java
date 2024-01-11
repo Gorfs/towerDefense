@@ -3,12 +3,9 @@ package gui.menu;
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class LevelPanel extends JPanel {
 
-    private JLabel levelName;
     public int levelNum;
     public JButton playBtn = new JButton();
     public JLabel levelWaves = new JLabel("waves -> ");
@@ -19,7 +16,7 @@ public class LevelPanel extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.setBackground(MainMenu.backgroundColor);
 
-        levelName = new JLabel("Level " + num);
+        JLabel levelName = new JLabel("Level " + num);
         levelName.setFont(levelName.getFont().deriveFont(20.0f));
         playBtn.setBackground(MainMenu.buttonBackgroundColor);
         playBtn.setText("Play");

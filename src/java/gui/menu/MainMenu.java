@@ -16,32 +16,25 @@ import java.awt.event.ActionEvent;
 import misc.Debug;
 
 public class MainMenu extends JPanel implements ActionListener {
-    public static boolean running = false;
     private static final int BUTTON_WIDTH = 400;
     private static final int BUTTON_HEIGHT = 50;
 
     public static Color backgroundColor = new Color(90, 101, 117);
     public static Color buttonBackgroundColor = new Color(120, 131, 157);
 
-    private JLabel backgroundLabel = new JLabel();
-
-    private JButton playBtn = new JButton("Play");
-    private JButton settingsBtn = new JButton("Settings");
-    private JButton exitBtn = new JButton("Exit");
-    private ArrayList<JButton> buttons = new ArrayList<>();
-
-    private JPanel buttonsPanel = new JPanel();
-    // private JPanel artPanel = new JPanel(); // will probably be just an empty
-    // spacer Panel as the art can become the
-    // background of the mainMenu
+    private final JButton playBtn = new JButton("Play");
+    private final JButton settingsBtn = new JButton("Settings");
+    private final JButton exitBtn = new JButton("Exit");
 
     public MainMenu() {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
         this.setBackground(backgroundColor);
-        backgroundLabel = new JLabel(new ImageIcon(new File("src/resources/art/assets/bg.png").getAbsolutePath()));
+        JLabel backgroundLabel = new JLabel(new ImageIcon(new File("src/resources/art/assets/bg.png").getAbsolutePath()));
 
+        ArrayList<JButton> buttons = new ArrayList<>();
         buttons.add(playBtn);
         buttons.add(settingsBtn);
         buttons.add(exitBtn);
@@ -56,16 +49,6 @@ public class MainMenu extends JPanel implements ActionListener {
         }
         buttonsPanel.setMaximumSize(new Dimension(BUTTON_WIDTH, Game.HEIGHT));
         buttonsPanel.setBackground(backgroundColor);
-        // Add borders to panels
-        // artPanel.setBorder(BorderFactory.createLineBorder(Color.red));
-        // this.setBorder(BorderFactory.createLineBorder(Color.blue));
-        // buttonsPanel.setBorder(BorderFactory.createLineBorder(Color.green));
-
-        // this.setAlignmentX(CENTER_ALIGNMENT);
-        // this.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
-        // artPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Game.HEIGHT / 2));
-        // buttonsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Game.HEIGHT /
-        // 2));
 
         buttonsPanel.add(Box.createRigidArea(new Dimension(0, Game.HEIGHT / 2)));
         buttonsPanel.add(playBtn);
@@ -93,7 +76,7 @@ public class MainMenu extends JPanel implements ActionListener {
 
     
     /** 
-     * @param e
+     * @param e action listener
      */
     public  void actionPerformed(ActionEvent e) {
         if (e.getSource() == playBtn) {

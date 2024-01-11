@@ -1,20 +1,18 @@
 package gui.gameUI;
 
 import javax.swing.*;
+import java.awt.*;
 
 import misc.Debug;
-import model.GameState;
 import model.Player;
-
-import java.awt.*;
 
 
 public class UIPanel extends JPanel {
     int lives;
     int money;
 
-    private JLabel livesLabel = new JLabel("Health: " + lives);
-    private JLabel moneyLabel = new JLabel("Money: " + Player.INSTANCE.getMoney());
+    private final JLabel livesLabel = new JLabel("Health: " + lives);
+    private final JLabel moneyLabel = new JLabel("Money: " + Player.INSTANCE.getMoney());
 
     public UIPanel() {
         super();

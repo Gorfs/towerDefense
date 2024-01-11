@@ -7,34 +7,19 @@ public class Path extends Cell {
     private boolean isEmpty;
     private Monsters monsters;
     private Cell nextPath;
-
-    private boolean isSpawn;
     private boolean isBase;
 
-    public Path(Path nextPath, int x, int y){
-        super(x,y);
-        this.monsters = null;
-        this.isEmpty = true;
-        this.nextPath = nextPath;
+    public Path(boolean isBase, int x, int y){
+        this(x, y);
+        this.isBase = isBase;
     }
-    public Path(){
-        super();
-        this.monsters = null;
+
+    public Path(int x, int y) {
+        super(x,y);
         this.isEmpty = true;
         this.nextPath = null;
     }
 
-    public Path(boolean isSpawn, int x, int y){
-        super(x,y);
-        this.isSpawn = true;
-        this.isEmpty = true;
-        this.nextPath = null;
-    }
-    public Path(boolean isSpawn, boolean isBase, int x, int y){
-        this(false, x, y);
-        this.isBase = true;
-    }
-    
     /** 
      * @return boolean
      */
@@ -43,32 +28,12 @@ public class Path extends Cell {
     }
     
     /** 
-     * @param next
+     * @param next Set the next path as next
      */
     public void setNextPath(Cell next){
-        this.nextPath =  next;
+        this.nextPath = next;
     }
 
-    public Path(int x, int y){
-        this(false, x, y);
-    }
-
-    
-    /** 
-     * @param isSpawn
-     */
-    public void setSpawn(boolean isSpawn){
-        this.isSpawn = isSpawn;
-    }
-    
-    /** 
-     * @return boolean
-     */
-    public boolean isSpawn(){
-        return this.isSpawn;
-    }
-
-    
     /** 
      * @return Cell
      */
@@ -93,7 +58,7 @@ public class Path extends Cell {
 
     
     /** 
-     * @param monsters
+     * @param monsters Set monsters as the monster in cell
      */
     public void setMonster(Monsters monsters){
         this.isEmpty = false;

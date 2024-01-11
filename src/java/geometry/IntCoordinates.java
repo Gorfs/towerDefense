@@ -33,14 +33,4 @@ public class IntCoordinates {
     public String toString() {
         return "x: " + x + "    y: " + y;
     }
-
-    
-    /** 
-     * @param scale
-     * @return RealCoordinates
-     */
-    public RealCoordinates toRealCoordinates(double scale) {
-        return new RealCoordinates(x * scale, y * scale);
-    }
-
 }

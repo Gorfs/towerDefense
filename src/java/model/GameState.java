@@ -14,16 +14,14 @@ import model.tower.Towers;
 
 import java.util.ArrayList;
 import java.io.*;
-import java.util.Random;
+import java.util.Objects;
 
 public class GameState {
-    private static int timesMonstersMoved = 0;
     private static boolean graphicVersion = false;
-    private static double gameSpeed = 2;
     private static int level = -1;
     public static int money = Player.INSTANCE.getMoney();
-    private static int wave = 1; // -1 means that the game is in preperation phase
-    private static int[] waveInfo = new int[2]; // [0] is the amount of enemys, [1] is the speed at which they spawn
+    private static int wave = 1; // -1 means that the game is in preparation phase
+    private static final int[] waveInfo = new int[2]; // [0] is the amount of enemies, [1] is the speed at which they spawn
     private static String waveString = "";
     private static boolean spawning = false; // true if the game is currently spawning monsters
     private static int updateOfLastSpawn = 0;
@@ -35,26 +33,23 @@ public class GameState {
     private static boolean running = false;
     public static boolean hasAlreadyStarted = false;
 
-    public static String infoString = "Preperation Phase"; // the string that is displayed above the map.
+    public static String infoString = "Preparation Phase"; // the string that is displayed above the map.
     
     /** 
      * @return boolean
      */
     // once per second is the maximum speed possible.
-
     public static boolean getHasAlreadyStarted() {
         return hasAlreadyStarted;
     }
-
     
     /** 
-     * @param b
+     * @param b b
      */
     public static void setRunning(boolean b) {
         running = b;
     }
 
-    
     /** 
      * @return boolean
      */
@@ -62,53 +57,26 @@ public class GameState {
         return running;
     }
 
-    private static int marathonEnemiesToSpawn = 10;
     private static int marathonEnemiesWaves = 1;
-    
-    /** 
-     * @param marathon
-     */
-    // once per second is the maximum speed possible.
-
-    public static void setMarathon(boolean marathon) {
-        isMarathon = marathon;
-    }
-
-    
-    /** 
-     * @return boolean
-     */
-    public static boolean getMarathon() {
-        return isMarathon;
-    }
-
-    
-    /** 
-     * @return boolean
-     */
-    public static boolean isSpawning() {
-        return spawning;
-    }
 
     public static void getWaveInfo() {
-        String e = "";
+        String e;
         try {
             BufferedReader reader = new BufferedReader(
                     new FileReader(("src/resources/mapInfo/level" + level + ".txt")));
             while ((e = reader.readLine()) != null) {
                 waveString = e;
             }
-            if (waveString == "") {
+            if (Objects.equals(waveString, "")) {
                 isMarathon = true;
             }
         } catch (IOException er) {
             System.out.println("ERROR -> could not find file for level " + level);
-            er.printStackTrace();
+            throw new RuntimeException(er);
         }
     }
 
     public static void resetGame() {
-        System.out.println("aaaaaaa");
         Player.INSTANCE.resetPlayer();
         monstersToRemoveNextUpdate.addAll(monsters);
         for (var tower: towers) tower.removeTower();
@@ -143,13 +111,13 @@ public class GameState {
         }
     }
 
-    
     /** 
      * @return boolean
      */
     public static boolean updateWaveInfo() {
         getWaveInfo();
         if (isMarathon) {
+            int marathonEnemiesToSpawn = 10;
             waveInfo[0] = marathonEnemiesToSpawn + (marathonEnemiesWaves * 2);
             waveInfo[1] = 1;
             monstersLeftToSpawn = waveInfo[0];
@@ -161,7 +129,7 @@ public class GameState {
                     win();
                     return true;
                 } else {
-                    String str = "";
+                    String str;
                     if (waveString.split(";").length == 0) {
                         str = waveString;
                     } else {
@@ -176,15 +144,11 @@ public class GameState {
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 // the game has been won
-                // TODO make this have a winning screen and go back to the main menu
                 return true;
-
             }
         }
-
     }
 
-    
     /** 
      * @return int
      */
@@ -198,14 +162,13 @@ public class GameState {
     private static final ArrayList<Monsters> monsters = new ArrayList<>();
     private static final ArrayList<Slot> towers = new ArrayList<>();
 
-    
     /** 
-     * @param tower
-     * @param x
-     * @param y
+     * @param tower add a new tower
+     * @param x pos x for tower
+     * @param y pos y for tower
      */
     public static void addTower(Towers tower, int x, int y) {
-        if (gameMap[y][x] instanceof Slot && (!towers.contains(gameMap[y][x]))) {
+        if (gameMap[y][x] instanceof Slot && !towers.contains(gameMap[y][x])) {
             ((Slot) gameMap[y][x]).setTower(tower);
             towers.add((Slot) gameMap[y][x]);
             Player.INSTANCE.removeMoney(tower.getCost());
@@ -217,8 +180,8 @@ public class GameState {
 
     
     /** 
-     * @param x
-     * @param y
+     * @param x pos x
+     * @param y pos y
      */
     public static void removeTower(int x, int y) {
         if (gameMap[y][x] instanceof Slot) {
@@ -236,7 +199,7 @@ public class GameState {
 
     
     /** 
-     * @param levelChoice
+     * @param levelChoice select level
      */
     public static void initGameState(int levelChoice) {
         Map.generateMap(levelChoice);
@@ -245,26 +208,14 @@ public class GameState {
         Map.generatePath();
         gameMap = Map.getMap();
         initPath = config.Map.getInitPath();
-        // Debug.printMap(gameMap);
         // the amount of life the player has left.
         if (gameMap == null) {
             System.out.println(
                     " ERROR -> Game state was loaded before config files, therefore no map was loaded, exiting...");
             System.exit(1);
         }
-
-        // loading path for the monsters
     }
 
-    
-    /** 
-     * @return ArrayList<Monsters>
-     */
-    public static ArrayList<Monsters> getMonsters() {
-        return monsters;
-    }
-
-    
     /** 
      * @return ArrayList<Slot>
      */
@@ -282,7 +233,7 @@ public class GameState {
 
     
     /** 
-     * @param monsters
+     * @param monsters monster to spawn
      */
     public static void spawnMonster(Monsters monsters) {
 
@@ -343,32 +294,27 @@ public class GameState {
     }
 
     
-    /** 
-     * @param timesUpdated
+    /**
+     * @param timesUpdated which frame we currently are at
      */
     public static void updateGameState(int timesUpdated) {
         // every time this function is called it is considered that one frame has passed
         // since the last update
-        // Debug.out(towers.toString());
 
         if (!isMarathon) {
             infoString = "wave " + wave + " / " + waveString.split(";").length;
         } else {
             infoString = "Marathon wave " + marathonEnemiesWaves;
         }
-
         hasAlreadyStarted = true;
         // Choosing next monster to spawn randomly
-
-
         if (running) {
             Debug.out("" + Player.INSTANCE.getHealth()[0]);
             Debug.out("" + Player.INSTANCE.getMoney());
             Debug.out("wave = " + wave);
-            Debug.out("currentupdate = " + timesUpdated + " update to start next wave = " + updateToStartNextWave);
+            Debug.out("current update = " + timesUpdated + " update to start next wave = " + updateToStartNextWave);
             Debug.out("waveString = " + waveString.split(";").length + " str = " + waveString);
             Monsters monster;
-            Random rd = new Random();
             double choiceNum = Math.random() * difficulty;
             if (choiceNum > 1)
                 choiceNum = 1;
@@ -380,6 +326,7 @@ public class GameState {
                     break;
                 case 2:
                     monster = new MonsterAdvanced(initPath);
+                    break;
                 default:
                     monster = new MonsterExpert(initPath);
                     break;
@@ -392,6 +339,7 @@ public class GameState {
                 spawning = true;
                 updateToStartNextWave = -1;
             }
+            double gameSpeed = 2;
             if (monstersLeftToSpawn > 0 && spawning
                     && (updateOfLastSpawn + ((30 / gameSpeed) * 2 * waveInfo[1])) < timesUpdated) {
 
@@ -402,22 +350,14 @@ public class GameState {
             }
             if (monsters.isEmpty() && monstersLeftToSpawn == 0 && spawning) {
                 waveEnded();
-                updateToStartNextWave = ((int) Math.floor(timesUpdated + (3 * 2 * (30 / gameSpeed)))); // TODO set the 5
-                                                                                                       // as
-                                                                                                       // the time in
-                                                                                                       // seconds
-                                                                                                       // between waves
+                updateToStartNextWave = ((int) Math.floor(timesUpdated + (3 * 2 * (30 / gameSpeed))));
             }
             monstersToRemoveNextUpdate = new ArrayList<>();
-            // TODO make the timer based on difficulty rather then set at once per second
             if (timesUpdated % (15 / gameSpeed) == 0 && timesUpdated > 1) { // game speed is divided to basically invert
-                                                                            // the
-                                                                            // factor that multiplies the framerate
-                timesMonstersMoved++; // basic stats, not very useful.
+                                                                            // the factor that multiplies the framerate
                 for (Monsters monsters : GameState.monsters) {
 
                     for (Slot slot : towers) {
-                        // TODO set factors to a variable rather than a constant 1.
                         if (slot.getTower().IsInRange(monsters.getPos(), 1)) {
                             Debug.out("monster in range" + monsters.getPos().x + " " + monsters.getPos().y + " "
                                     + slot.getX() + " " + slot.getY());
@@ -445,7 +385,7 @@ public class GameState {
 
     
     /** 
-     * @param graphicVersion
+     * @param graphicVersion is graphic version
      */
     public static void setGraphicVersion(boolean graphicVersion) {
         GameState.graphicVersion = graphicVersion;

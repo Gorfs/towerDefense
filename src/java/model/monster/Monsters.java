@@ -1,38 +1,32 @@
 package model.monster;
 
-import geometry.RealCoordinates;
+import geometry.IntCoordinates;
 import config.Path;
 import model.Player;
 
 public class Monsters {
-    private static int id_num = 0;
     private Path path;
-    private final int id;
     private final int[] health;
     private final int attack;
-    private final int speed;
 
 
-    public Monsters(Path path, int attack, int speed, int health) {
+    public Monsters(Path path, int attack, int health) {
         this.path = path;
-        this.id = id_num;
-        id_num++;
         this.attack = attack;
-        this.speed = speed;
         this.health = new int[]{health, health};
 
     }
     
-    /** 
-     * @return RealCoordinates
+    /**
+     * @return IntCoordinates
      */
-    public RealCoordinates getPos(){
-        return new RealCoordinates(this.path.getX(), this.path.getY());
+    public IntCoordinates getPos(){
+        return new IntCoordinates(this.path.getX(), this.path.getY());
     }
 
     
-    /** 
-     * @param 0
+    /**
+     * @param damage d
      * @return boolean
      */
     public boolean takeDamage(int damage){ // returns a boolean if the monster is dead
@@ -46,8 +40,7 @@ public class Monsters {
     }
 
     
-    /** 
-     * @param null
+    /**
      * @return boolean
      */
     public boolean move(){ // returns true if the enemy has made it to the end, else it returns false
@@ -74,43 +67,12 @@ public class Monsters {
     }
     
     /** 
-     * @param path
-     */
-    public void setPath(Path path){
-        this.path = path;
-    }
-
-    
-    /** 
-     * @return int
-     */
-    public int getId() {
-        return id;
-    }
-
-    
-    /** 
      * @return int
      */
     public int getAttack() {
         return attack;
     }
 
-    
-    /** 
-     * @return int
-     */
-    public int getSpeed() {
-        return speed;
-    }
-
-    
-    /** 
-     * @return int[]
-     */
-    public int[] getHealth() {
-        return health;
-    }
     public String toString(){
         return "<> ";
     }

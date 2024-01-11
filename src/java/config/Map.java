@@ -32,7 +32,7 @@ public class Map {
                 for (int i = 0; i < data.length; i ++) {
                     switch (data[i]) {
                         case "B" : {
-                            Path cell = new Path(false,true,i,n);
+                            Path cell = new Path(true,i,n);
                             map[n][i] = cell;
                             break;
                         }

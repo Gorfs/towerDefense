@@ -6,19 +6,18 @@ import misc.Debug;
 import model.*;
 import model.tower.Towers;
 
-public class towerAddPanel extends JPanel {
+public class TowerAddPanel extends JPanel {
 
     public JLabel name = new JLabel();
     public JLabel stats = new JLabel();
 
     public Towers tower;
-    public boolean enabled = false;
+    public boolean enabled;
 
-    public towerAddPanel(Towers tower) {
+    public TowerAddPanel(Towers tower) {
         super();
         this.tower = tower;
         enabled = false;
-        // TODO setup
         name.setText(tower.getName());
         stats.setText("DPS: " + tower.getAttack(1) / 4 + " Range: " + tower.getRange(1) + " Cost: " + tower.getPrice());
         name.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 20));

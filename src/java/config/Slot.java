@@ -4,17 +4,11 @@ import model.tower.Towers;
 public class Slot extends Cell{
     private boolean isEmpty;
     private Towers tower;
-    // TODO: Add the same thing as for the path class, but with Towers, wait until Tower class has been made.
-    
+
     public Slot(int x, int y){
         super(x, y);
         isEmpty = true;
     }
-    public Slot(){
-        super();
-        isEmpty = true;
-    }
-
     
     /** 
      * @return Towers
@@ -24,7 +18,7 @@ public class Slot extends Cell{
     }
     
     /** 
-     * @param tower
+     * @param tower Set tower as the tower in this Slot
      */
     public void setTower(Towers tower){
         this.isEmpty = false;

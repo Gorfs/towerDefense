@@ -9,13 +9,9 @@ import model.Player;
 
 public class TermGame {
     private static int updates = 0;
-    private static Cell[][] map;
     public static ArrayList<Towers> towers = new ArrayList<>();
     private static boolean running = false;
-    private static long startTime = System.nanoTime();
     private static long timeElapsedSinceLastUpdate = 10000; // is in nanoseconds, +1 to avoid division by zero errors
-    public static boolean paused = false;
-
     
     /** 
      * @return boolean
@@ -32,30 +28,17 @@ public class TermGame {
         running = false;
     }
 
-    
     /** 
-     * @return int
-     */
-    public int getUpdates() {
-        return updates;
-    }
-
-    
-    /** 
-     * @param level
+     * @param level current level
      */
     public static void runGame(int level) {
         // Create a Scanner object
         GameState.initGameState(level);
-        map = GameState.getMap();
         TermMainMenu.clearScreen();
         TermPrepMenu.startPreparationPhase();
         GameState.setRunning(true);
         TermMainMenu.clearScreen();
         run();
-
-        // Debug.printMap(map);
-
     }
 
     public static void printMap() {
@@ -123,17 +106,8 @@ public class TermGame {
             System.out.println(line);
     }
 
-    
-    /** 
-     * @return Cell[][]
-     */
-    public Cell[][] getMap() {
-        return map;
-    }
-
     public static void animate() {
-        // this is where our main animation cycle is going to be...
-        // TODO create a function in GameState that updates the gameState
+        // this is where our main animation cycle is going to be
         TermMainMenu.clearScreen();
 
         if (GameState.getRunning()) {GameState.updateGameState(updates);
@@ -143,7 +117,7 @@ public class TermGame {
     }
 
     public static void run(){
-        // we assume the main menu and the preperation phase a finished, this is the// main game loop for gameplay
+        // we assume the main menu and the preparation phase a finished, this is the// main game loop for gameplay
         running = true;
         long priorTime = System.nanoTime();
         while (running) {

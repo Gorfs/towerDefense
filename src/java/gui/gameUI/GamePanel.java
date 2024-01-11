@@ -3,7 +3,6 @@ package gui.gameUI;
 import javax.swing.*;
 
 import gui.Game;
-import gui.menu.GameLostPanel;
 import gui.menu.MainMenu;
 import model.GameState;
 
@@ -13,21 +12,18 @@ public class GamePanel extends JPanel {
     // this panel contains the whole UI for the gameplay part of the Tower Defense
     // game
 
-    private JLabel title = new JLabel(("Level " + Game.getLevel()), SwingConstants.CENTER);
-
-    // this panel contains the shop and the gameplay area
-    private JPanel mainPanel = new JPanel();
+    private final JLabel title = new JLabel(("Level " + Game.getLevel()), SwingConstants.CENTER);
 
     // the panel where most of the gamePlay happens
-    private GamePlayPanel gamePlayPanel = new GamePlayPanel();
-
-    private JButton startRoundBtn = new JButton("Start");
+    private final GamePlayPanel gamePlayPanel = new GamePlayPanel();
 
     public GamePanel() {
         super();
         this.setBackground(MainMenu.backgroundColor);
         this.setLayout(new BorderLayout());
 
+        // this panel contains the shop and the gameplay area
+        JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
 
         title.setFont(title.getFont().deriveFont(30.0f));
@@ -38,6 +34,7 @@ public class GamePanel extends JPanel {
         // border here
         gamePlayPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
 
+        JButton startRoundBtn = new JButton("Start");
         startRoundBtn.setBackground(MainMenu.buttonBackgroundColor);
         startRoundBtn.setForeground(Color.white);
         startRoundBtn.setFocusPainted(false);
@@ -48,7 +45,7 @@ public class GamePanel extends JPanel {
                     GameState.restartGame();
                 }
                 Game.startRound();
-                Game.isPreperationPhase = false;
+                Game.isPreparationPhase = false;
                 Game.running = true;
                 GameState.setRunning(true);
             }
@@ -61,8 +58,6 @@ public class GamePanel extends JPanel {
 
         mainPanel.add(centerPanel);
         this.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
-        // centerPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE,
-        // Integer.MAX_VALUE));
 
         this.add(startRoundBtn, BorderLayout.SOUTH);
         this.add(title, BorderLayout.NORTH);

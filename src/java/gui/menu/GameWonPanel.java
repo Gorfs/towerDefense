@@ -1,13 +1,9 @@
 package gui.menu;
 
-import java.awt.Image;
-
 import javax.swing.*;
 
 import gui.Game;
 import misc.Debug;
-import gui.menu.*;
-
 
 public class GameWonPanel extends JLabel{
 

@@ -7,7 +7,6 @@ public class Player {
     private final int[] health = new int[]{100,100};
     private double timer = 0.0;
     private int money = 70;
-    private int wave = 1;
 
     public void resetPlayer() {
         health[1] = health[0];
@@ -22,18 +21,9 @@ public class Player {
     public int getMoney() {
         return money;
     }
-
     
     /** 
-     * @param w
-     */
-    public void updateWave(int w){
-        this.wave = w;
-    }
-
-    
-    /** 
-     * @param money
+     * @param money money to add or remove
      */
     public void updateMoney(int money) {
         this.money += money;
@@ -41,7 +31,7 @@ public class Player {
 
     
     /** 
-     * @param price
+     * @param price money to remove
      */
     public void removeMoney(int price) {
         Debug.out("Money removed");
@@ -57,15 +47,6 @@ public class Player {
         return health;
     }
 
-    
-    /** 
-     * @param health
-     */
-    public void heal(int health) {
-        this.health[1] += health;
-    }
-
-    
     /** 
      * @return String
      */
@@ -91,25 +72,12 @@ public class Player {
         // return result
         return STimer;
     }
-
     
     /** 
-     * @param timer
+     * @param timer update timer
      */
     public void updateTimer(double timer) {
         this.timer += timer * 1E-9;
-    }
-
-    
-    /** 
-     * @return int
-     */
-    public int getWave() {
-        return wave;
-    }
-
-    public void setWave(int wave) {
-        this.wave = wave;
     }
 
     public void takeDamage(int hp) {

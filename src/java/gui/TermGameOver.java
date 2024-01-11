@@ -7,12 +7,12 @@ public class TermGameOver {
     private static final Scanner sc = new Scanner(System.in);
     
     /** 
-     * @param win
+     * @param won true if game won
      */
-    public static void termGameOver(boolean win) {
+    public static void termGameOver(boolean won) {
         TermMainMenu.clearScreen();
 
-        if (win) {
+        if (won) {
             System.out.println(
                     "                                            \n" +
                     "                                            \n" +
@@ -49,7 +49,7 @@ public class TermGameOver {
                 break;
             }
             default: {
-                TermGameOver.termGameOver(win);
+                TermGameOver.termGameOver(won);
                 break;
             }
         }

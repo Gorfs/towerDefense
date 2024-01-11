@@ -11,10 +11,7 @@ import misc.Debug;
 import model.monster.MonsterAdvanced;
 import model.monster.MonsterBasic;
 import model.monster.MonsterExpert;
-import model.monster.Monsters;
 import model.tower.*;
-
-import java.util.ArrayList;
 
 public class Tile extends JLabel {
 
@@ -33,7 +30,6 @@ public class Tile extends JLabel {
     static public ImageIcon slimeImg;
     static public ImageIcon endermanImg;
 
-    private static ArrayList<ImageIcon> images = new ArrayList<ImageIcon>();
 
     public Tile(ImageIcon image, Cell cell) {
         super(image);
@@ -44,7 +40,7 @@ public class Tile extends JLabel {
 
     
     /** 
-     * @param cell
+     * @param cell c
      * @return ImageIcon
      */
     public static ImageIcon getImage(Cell cell) {
@@ -78,121 +74,112 @@ public class Tile extends JLabel {
                 }
             }
         }
-        return getBufferedImage(cell, 1);
-
+        return getBufferedImage(cell);
     }
 
     public static void initImages() {
-        grass1Img = getBufferedImage(new Slot(0, 0), 1);
-        grass2Img = getBufferedImage(new Slot(0, 0), 2);
-        grass3Img = getBufferedImage(new Slot(0, 0), 3);
-        pathImg = getBufferedImage(new Path(0, 0), 1);
+        grass1Img = getBufferedImage(new Slot(0, 0));
+        grass2Img = getBufferedImage(new Slot(0, 0));
+        grass3Img = getBufferedImage(new Slot(0, 0));
+        pathImg = getBufferedImage(new Path(0, 0));
         Slot slot = new Slot(0, 0);
         slot.setTower(new TowerBasic(null));
-        tower1Img = getBufferedImage(slot, 0);
+        tower1Img = getBufferedImage(slot);
         slot.setTower(new TowerAdvanced(null));
-        tower2Img = getBufferedImage(slot, 0);
+        tower2Img = getBufferedImage(slot);
         slot.setTower(new TowerExpert(null));
-        tower3Img = getBufferedImage(slot, 0);
+        tower3Img = getBufferedImage(slot);
         slot.setTower(new TowerMaster(null));
-        tower4Img = getBufferedImage(slot, 0);
+        tower4Img = getBufferedImage(slot);
         slot.setTower(new TowerUltimate(null));
-        tower5Img = getBufferedImage(slot, 0);
+        tower5Img = getBufferedImage(slot);
         Path path = new Path(0, 0);
         path.setMonster(new MonsterAdvanced(null));
-        zombieImg = getBufferedImage(path, 0);
+        zombieImg = getBufferedImage(path);
         path.setMonster(new MonsterBasic(null));
-        slimeImg = getBufferedImage(path, 0);
+        slimeImg = getBufferedImage(path);
         path.setMonster(new MonsterExpert(null));
-        endermanImg = getBufferedImage(path, 0);
-
-
-
+        endermanImg = getBufferedImage(path);
     }
 
-    
     /** 
-     * @param cell
-     * @param i
+     * @param cell c
      * @return ImageIcon
      */
-    private static ImageIcon getBufferedImage(Cell cell, int i) {
-        BufferedImage img = null;
+    private static ImageIcon getBufferedImage(Cell cell) {
+        BufferedImage img;
         String type = cell.toString();
         // used primarily outside of this class to get the image for the tile
-        // TODO make new images for each type of Tower and enemy
         if (type.matches(".*XX.*")) {
             try {
                 img = ImageIO.read(new File("src/resources/art/assets/textures/grass.png"));
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
-        } else if (type == "() ") {
+        } else if (type.equals("() ")) {
             try {
                 img = ImageIO.read(new File("src/resources/art/assets/enemies/slime.png"));
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
-        }else if (type == "<> "){
+        }else if (type.equals("<> ")){
             try{
                 img = ImageIO.read(new File("src/resources/art/assets/enemies/zombie.png"));
             }catch (Exception e){
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
-        }else if (type == "[] ") {
+        }else if (type.equals("[] ")) {
             try{
                 img = ImageIO.read(new File("src/resources/art/assets/enemies/enderman.png"));
             }catch (Exception e){
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
 
         } else if (type.matches("BT.*")) {
             try {
                 img = ImageIO.read(new File("src/resources/art/assets/towers/arrow.png"));
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         } else if (type.matches("AT.*")) {
             try {
                 img = ImageIO.read(new File("src/resources/art/assets/towers/dispenser.png"));
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
 
         } else if (type.matches("ET.*")) {
             try {
                 img = ImageIO.read(new File("src/resources/art/assets/towers/iron_g.png"));
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
 
         } else if (type.matches("MT.*")) {
             try {
                 img = ImageIO.read(new File("src/resources/art/assets/towers/snow_g.png"));
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
 
         } else if (type.matches("UT.*")) {
             try {
                 img = ImageIO.read(new File("src/resources/art/assets/towers/villager.png"));
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
-        } else if (type == "   ") {
+        } else if (type.equals("   ")) {
             try {
                 img = ImageIO.read(new File("src/resources/art/assets/textures/dirt.png"));
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }else{
 
             return grass1Img;
         }
         Debug.out(type);
-        ImageIcon dImage = new ImageIcon(img.getScaledInstance(TILE_SIZE, TILE_SIZE, Image.SCALE_DEFAULT));
-        images.add(dImage);
-        return dImage;
+        return new ImageIcon(img.getScaledInstance(TILE_SIZE, TILE_SIZE, Image.SCALE_DEFAULT));
     }
 
 }
