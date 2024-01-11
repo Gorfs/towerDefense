@@ -38,7 +38,7 @@ public class MapPanel extends JPanel {
                 } else {
                     Tile tile = new Tile(Tile.getImage(GameState.getMap()[i][j]), GameState.getMap()[i][j]);
                     // tile.setBorder(BorderFactory.createLineBorder(Color.red)); // Add border here
-                    if (!tile.cell.toString().equals("[] ")) {
+                    if (!tile.cell.toString().equals("   ")) {
                         if(tile.cell.toString().matches("XX ")){
                             tile.setToolTipText("click to add Tower");
                         }

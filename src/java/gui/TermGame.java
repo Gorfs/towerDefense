@@ -28,7 +28,7 @@ public class TermGame {
 
 
     public static void unpause(){
-        run();
+        isRunning = true;
     }
 
     public static void pause(){

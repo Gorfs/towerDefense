@@ -5,12 +5,15 @@ import gui.Game;
 import gui.TermGame;
 import gui.TermPrepMenu;
 import misc.Debug;
+import model.monster.MonsterAdvanced;
 import model.monster.MonsterBasic;
+import model.monster.MonsterExpert;
 import model.monster.Monsters;
 import model.tower.Towers;
 
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Random;
 
 public class GameState {
     private static int timesMonstersMoved = 0;
@@ -23,7 +26,9 @@ public class GameState {
     private static boolean spawning = false; // true if the game is currently spawning monsters
     private static int updateOfLastSpawn = 0;
     private static int monstersLeftToSpawn = 0; // the amount of monsters left to spawn in the current wave
+    private static boolean isMarathon = false;
     private static int updateToStartNextWave = 0;
+    private static double difficulty = 20; // TODO change back to 0.5 once testing is done.
 
     private static boolean running = false;
     public static boolean hasAlreadyStarted = false;
@@ -43,6 +48,22 @@ public class GameState {
         return running;
     }
 
+    private static int marathonEnemiesToSpawn = 10;
+    private static int marathonEnemiesWaves = 1;
+    // once per second is the maximum speed possible.
+
+    public static void setMarathon(boolean marathon) {
+        isMarathon = marathon;
+    }
+
+    public static boolean getMarathon() {
+        return isMarathon;
+    }
+
+    public static boolean isSpawning() {
+        return spawning;
+    }
+
     public static void getWaveInfo() {
         String e = "";
         try {
@@ -50,6 +71,9 @@ public class GameState {
                     new FileReader(("src/resources/mapInfo/level" + level + ".txt")));
             while ((e = reader.readLine()) != null) {
                 waveString = e;
+            }
+            if (waveString == "") {
+                isMarathon = true;
             }
         } catch (IOException er) {
             System.out.println("ERROR -> could not find file for level " + level);
@@ -77,30 +101,38 @@ public class GameState {
     }
 
     public static boolean updateWaveInfo() {
-        try {
-            if (waveString.split(";").length < wave) {
-                win();
-                return true;
-            } else {
-                getWaveInfo();
-                String str = "";
-                if (waveString.split(";").length == 0) {
-                    str = waveString;
-                } else {
-                    str = waveString.split(";")[wave - 1];
-                }
-                int enemyCount = Integer.parseInt(str.split(",")[0]);
-                int enemySpeed = Integer.parseInt(str.split(",")[1]);
-                waveInfo[0] = enemyCount;
-                waveInfo[1] = enemySpeed;
-                monstersLeftToSpawn = enemyCount;
-                return false;
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            // the game has been won
-            // TODO make this have a winning screen and go back to the main menu
-            return true;
+        getWaveInfo();
+        if (isMarathon) {
+            waveInfo[0] = marathonEnemiesToSpawn + (marathonEnemiesWaves * 2);
+            waveInfo[1] = 1;
+            monstersLeftToSpawn = waveInfo[0];
+            return false;
 
+        } else {
+            try {
+                if (waveString.split(";").length < wave) {
+                    win();
+                    return true;
+                } else {
+                    String str = "";
+                    if (waveString.split(";").length == 0) {
+                        str = waveString;
+                    } else {
+                        str = waveString.split(";")[wave - 1];
+                    }
+                    int enemyCount = Integer.parseInt(str.split(",")[0]);
+                    int enemySpeed = Integer.parseInt(str.split(",")[1]);
+                    waveInfo[0] = enemyCount;
+                    waveInfo[1] = enemySpeed;
+                    monstersLeftToSpawn = enemyCount;
+                    return false;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // the game has been won
+                // TODO make this have a winning screen and go back to the main menu
+                return true;
+
+            }
         }
 
     }
@@ -181,28 +213,43 @@ public class GameState {
     }
 
     public static void waveEnded() {
-        if (wave == -1) {
-            wave = 0;
-        }else{
-            wave++;
-            Player.INSTANCE.updateWave(wave);
+        if (isMarathon) {
+            marathonEnemiesWaves++;
+            setRunning(false);
+            updateWaveInfo();
+            difficulty += 0.1;
+        } else {
+
+            if (wave == -1) {
+                wave = 0;
+            }
+            spawning = false;
+            if (wave > waveString.split(";").length) {
+                win();
+            } else {
+                // Game.running = false;
+                wave++;
+                Player.INSTANCE.updateWave(wave);
+            }
+            updateWaveInfo();
         }
         spawning = false;
-        if (wave  > waveString.split(";").length) {
+        if (wave > waveString.split(";").length) {
             win();
         } else {
             pauseGame();
+            updateWaveInfo();
             if (TermGame.getRunning()) {
-                // TermGame.pause();
+                TermGame.pause();
                 TermPrepMenu.startPreparationPhase();
-                TermGame.setRunning(true);
-                // TermGame.unpause();
-                // TermGame.unpause();
+                // TermGame.run();
+                TermGame.unpause();
             } else {
                 Game.running = false;
                 infoString = "Wave " + wave + " has ended, Press the play button to start the next wave.";
             }
-            
+            restartGame();
+
         }
     }
 
@@ -212,20 +259,47 @@ public class GameState {
 
     public static void restartGame() {
         running = true;
+        spawning = true;
     }
 
     public static void updateGameState(int timesUpdated) {
         // every time this function is called it is considered that one frame has passed
         // since the last update
         // Debug.out(towers.toString());
-        infoString = "wave " + wave + " / " + waveString.split(";").length;
+
+        if (!isMarathon) {
+            infoString = "wave " + wave + " / " + waveString.split(";").length;
+        } else {
+            infoString = "Marathon wave " + marathonEnemiesWaves;
+        }
+
         hasAlreadyStarted = true;
+        // Choosing next monster to spawn randomly
+        
+
         if (running) {
             Debug.out("" + Player.INSTANCE.getHealth()[0]);
             Debug.out("" + Player.INSTANCE.getMoney());
             Debug.out("wave = " + wave);
             Debug.out("currentupdate = " + timesUpdated + " update to start next wave = " + updateToStartNextWave);
             Debug.out("waveString = " + waveString.split(";").length + " str = " + waveString);
+            Monsters monster;
+            Random rd = new Random();
+            double choiceNum = Math.random() * difficulty;
+            if (choiceNum > 1)
+                choiceNum = 1;
+            double choice = 1 + 2 * (choiceNum);
+            int choice2 = Math.round((float) choice);
+            switch (choice2) {
+                case 1:
+                    monster = new MonsterBasic(initPath);
+                    break;
+                case 2:
+                    monster = new MonsterAdvanced(initPath);
+                default:
+                    monster = new MonsterExpert(initPath);
+                    break;
+            }
             if (updateToStartNextWave <= timesUpdated && updateToStartNextWave != -1) {
                 if (updateWaveInfo()) {
                     Debug.out("Game won");
@@ -236,7 +310,8 @@ public class GameState {
             }
             if (monstersLeftToSpawn > 0 && spawning
                     && (updateOfLastSpawn + ((30 / gameSpeed) * 2 * waveInfo[1])) < timesUpdated) {
-                spawnMonster(new MonsterBasic(initPath));
+
+                spawnMonster(monster);
                 monstersLeftToSpawn--;
                 updateOfLastSpawn = timesUpdated;
 
@@ -260,6 +335,8 @@ public class GameState {
                     for (Slot slot : towers) {
                         // TODO set factors to a variable rather than a constant 1.
                         if (slot.getTower().IsInRange(monsters.getPos(), 1)) {
+                            Debug.out("monster in range" + monsters.getPos().x + " " + monsters.getPos().y + " "
+                                    + slot.getX() + " " + slot.getY());
                             if (monsters.takeDamage(slot.getTower().getAttack(1))) {
                                 monstersToRemoveNextUpdate.add(monsters);
                             }
