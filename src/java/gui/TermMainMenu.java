@@ -69,21 +69,21 @@ public class TermMainMenu {
         int counter = 1;
         // this is the menu that is called when we want to choose a level.
         do {
-            if (levelChoice > counter || levelChoice < 1) System.out.println("Nombre invalide");
+            if (levelChoice > counter || levelChoice < 1) System.out.println("Invalid level");
             counter = 1;
-            System.out.println("Les levels disponibles:");
+            System.out.println("Available levels:");
             final File folder = new File("src/resources/map");
             for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
                 System.out.println(" " + counter + ": " + fileEntry.getName().substring(0,fileEntry.getName().length() - 4));
                 counter++;
             }
-            System.out.println("\n\n Votre Choix: ");
+            System.out.println("\n\n Choose your level: ");
             try {
                 // check out if the input is a correct number
                 levelChoice = sc.nextInt();
             } catch (Exception e) {
                 levelChoice = counter + 1;
-                System.out.println("Entrée invalide, veuillez entrer un nombre.");
+                System.out.println("Invalid input, select a valid level.");
             }
             clearScreen();
         } while (levelChoice > counter || levelChoice < 1);

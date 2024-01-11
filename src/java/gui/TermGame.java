@@ -1,5 +1,6 @@
 package gui;
 
+import main.TermMain;
 import model.*;
 import config.*;
 
@@ -96,15 +97,16 @@ public class TermGame {
         // Display everything
         display[2] = String.format("%s%s%s", money, wave, timer);
         display[3] = "+---+----------------------------------------+-------------------+";
-        display[4] = "|///|  A  B  C  D  E  F  G  H  I  J  K  L  M | ";
-        display[5] = "+---+----------------------------------------+ ";
+        display[4] = "|///|  A  B  C  D  E  F  G  H  I  J  K  L  M | " + TermMain.log.getLog()[0];
+        display[5] = "+---+----------------------------------------+ " + TermMain.log.getLog()[1];
         display[16] = display[3];
 
         for (int x = 0; x < Map.getHeight(); x++) {
-            display[x + 6] = ("| " + (x + 1) + " | ");
+            if (x + 1 < 10) display[x + 6] = ("| " + (x + 1) + " | ");
+            else display[x + 6] = ("|" + (x + 1) + " | ");
             for (int y = 0; y < Map.getWidth(); y++)
                 display[x + 6] = display[x + 6] + Map.getCell(x, y);
-            display[x + 6] = display[x + 6] + "| ";
+            display[x + 6] = display[x + 6] + "| " + TermMain.log.getLog()[x + 2];
         }
 
         for (var line : display)

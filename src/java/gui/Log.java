@@ -8,6 +8,10 @@ public class Log {
     private final String[] log;
     public Log() {
         log = new String[length];
+        resetLog();
+    }
+
+    public void resetLog() {
         for (int i = 0; i < length; i++) log[i] = "                  |";
     }
 
