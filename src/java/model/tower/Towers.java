@@ -1,7 +1,8 @@
-package model;
+package model.tower;
 
 import geometry.IntCoordinates;
 import geometry.RealCoordinates;
+import model.monster.Monsters;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,7 @@ public class Towers {
     private final int speed;
     private final int range;
     private final int price;
-    private final Set<Monster> monstersInRange = new HashSet<>();
+    private final Set<Monsters> monstersInRange = new HashSet<>();
 
     public Towers(IntCoordinates pos, int attack, int speed, int range, int price) {
         this.pos = pos;
@@ -32,7 +33,7 @@ public class Towers {
         return price;
     }
 
-    public Set<Monster> getMonstersInRange() {
+    public Set<Monsters> getMonstersInRange() {
         return monstersInRange;
     }
     
@@ -40,8 +41,8 @@ public class Towers {
         return "Null Tower";
     }
 
-    public void setMonstersInRange(Monster monster, int factor) {
-        if (this.IsInRange(monster.getPos(), factor)) this.monstersInRange.add(monster);
+    public void setMonstersInRange(Monsters monsters, int factor) {
+        if (this.IsInRange(monsters.getPos(), factor)) this.monstersInRange.add(monsters);
     }
 
 

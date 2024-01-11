@@ -6,25 +6,18 @@ import config.Slot;
 import geometry.IntCoordinates;
 import misc.*;
 import model.*;
-import java.util.ArrayList;
+import model.tower.*;
 
 public class TermPrepMenu {
     private static final Scanner sc = new Scanner(System.in);
     private static boolean run = true;
-    private static final ArrayList<Slot> towerList = new ArrayList<>();
-    
-    
+
     // class used for methods that deal with the preparation phase of the game
-
-
     public static void startPreparationPhase(){
         while(run){
             preparationMenu();
         }
     }
-
-
-
 
     public static void preparationMenu(){
         // the main function that is called when the preparation phase is to the started
@@ -91,7 +84,6 @@ public class TermPrepMenu {
             System.out.println("Error, not a valid slot");
             addTowerMenu();
         }else{
-            Slot slot = (Slot) model.GameState.getMap()[x][y];
             boolean enoughMoney = false;
             System.out.println("what tower would you like to add?");
             System.out.println("1 -> basic tower");
@@ -140,7 +132,7 @@ public class TermPrepMenu {
                     break;
                 } 
             }
-            if (enoughMoney) GameState.addTower(tower, x, y);
+            if (enoughMoney) GameState.addTower(tower, y, x);
             else System.out.println("Error, not enough money to buy the tower");
             TermMainMenu.clearScreen();
         }

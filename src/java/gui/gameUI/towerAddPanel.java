@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import misc.Debug;
 import model.*;
+import model.tower.Towers;
 
 public class towerAddPanel extends JPanel {
 

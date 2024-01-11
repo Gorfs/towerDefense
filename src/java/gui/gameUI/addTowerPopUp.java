@@ -14,12 +14,12 @@ import misc.Debug;
 import java.util.ArrayList;
 
 import model.GameState;
-import model.TowerAdvanced;
-import model.TowerBasic;
-import model.TowerExpert;
-import model.TowerMaster;
-import model.TowerUltimate;
-import model.Towers;
+import model.tower.TowerAdvanced;
+import model.tower.TowerBasic;
+import model.tower.TowerExpert;
+import model.tower.TowerMaster;
+import model.tower.TowerUltimate;
+import model.tower.Towers;
 import config.*;
 
 public class addTowerPopUp extends JPopupMenu {
@@ -83,7 +83,7 @@ public class addTowerPopUp extends JPopupMenu {
                         addTower(e, tower);
                         Game.updateGUI();
                         close();
-                    } // close the popup after adding a tower
+                    } // close the popup after adding a model.tower
                 }
 
                 @Override

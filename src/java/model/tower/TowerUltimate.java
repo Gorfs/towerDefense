@@ -1,4 +1,4 @@
-package model;
+package model.tower;
 
 import geometry.IntCoordinates;
 
