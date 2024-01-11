@@ -44,6 +44,6 @@ public class GamePlayPanel extends JPanel {
         mapPanel.update();
         uiPanel.update();
         //TODO set the wave number on this label
-        infoTitle.setText((Game.isPreperationPhase) ? "Preperation Phase" : ("Wave " + GameState.getWave()));
+        infoTitle.setText((GameState.getHasAlreadyStarted()) ? GameState.infoString : "Preperation Phase");
     }
 }

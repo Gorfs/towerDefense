@@ -3,7 +3,9 @@ package gui.gameUI;
 import javax.swing.*;
 
 import gui.Game;
+import gui.menu.GameLostPanel;
 import gui.menu.MainMenu;
+import model.GameState;
 
 import java.awt.*;
 
@@ -41,9 +43,14 @@ public class GamePanel extends JPanel {
         startRoundBtn.setFocusPainted(false);
         startRoundBtn.setMaximumSize(new Dimension(100, 30));
         startRoundBtn.addActionListener(e -> {
+            if (GameState.getHasAlreadyStarted()){
+                GameState.restartGame();
+            }
             Game.startRound();
             Game.isPreperationPhase = false;
             Game.running = true;
+            GameState.setRunning(true);
+            
         });
 
         JPanel centerPanel = new JPanel();

@@ -33,7 +33,7 @@ public class MapPanel extends JPanel {
         this.setLayout(new GridLayout(heightOfMap, lengthOfMap));
         for (int i = 0; i < heightOfMap; i++) {
             for (int j = 0; j < lengthOfMap; j++) {
-                if (GameState.getMap()[i][j] == null) {
+                if (GameState.getMap()[i][j] == null && !Game.running) {
                     // Debug.out("Map was null before calling the GUI function to load it");
                 } else {
                     Tile tile = new Tile(Tile.getImage(GameState.getMap()[i][j]), GameState.getMap()[i][j]);

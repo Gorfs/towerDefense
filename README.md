@@ -16,7 +16,7 @@ Pour lancer le jeu on a 2 modes differents:
 jdk 11 ou version superieur
 ```
 
-### utilisation avec linux
+### utilisation avec cmd
 
 #### compilation des fichiers
 ```
@@ -34,7 +34,6 @@ java -cp src/java main.Main
 ```
 java -cp src/java main.TermMain
 ```
-### Utilsation avec Windows
 
 
 
