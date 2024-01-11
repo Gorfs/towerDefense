@@ -23,6 +23,7 @@ public class GameState {
     private static boolean spawning = false; // true if the game is currently spawning monsters
     private static int updateOfLastSpawn = 0;
     private static int monstersLeftToSpawn = 0; // the amount of monsters left to spawn in the current wave
+    private static boolean isMarathon = false;
     private static int updateToStartNextWave = 0;
 
     private static boolean running = false;
@@ -43,6 +44,18 @@ public class GameState {
         return running;
     }
 
+    private static int marathonEnemiesToSpawn = 10;
+    private static int marathonEnemiesWaves = 1;
+    // once per second is the maximum speed possible.
+
+    public static void setMarathon(boolean marathon) {
+        isMarathon = marathon;
+    }
+
+    public static boolean getMarathon(){
+        return isMarathon;
+    }
+
     public static void getWaveInfo() {
         String e = "";
         try {
@@ -50,6 +63,9 @@ public class GameState {
                     new FileReader(("src/resources/mapInfo/level" + level + ".txt")));
             while ((e = reader.readLine()) != null) {
                 waveString = e;
+            }
+            if (waveString == "") {
+                isMarathon = true;
             }
         } catch (IOException er) {
             System.out.println("ERROR -> could not find file for level " + level);
@@ -77,30 +93,38 @@ public class GameState {
     }
 
     public static boolean updateWaveInfo() {
-        try {
-            if (waveString.split(";").length < wave) {
-                win();
-                return true;
-            } else {
-                getWaveInfo();
-                String str = "";
-                if (waveString.split(";").length == 0) {
-                    str = waveString;
-                } else {
-                    str = waveString.split(";")[wave - 1];
-                }
-                int enemyCount = Integer.parseInt(str.split(",")[0]);
-                int enemySpeed = Integer.parseInt(str.split(",")[1]);
-                waveInfo[0] = enemyCount;
-                waveInfo[1] = enemySpeed;
-                monstersLeftToSpawn = enemyCount;
-                return false;
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            // the game has been won
-            // TODO make this have a winning screen and go back to the main menu
-            return true;
+        getWaveInfo();
+        if (isMarathon) {
+            waveInfo[0] = marathonEnemiesToSpawn + (marathonEnemiesWaves * 2);
+            waveInfo[1] = 1;
+            monstersLeftToSpawn = waveInfo[0];
+            return false;
 
+        } else {
+            try {
+                if (waveString.split(";").length < wave) {
+                    win();
+                    return true;
+                } else {
+                    String str = "";
+                    if (waveString.split(";").length == 0) {
+                        str = waveString;
+                    } else {
+                        str = waveString.split(";")[wave - 1];
+                    }
+                    int enemyCount = Integer.parseInt(str.split(",")[0]);
+                    int enemySpeed = Integer.parseInt(str.split(",")[1]);
+                    waveInfo[0] = enemyCount;
+                    waveInfo[1] = enemySpeed;
+                    monstersLeftToSpawn = enemyCount;
+                    return false;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // the game has been won
+                // TODO make this have a winning screen and go back to the main menu
+                return true;
+
+            }
         }
 
     }
@@ -181,14 +205,17 @@ public class GameState {
     }
 
     public static void waveEnded() {
+        if (isMarathon) {
+            marathonEnemiesWaves++;
+        }
         if (wave == -1) {
             wave = 0;
-        }else{
+        } else {
             wave++;
             Player.INSTANCE.updateWave(wave);
         }
         spawning = false;
-        if (wave  > waveString.split(";").length) {
+        if (wave > waveString.split(";").length) {
             win();
         } else {
             pauseGame();
@@ -202,7 +229,7 @@ public class GameState {
                 Game.running = false;
                 infoString = "Wave " + wave + " has ended, Press the play button to start the next wave.";
             }
-            
+
         }
     }
 
