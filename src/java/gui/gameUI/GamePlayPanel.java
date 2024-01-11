@@ -44,11 +44,11 @@ public class GamePlayPanel extends JPanel {
         mapPanel.update();
         uiPanel.update();
         //TODO set the wave number on this label
-        if(GameState.getMarathon()){
-            infoTitle.setText("Marathon mode");
-        }else{
-            infoTitle.setText(GameState.infoString);
-        }
+        // if(GameState.getMarathon()){
+            // infoTitle.setText("Marathon mode");
+        // }else{
+        infoTitle.setText(GameState.infoString);
+        // }
         
     }
 }

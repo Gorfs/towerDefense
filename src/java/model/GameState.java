@@ -262,8 +262,11 @@ public class GameState {
         // since the last update
         // Debug.out(towers.toString());
 
-        if (!isMarathon)
+        if (!isMarathon){
             infoString = "wave " + wave + " / " + waveString.split(";").length;
+        }else{
+            infoString = "Marathon wave " + marathonEnemiesWaves;
+        }
 
 
 
