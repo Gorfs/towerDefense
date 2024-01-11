@@ -9,24 +9,21 @@ public class IntCoordinates {
         this.y = y;
     }
 
-    
-    /** 
+    /**
      * @return int
      */
     public int getX() {
         return x;
     }
 
-    
-    /** 
+    /**
      * @return int
      */
     public int getY() {
         return y;
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     @Override
@@ -34,8 +31,7 @@ public class IntCoordinates {
         return "x: " + x + "    y: " + y;
     }
 
-    
-    /** 
+    /**
      * @param scale
      * @return RealCoordinates
      */

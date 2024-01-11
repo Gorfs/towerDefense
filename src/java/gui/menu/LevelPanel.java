@@ -3,8 +3,6 @@ package gui.menu;
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class LevelPanel extends JPanel {
 
@@ -41,8 +39,7 @@ public class LevelPanel extends JPanel {
         this.add(levelWaves);
     }
 
-    
-    /** 
+    /**
      * @return int
      */
     public int getNum() {

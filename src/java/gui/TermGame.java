@@ -12,36 +12,32 @@ public class TermGame {
     private static Cell[][] map;
     public static ArrayList<Towers> towers = new ArrayList<>();
     private static boolean running = false;
-    private static long startTime = System.nanoTime();
     private static long timeElapsedSinceLastUpdate = 10000; // is in nanoseconds, +1 to avoid division by zero errors
     public static boolean paused = false;
 
-    
-    /** 
+    /**
      * @return boolean
      */
-    public static boolean getRunning(){
+    public static boolean getRunning() {
         return running;
     }
 
-    public static void unpause(){
+    public static void unpause() {
         running = true;
     }
 
-    public static void pause(){
+    public static void pause() {
         running = false;
     }
 
-    
-    /** 
+    /**
      * @return int
      */
     public int getUpdates() {
         return updates;
     }
 
-    
-    /** 
+    /**
      * @param level
      */
     public static void runGame(int level) {
@@ -123,8 +119,7 @@ public class TermGame {
             System.out.println(line);
     }
 
-    
-    /** 
+    /**
      * @return Cell[][]
      */
     public Cell[][] getMap() {
@@ -133,17 +128,18 @@ public class TermGame {
 
     public static void animate() {
         // this is where our main animation cycle is going to be...
-        // TODO create a function in GameState that updates the gameState
         TermMainMenu.clearScreen();
 
-        if (GameState.getRunning()) {GameState.updateGameState(updates);
-        printMap();
-        System.out.println("fps -> " + 1.0f/(timeElapsedSinceLastUpdate*1E-9));
-    }
+        if (GameState.getRunning()) {
+            GameState.updateGameState(updates);
+            printMap();
+            System.out.println("fps -> " + 1.0f / (timeElapsedSinceLastUpdate * 1E-9));
+        }
     }
 
-    public static void run(){
-        // we assume the main menu and the preperation phase a finished, this is the// main game loop for gameplay
+    public static void run() {
+        // we assume the main menu and the preperation phase a finished, this is the//
+        // main game loop for gameplay
         running = true;
         long priorTime = System.nanoTime();
         while (running) {

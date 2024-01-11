@@ -11,7 +11,6 @@ import model.*;
 import config.*;
 
 public class Game {
-    
 
     public static final int WIDTH = 1101;
     public static final int HEIGHT = 800;
@@ -35,8 +34,6 @@ public class Game {
 
     public static int updates = 0;
 
-    
-
     public Game() {
         gameWindow = new GameWindow();
         gameWindow.add(mainPanel);
@@ -46,55 +43,55 @@ public class Game {
         mainPanel.add(gamePanel, "game");
         mainPanel.add(new GameWonPanel(), "won");
         mainPanel.add(new GameLostPanel(), "lost");
-        
+
         gameWindow.setVisible(true);
     }
-    
-    /** 
+
+    /**
      * @param n
      */
-    public static void setlevel(int n){
+    public static void setlevel(int n) {
         levelSelect = n;
     }
-    
-    /** 
+
+    /**
      * @return int
      */
-    public static int getLevel(){
+    public static int getLevel() {
         return levelSelect;
     }
 
-    public static void startRound(){
+    public static void startRound() {
         running = true;
         gameLoop();
     }
 
-    public static void start(){
+    public static void start() {
         GameState.initGameState(levelSelect);
         Tile.initImages();
         map = GameState.getMap();
         updateGUI();
-        // TODO setup preperation phase then moving to game phase
-        // TODO setup going back to main menu after loosing of winning a round.
     }
 
-    public static void updateGUI(){
+    public static void updateGUI() {
         // Debug.printMap(map);
         gamePanel.update();
         GameState.money = Player.INSTANCE.getMoney();
-        //!!  The line under this comment somehow fixes a load of graphical bugs, do not remove.
+        // !! The line under this comment somehow fixes a load of graphical bugs, do not
+        // remove.
         gameWindow.validate();
     }
 
-    public static void gameLoop(){
-        //!! do not remove thread, the gameloop needs to run on a different thread to the rest of the application
-        new Thread(()->{
+    public static void gameLoop() {
+        // !! do not remove thread, the gameloop needs to run on a different thread to
+        // the rest of the application
+        new Thread(() -> {
             long priorTime = System.nanoTime();
-            while(running){
-                if(System.nanoTime() - priorTime > 16600000*2){
+            while (running) {
+                if (System.nanoTime() - priorTime > 16600000 * 2) {
                     // 1/60th of a second has passed, updating gameView
                     updates++;
-                    Debug.out("fps -> " + 1.0f/((System.nanoTime() - priorTime)*1E-9)); 
+                    Debug.out("fps -> " + 1.0f / ((System.nanoTime() - priorTime) * 1E-9));
                     priorTime = System.nanoTime();
                     GameState.updateGameState(updates);
                     updateGUI();
@@ -103,15 +100,12 @@ public class Game {
         }).start();
     }
 
-
-
-    
-    /** 
+    /**
      * @param panelName
      */
     public static void changePanel(String panelName) {
         Debug.out("Changing panel to " + panelName);
-        switch(panelName) {
+        switch (panelName) {
             case "main":
                 cardLayout.show(mainPanel, "main");
                 break;

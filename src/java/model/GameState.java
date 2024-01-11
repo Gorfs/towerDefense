@@ -31,13 +31,22 @@ public class GameState {
     private static boolean isMarathon = false;
     private static int updateToStartNextWave = 0;
     private static double difficulty = 0.1;
+    private static Path initPath;
 
     private static boolean running = false;
     public static boolean hasAlreadyStarted = false;
 
+    private static int marathonEnemiesToSpawn = 10;
+    private static int marathonEnemiesWaves = 1;
+
     public static String infoString = "Preperation Phase"; // the string that is displayed above the map.
-    
-    /** 
+
+    private static ArrayList<Monsters> monstersToRemoveNextUpdate = new ArrayList<>();
+    static Cell[][] gameMap = Map.getMap();
+    private static final ArrayList<Monsters> monsters = new ArrayList<>();
+    private static final ArrayList<Slot> towers = new ArrayList<>();
+
+    /**
      * @return boolean
      */
     // once per second is the maximum speed possible.
@@ -46,26 +55,42 @@ public class GameState {
         return hasAlreadyStarted;
     }
 
-    
-    /** 
+    /**
      * @param b
      */
     public static void setRunning(boolean b) {
         running = b;
     }
 
-    
-    /** 
+    /**
      * @return boolean
      */
     public static boolean getRunning() {
         return running;
     }
 
-    private static int marathonEnemiesToSpawn = 10;
-    private static int marathonEnemiesWaves = 1;
-    
-    /** 
+    /**
+     * @return ArrayList<Monsters>
+     */
+    public static ArrayList<Monsters> getMonsters() {
+        return monsters;
+    }
+
+    /**
+     * @return ArrayList<Slot>
+     */
+    public static ArrayList<Slot> getTowers() {
+        return towers;
+    }
+
+    /**
+     * @return Cell[][]
+     */
+    public static Cell[][] getMap() {
+        return gameMap;
+    }
+
+    /**
      * @param marathon
      */
     // once per second is the maximum speed possible.
@@ -74,16 +99,14 @@ public class GameState {
         isMarathon = marathon;
     }
 
-    
-    /** 
+    /**
      * @return boolean
      */
     public static boolean getMarathon() {
         return isMarathon;
     }
 
-    
-    /** 
+    /**
      * @return boolean
      */
     public static boolean isSpawning() {
@@ -111,7 +134,8 @@ public class GameState {
         System.out.println("aaaaaaa");
         Player.INSTANCE.resetPlayer();
         monstersToRemoveNextUpdate.addAll(monsters);
-        for (var tower: towers) tower.removeTower();
+        for (var tower : towers)
+            tower.removeTower();
         towers.clear();
         wave = 0;
     }
@@ -143,8 +167,14 @@ public class GameState {
         }
     }
 
-    
-    /** 
+    /**
+     * @return int
+     */
+    public static int getWave() {
+        return wave;
+    }
+
+    /**
      * @return boolean
      */
     public static boolean updateWaveInfo() {
@@ -184,22 +214,7 @@ public class GameState {
 
     }
 
-    
-    /** 
-     * @return int
-     */
-    public static int getWave() {
-        return wave;
-    }
-
-    private static ArrayList<Monsters> monstersToRemoveNextUpdate = new ArrayList<>();
-
-    static Cell[][] gameMap = Map.getMap();
-    private static final ArrayList<Monsters> monsters = new ArrayList<>();
-    private static final ArrayList<Slot> towers = new ArrayList<>();
-
-    
-    /** 
+    /**
      * @param tower
      * @param x
      * @param y
@@ -215,8 +230,7 @@ public class GameState {
         }
     }
 
-    
-    /** 
+    /**
      * @param x
      * @param y
      */
@@ -232,10 +246,7 @@ public class GameState {
         }
     }
 
-    private static Path initPath;
-
-    
-    /** 
+    /**
      * @param levelChoice
      */
     public static void initGameState(int levelChoice) {
@@ -256,32 +267,7 @@ public class GameState {
         // loading path for the monsters
     }
 
-    
-    /** 
-     * @return ArrayList<Monsters>
-     */
-    public static ArrayList<Monsters> getMonsters() {
-        return monsters;
-    }
-
-    
-    /** 
-     * @return ArrayList<Slot>
-     */
-    public static ArrayList<Slot> getTowers() {
-        return towers;
-    }
-
-    
-    /** 
-     * @return Cell[][]
-     */
-    public static Cell[][] getMap() {
-        return gameMap;
-    }
-
-    
-    /** 
+    /**
      * @param monsters
      */
     public static void spawnMonster(Monsters monsters) {
@@ -325,7 +311,8 @@ public class GameState {
                 // TermGame.run();
                 TermGame.unpause();
             } else {
-                if (graphicVersion) Game.running = false;
+                if (graphicVersion)
+                    Game.running = false;
                 infoString = "Wave " + wave + " has ended, Press the play button to start the next wave.";
             }
             restartGame();
@@ -342,8 +329,7 @@ public class GameState {
         spawning = true;
     }
 
-    
-    /** 
+    /**
      * @param timesUpdated
      */
     public static void updateGameState(int timesUpdated) {
@@ -360,7 +346,6 @@ public class GameState {
         hasAlreadyStarted = true;
         // Choosing next monster to spawn randomly
 
-
         if (running) {
             Debug.out("" + Player.INSTANCE.getHealth()[0]);
             Debug.out("" + Player.INSTANCE.getMoney());
@@ -368,7 +353,6 @@ public class GameState {
             Debug.out("currentupdate = " + timesUpdated + " update to start next wave = " + updateToStartNextWave);
             Debug.out("waveString = " + waveString.split(";").length + " str = " + waveString);
             Monsters monster;
-            Random rd = new Random();
             double choiceNum = Math.random() * difficulty;
             if (choiceNum > 1)
                 choiceNum = 1;
@@ -443,8 +427,7 @@ public class GameState {
         }
     }
 
-    
-    /** 
+    /**
      * @param graphicVersion
      */
     public static void setGraphicVersion(boolean graphicVersion) {

@@ -14,16 +14,14 @@ public class RealCoordinates {
         this.y = y;
     }
 
-    
-    /** 
+    /**
      * @return double
      */
     public double getX() {
         return x;
     }
 
-    
-    /** 
+    /**
      * @return double
      */
     public double getY() {
@@ -36,8 +34,7 @@ public class RealCoordinates {
     public static final RealCoordinates SOUTH_UNIT = new RealCoordinates(0, 1);
     public static final RealCoordinates WEST_UNIT = new RealCoordinates(-1, 0);
 
-    
-    /** 
+    /**
      * @param other
      * @return RealCoordinates
      */
@@ -45,8 +42,7 @@ public class RealCoordinates {
         return new RealCoordinates(x + other.x, y + other.y);
     }
 
-    
-    /** 
+    /**
      * @param multiplier
      * @return RealCoordinates
      */
@@ -55,51 +51,46 @@ public class RealCoordinates {
     }
 
     /**
-     * @return the coordinates of all integer squares that a unit square with current coordinates would intersect
+     * @return the coordinates of all integer squares that a unit square with
+     *         current coordinates would intersect
      */
     public Set<IntCoordinates> intNeighbours() {
         return new HashSet<>(List.of(
                 new IntCoordinates((int) Math.floor(x), (int) Math.floor(y)),
                 new IntCoordinates((int) Math.floor(x), (int) Math.ceil(y)),
                 new IntCoordinates((int) Math.ceil(x), (int) Math.floor(y)),
-                new IntCoordinates((int) Math.ceil(x), (int) Math.ceil(y))
-        ));
+                new IntCoordinates((int) Math.ceil(x), (int) Math.ceil(y))));
     }
 
-    
-    /** 
+    /**
      * @return IntCoordinates
      */
     public IntCoordinates round() {
         return new IntCoordinates((int) Math.round(x), (int) Math.round(y));
     }
 
-    
-    /** 
+    /**
      * @return RealCoordinates
      */
     public RealCoordinates floorX() {
         return new RealCoordinates((int) Math.floor(x), y);
     }
 
-    
-    /** 
+    /**
      * @return RealCoordinates
      */
     public RealCoordinates floorY() {
         return new RealCoordinates(x, (int) Math.floor(y));
     }
 
-    
-    /** 
+    /**
      * @return RealCoordinates
      */
     public RealCoordinates ceilX() {
         return new RealCoordinates((int) Math.ceil(x), y);
     }
 
-    
-    /** 
+    /**
      * @return RealCoordinates
      */
     public RealCoordinates ceilY() {

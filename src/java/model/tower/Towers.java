@@ -13,17 +13,15 @@ public class Towers {
     private IntCoordinates pos;
     private final int id;
     private final int attack;
-    private final int speed;
     private final int range;
     private final int price;
     private final Set<Monsters> monstersInRange = new HashSet<>();
 
-    public Towers(IntCoordinates pos, int attack, int speed, int range, int price) {
+    public Towers(IntCoordinates pos, int attack, int range, int price) {
         this.pos = pos;
         this.id = id_num;
         id_num++;
         this.attack = attack;
-        this.speed = speed;
         this.range = range;
         this.price = price;
     }
@@ -42,24 +40,21 @@ public class Towers {
         return price;
     }
 
-    
-    /** 
+    /**
      * @return Set<Monsters>
      */
     public Set<Monsters> getMonstersInRange() {
         return monstersInRange;
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     public String getName() {
         return "Null Tower";
     }
 
-    
-    /** 
+    /**
      * @param monsters
      * @param factor
      */
@@ -68,8 +63,7 @@ public class Towers {
             this.monstersInRange.add(monsters);
     }
 
-    
-    /** 
+    /**
      * @param mPos
      * @param factor
      * @return boolean
@@ -82,8 +76,7 @@ public class Towers {
         // <= this.getRange(factor) * this.getRange(factor));
     }
 
-    
-    /** 
+    /**
      * @param mPos
      * @return double
      */
@@ -100,16 +93,14 @@ public class Towers {
         // Math.pow((mPos.getY() - pos.getY()),2));
     }
 
-    
-    /** 
+    /**
      * @return int
      */
     public int getId() {
         return id;
     }
 
-    
-    /** 
+    /**
      * @param factor
      * @return int
      */
@@ -117,17 +108,8 @@ public class Towers {
         return attack * factor;
     }
 
-    
-    /** 
-     * @param factor
-     * @return int
-     */
-    public int getSpeed(int factor) {
-        return speed * factor;
-    }
 
-    
-    /** 
+    /**
      * @param factor
      * @return int
      */
@@ -135,8 +117,7 @@ public class Towers {
         return range * factor;
     }
 
-    
-    /** 
+    /**
      * @return int
      */
     public int getPrice() {

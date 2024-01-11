@@ -14,8 +14,6 @@ import gui.Game;
 public class MapPanel extends JPanel {
     // this panel contains the Main Map with each tile and the towers etc...
 
-    private final static int TILE_SIZE = Tile.TILE_SIZE;
-
     Cell[][] prevMap;
     private addTowerPopUp popUp = new addTowerPopUp();
 
@@ -39,7 +37,7 @@ public class MapPanel extends JPanel {
                     Tile tile = new Tile(Tile.getImage(GameState.getMap()[i][j]), GameState.getMap()[i][j]);
                     // tile.setBorder(BorderFactory.createLineBorder(Color.red)); // Add border here
                     if (!tile.cell.toString().equals("   ")) {
-                        if(tile.cell.toString().matches("XX ")){
+                        if (tile.cell.toString().matches("XX ")) {
                             tile.setToolTipText("click to add Tower");
                         }
                         tile.addMouseListener(new MouseAdapter() {
@@ -51,7 +49,7 @@ public class MapPanel extends JPanel {
                                 popUp.setCell(tile.cell.getX(), tile.cell.getY());
                                 if (!tile.cell.toString().matches(".*T.*")) {
                                     popUp.show(evt.getComponent(), evt.getX(), evt.getY());
-                                }else{
+                                } else {
                                     GameState.removeTower(tile.cell.getX(), tile.cell.getY());
                                 }
 
@@ -63,9 +61,10 @@ public class MapPanel extends JPanel {
                             // TODO setup a nicer border for the tiles
                             public void mouseEntered(java.awt.event.MouseEvent evt) {
                                 Debug.out("Entered");
-                                if(tile.cell.toString().matches(".*T.*")){
+                                if (tile.cell.toString().matches(".*T.*")) {
                                     tile.setBorder(BorderFactory.createLineBorder(Color.red));
-                                }else{tile.setBorder(BorderFactory.createLineBorder(Color.blue));
+                                } else {
+                                    tile.setBorder(BorderFactory.createLineBorder(Color.blue));
                                 }
                             }
 
