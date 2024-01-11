@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import config.Slot;
 import geometry.IntCoordinates;
+import main.TermMain;
 import misc.*;
 import model.*;
 import model.tower.*;
@@ -53,6 +54,7 @@ public class TermPrepMenu {
         String choice = sc.nextLine();
         int x = (Character.toUpperCase(choice.charAt(0))) - 'A'; 
         int y = Character.getNumericValue(choice.charAt(1)) - 1;
+        String pos = Character.toUpperCase(choice.charAt(0)) + String.valueOf(y+1);
         if (!(model.GameState.getMap()[x][y] instanceof Slot)){
             misc.Print.clearScreen();
             System.out.println("Error, not a valid slot");
@@ -66,6 +68,7 @@ public class TermPrepMenu {
             }else{
                 misc.Print.clearScreen();
                 GameState.removeTower(x, y);
+                TermMain.log.addLog("remove " + pos + " |");
             }
         }
     }
@@ -75,8 +78,9 @@ public class TermPrepMenu {
         TermGame.printMap();
         System.out.println("where should we add the Tower? format = A7");
         String choice = sc.nextLine();
-        int x = (Character.toUpperCase(choice.charAt(0))) - 'A'; 
+        int x = (Character.toUpperCase(choice.charAt(0))) - 'A';
         int y = Integer.parseInt(choice.substring(1)) - 1;
+        String pos = Character.toUpperCase(choice.charAt(0)) + String.valueOf(y+1);
         Debug.out("x = " + x + " y = " + y);
         if (!(model.GameState.getMap()[x][y] instanceof Slot)){
             TermMainMenu.clearScreen();
@@ -86,18 +90,23 @@ public class TermPrepMenu {
         }else{
             boolean enoughMoney = false;
             System.out.println("what tower would you like to add?");
-            System.out.println("1 -> basic tower");
-            System.out.println("2 -> advanced tower");
-            System.out.println("3 -> expert tower");
-            System.out.println("4 -> master tower");
-            System.out.println("5 -> ultimate tower");
-            choice = sc.nextLine();
             Towers tower = new TowerBasic(new IntCoordinates(x,y));
+            System.out.println("1 -> basic tower\t" + tower.getCost() + "$");
+            tower = new TowerAdvanced(new IntCoordinates(x,y));
+            System.out.println("2 -> advanced tower\t" + tower.getCost() + "$");
+            tower = new TowerExpert(new IntCoordinates(x,y));
+            System.out.println("3 -> expert tower\t" + tower.getCost() + "$");
+            tower = new TowerMaster(new IntCoordinates(x,y));
+            System.out.println("4 -> master tower\t" + tower.getCost() + "$");
+            tower = new TowerUltimate(new IntCoordinates(x,y));
+            System.out.println("5 -> ultimate tower\t" + tower.getCost() + "$");
+            choice = sc.nextLine();
             // add a basic tower
             switch(choice){
                 case "1" :{
                     // add a basic tower
                     // Tower is already made since it is the default.
+                    tower = new TowerBasic(new IntCoordinates(x,y));
                     if (Player.INSTANCE.getMoney() >= tower.getCost()) enoughMoney = true;
                     break;
                 }
@@ -132,10 +141,12 @@ public class TermPrepMenu {
                     break;
                 } 
             }
-            if (enoughMoney) GameState.addTower(tower, y, x);
+            if (enoughMoney) {
+                GameState.addTower(tower, y, x);
+                TermMain.log.addLog(tower + "at " + pos + "  |");
+            }
             else System.out.println("Error, not enough money to buy the tower");
             TermMainMenu.clearScreen();
         }
     }
 }
-
