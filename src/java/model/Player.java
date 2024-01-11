@@ -7,6 +7,7 @@ public class Player {
     private final int[] health = new int[]{100,100};
     private double timer = 0.0;
     private int money = 70;
+    private int wave = 1;
 
     public void resetPlayer() {
         health[1] = health[0];
@@ -30,6 +31,10 @@ public class Player {
 
     public int[] getHealth() {
         return health;
+    }
+
+    public void heal(int health) {
+        this.health[1] += health;
     }
 
     public String getTimer() {
@@ -57,6 +62,14 @@ public class Player {
 
     public void updateTimer(double timer) {
         this.timer += timer * 1E-9;
+    }
+
+    public int getWave() {
+        return wave;
+    }
+
+    public void setWave(int wave) {
+        this.wave = wave;
     }
 
     public void takeDamage(int hp) {
