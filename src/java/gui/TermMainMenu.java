@@ -2,13 +2,12 @@ package gui;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.Objects;
 import java.util.Scanner;
 
 
 public class TermMainMenu {
-    private static Scanner sc = new Scanner(System.in);
-    private static boolean running = false;
-    private static String choice;
+    private static final Scanner sc = new Scanner(System.in);
     private static int levelSelect = 0;
 
     public static int getLevelSelect(){
@@ -22,9 +21,8 @@ public class TermMainMenu {
 
 
     public static void runTermMainMenu(){
-        running = true;
-        while(running){ 
-            running = true;
+        boolean running = true;
+        while(running){
             try(BufferedReader br = new BufferedReader(new FileReader("src/resources/ascii2.txt"))) {
                 StringBuilder sb = new StringBuilder();
                 String line = br.readLine();
@@ -37,7 +35,7 @@ public class TermMainMenu {
             String everything = sb.toString();
             System.out.println(everything);
             }catch(Exception e){
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
 
             System.out.println("What would you like to do?\n\n");
@@ -45,7 +43,7 @@ public class TermMainMenu {
             System.out.println("L : Level Select");
             System.out.println("S : Settings");
             System.out.println("Q : Exit");
-            choice = sc.next();
+            String choice = sc.next();
             switch(choice.toLowerCase()){
                 case "q":{
                     System.exit(0);
@@ -68,17 +66,28 @@ public class TermMainMenu {
     
     
     public static int TermLevelMenu(){
+        int levelChoice = 1;
+        int counter = 1;
         // this is the menu that is called when we want to choose a level.
-        int counter = 0;
-        System.out.println("Les levels disponibles:");
-        final File folder = new File("src/resources/map");
-        for(final File fileEntry: folder.listFiles()){
-            System.out.println(" " + counter + " : " + fileEntry.getName());
-            counter++;
-        }
-        System.out.println("\n\n Votre Choix: ");
-        int levelChoice = sc.nextInt();
-        clearScreen();
-        return levelChoice;
+        do {
+            if (levelChoice > counter || levelChoice < 1) System.out.println("Nombre invalide");
+            counter = 1;
+            System.out.println("Les levels disponibles:");
+            final File folder = new File("src/resources/map");
+            for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
+                System.out.println(" " + counter + ": " + fileEntry.getName().substring(0,fileEntry.getName().length() - 4));
+                counter++;
+            }
+            System.out.println("\n\n Votre Choix: ");
+            try {
+                // check out if the input is a correct number
+                levelChoice = sc.nextInt();
+            } catch (Exception e) {
+                levelChoice = counter + 1;
+                System.out.println("Entrée invalide, veuillez entrer un nombre.");
+            }
+            clearScreen();
+        } while (levelChoice > counter || levelChoice < 1);
+        return levelChoice - 1;
     }
 }
