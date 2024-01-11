@@ -30,7 +30,6 @@ public class Slot extends Cell{
         this.tower = null;
     }
 
-    
     /** 
      * @return String
      */

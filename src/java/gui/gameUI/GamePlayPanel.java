@@ -11,8 +11,6 @@ public class GamePlayPanel extends JPanel {
     // the label that says what phase of the game we are currently in. ex: preparation / wave 2/ wave 3/etc...
     JLabel infoTitle = new JLabel("Preparation Phase", SwingConstants.CENTER);
     UIPanel uiPanel = new UIPanel();
-
-
     private final MapPanel mapPanel = new MapPanel();
 
     public GamePlayPanel() {
@@ -33,6 +31,7 @@ public class GamePlayPanel extends JPanel {
         uiPanel.setBackground(gui.menu.MainMenu.backgroundColor);
         this.add(uiPanel);
     }
+
     public void update(){
         mapPanel.update();
         uiPanel.update();

@@ -55,8 +55,6 @@ public class Path extends Cell {
         return this.monsters;
     }
 
-
-    
     /** 
      * @param monsters Set monsters as the monster in cell
      */
@@ -69,7 +67,6 @@ public class Path extends Cell {
         this.monsters = null;
     }   
 
-    
     /** 
      * @return String
      */

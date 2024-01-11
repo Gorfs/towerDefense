@@ -29,9 +29,13 @@ public class GameState {
     private static boolean isMarathon = false;
     private static int updateToStartNextWave = 0;
     private static double difficulty = 0.1;
-
     private static boolean running = false;
     public static boolean hasAlreadyStarted = false;
+    private static ArrayList<Monsters> monstersToRemoveNextUpdate = new ArrayList<>();
+    static Cell[][] gameMap = Map.getMap();
+    private static final ArrayList<Monsters> monsters = new ArrayList<>();
+    private static final ArrayList<Slot> towers = new ArrayList<>();
+    private static Path initPath;
 
     public static String infoString = "Preparation Phase"; // the string that is displayed above the map.
     
@@ -156,12 +160,6 @@ public class GameState {
         return wave;
     }
 
-    private static ArrayList<Monsters> monstersToRemoveNextUpdate = new ArrayList<>();
-
-    static Cell[][] gameMap = Map.getMap();
-    private static final ArrayList<Monsters> monsters = new ArrayList<>();
-    private static final ArrayList<Slot> towers = new ArrayList<>();
-
     /** 
      * @param tower add a new tower
      * @param x pos x for tower
@@ -195,9 +193,6 @@ public class GameState {
         }
     }
 
-    private static Path initPath;
-
-    
     /** 
      * @param levelChoice select level
      */
@@ -223,7 +218,6 @@ public class GameState {
         return towers;
     }
 
-    
     /** 
      * @return Cell[][]
      */
@@ -231,12 +225,10 @@ public class GameState {
         return gameMap;
     }
 
-    
     /** 
      * @param monsters monster to spawn
      */
     public static void spawnMonster(Monsters monsters) {
-
         if (initPath.isEmpty()) {
             initPath.setMonster(monsters);
             GameState.monsters.add(monsters);
@@ -272,14 +264,12 @@ public class GameState {
             if (TermGame.getRunning()) {
                 TermGame.pause();
                 TermPrepMenu.startPreparationPhase();
-                // TermGame.run();
                 TermGame.unpause();
             } else {
                 if (graphicVersion) Game.running = false;
                 infoString = "Wave " + wave + " has ended, Press the play button to start the next wave.";
             }
             restartGame();
-
         }
     }
 
@@ -292,7 +282,6 @@ public class GameState {
         spawning = true;
     }
 
-    
     /**
      * @param timesUpdated which frame we currently are at
      */
@@ -382,7 +371,7 @@ public class GameState {
         }
     }
 
-    
+
     /** 
      * @param graphicVersion is graphic version
      */

@@ -94,7 +94,6 @@ public class AddTowerPopUp extends JPopupMenu {
                     } else {
                         tower.setBackground(java.awt.Color.red.darker());
                     }
-
                 }
 
                 @Override
@@ -102,26 +101,22 @@ public class AddTowerPopUp extends JPopupMenu {
                     Debug.out("Mouse exited" + tower.getName());
                     tower.setBackground(gui.menu.MainMenu.backgroundColor); // default it if the update function fails.
                     tower.update();
-
                 }
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     Debug.out("Mouse Released" + tower.getName());
-
                 }
 
                 @Override
                 public void mousePressed(MouseEvent e) {
                     Debug.out("Mouse pressed" + tower.getName());
-
                 }
             });
             towersPanel.add(tower);
         }
         towersPanel.revalidate();
         towersPanel.repaint();
-
     }
 
     /**

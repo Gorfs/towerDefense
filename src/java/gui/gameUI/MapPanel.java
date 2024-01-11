@@ -46,9 +46,7 @@ public class MapPanel extends JPanel {
                                 }else{
                                     GameState.removeTower(tile.cell.getX(), tile.cell.getY());
                                 }
-
                                 Game.updateGUI();
-
                             }
 
                             @Override
@@ -56,7 +54,8 @@ public class MapPanel extends JPanel {
                                 Debug.out("Entered");
                                 if(tile.cell.toString().matches(".*T.*")){
                                     tile.setBorder(BorderFactory.createLineBorder(Color.red));
-                                }else{tile.setBorder(BorderFactory.createLineBorder(Color.blue));
+                                } else {
+                                    tile.setBorder(BorderFactory.createLineBorder(Color.blue));
                                 }
                             }
 
@@ -64,7 +63,6 @@ public class MapPanel extends JPanel {
                             public void mouseExited(java.awt.event.MouseEvent evt) {
                                 Debug.out("Exited");
                                 tile.setBorder(null);
-
                             }
                         });
                     }
@@ -73,5 +71,4 @@ public class MapPanel extends JPanel {
             }
         }
     }
-
 }

@@ -1,12 +1,12 @@
 package gui.gameUI;
 
 import javax.swing.*;
+import java.awt.*;
 
 import gui.Game;
 import gui.menu.MainMenu;
 import model.GameState;
 
-import java.awt.*;
 
 public class GamePanel extends JPanel {
     // this panel contains the whole UI for the gameplay part of the Tower Defense
@@ -29,9 +29,6 @@ public class GamePanel extends JPanel {
         title.setFont(title.getFont().deriveFont(30.0f));
         title.setForeground(Color.white);
 
-        // gamePlayPanel.setPreferredSize(new Dimension(1000, 400));
-        // gamePlayPanel.setBorder(BorderFactory.createLineBorder(Color.red)); // Add
-        // border here
         gamePlayPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
 
         JButton startRoundBtn = new JButton("Start");
@@ -49,7 +46,6 @@ public class GamePanel extends JPanel {
                 Game.running = true;
                 GameState.setRunning(true);
             }
-
         });
 
         JPanel centerPanel = new JPanel();
@@ -68,5 +64,4 @@ public class GamePanel extends JPanel {
         gamePlayPanel.update();
         this.title.setText("Level " + Game.getLevel());
     }
-
 }

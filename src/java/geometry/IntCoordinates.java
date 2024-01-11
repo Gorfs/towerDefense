@@ -8,7 +8,6 @@ public class IntCoordinates {
         this.x = x;
         this.y = y;
     }
-
     
     /** 
      * @return int
@@ -17,14 +16,12 @@ public class IntCoordinates {
         return x;
     }
 
-    
     /** 
      * @return int
      */
     public int getY() {
         return y;
     }
-
     
     /** 
      * @return String
