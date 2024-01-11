@@ -38,8 +38,7 @@ public class LevelPanel extends JPanel {
         this.add(levelWaves);
     }
 
-    
-    /** 
+    /**
      * @return int
      */
     public int getNum() {

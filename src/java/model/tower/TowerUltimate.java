@@ -7,8 +7,7 @@ public class TowerUltimate extends Towers {
         super(pos, 60, 6, 200);
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     @Override
@@ -16,8 +15,7 @@ public class TowerUltimate extends Towers {
         return "Ultimate Tower";
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     @Override
