@@ -7,11 +7,19 @@ public class TowerExpert extends Towers {
         super(pos, 40, 1, 4, 100);
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String getName(){
         return "Expert Tower";
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString(){
         return "ET ";

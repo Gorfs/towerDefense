@@ -22,10 +22,19 @@ public class Monsters {
         this.health = new int[]{health, health};
 
     }
+    
+    /** 
+     * @return RealCoordinates
+     */
     public RealCoordinates getPos(){
         return new RealCoordinates(this.path.getX(), this.path.getY());
     }
 
+    
+    /** 
+     * @param 0
+     * @return boolean
+     */
     public boolean takeDamage(int damage){ // returns a boolean if the monster is dead
         this.health[0] -= damage;
         if (this.health[0] <= 0){
@@ -36,6 +45,11 @@ public class Monsters {
         }
     }
 
+    
+    /** 
+     * @param null
+     * @return boolean
+     */
     public boolean move(){ // returns true if the enemy has made it to the end, else it returns false
         if (this.path.getNextPath() == null){
                 // the enemy has made it to the end of the map, reduce health of player and deleted the monster
@@ -51,25 +65,49 @@ public class Monsters {
 
     }
 
+    
+    /** 
+     * @return Path
+     */
     public Path getPath() {
         return this.path;
     }
+    
+    /** 
+     * @param path
+     */
     public void setPath(Path path){
         this.path = path;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getId() {
         return id;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getAttack() {
         return attack;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getSpeed() {
         return speed;
     }
 
+    
+    /** 
+     * @return int[]
+     */
     public int[] getHealth() {
         return health;
     }

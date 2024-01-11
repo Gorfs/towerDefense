@@ -12,6 +12,10 @@ public class Map {
     private static Cell[][] map = new Cell[10][13];
     private static Path initPath;
 
+    
+    /** 
+     * @param file
+     */
     public static void generateMap(int file) {
         String fileString = "level" + file;
         // Get the file that contains the map
@@ -72,6 +76,12 @@ public class Map {
     }
 
 
+    
+    /** 
+     * @param x
+     * @param y
+     * @return ArrayList<Cell>
+     */
     private static ArrayList<Cell> getSurroundingCoordinates(int x, int y){
         // should return all the tiles around the current tile
         ArrayList<Cell> result = new ArrayList<Cell>();
@@ -92,23 +102,45 @@ public class Map {
 
 
 
+    
+    /** 
+     * @return Path
+     */
     public static Path getInitPath(){
         return initPath;
     }
 
 
+    
+    /** 
+     * @return int
+     */
     public static int getWidth() {
         return map[0].length;
     }
 
+    
+    /** 
+     * @return int
+     */
     public static int getHeight() {
         return map.length;
     }
 
+    
+    /** 
+     * @param x
+     * @param y
+     * @return Cell
+     */
     public static Cell getCell(int x, int y) {
         return map[x][y];
     }
     
+    
+    /** 
+     * @return Cell[][]
+     */
     public static Cell[][] getMap(){
         return map;
     }

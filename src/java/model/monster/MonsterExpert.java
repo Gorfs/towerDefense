@@ -7,6 +7,10 @@ public class MonsterExpert extends Monsters{
         super(path, 30, 1, 80);
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "[] ";

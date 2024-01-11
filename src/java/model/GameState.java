@@ -36,32 +36,56 @@ public class GameState {
     public static boolean hasAlreadyStarted = false;
 
     public static String infoString = "Preperation Phase"; // the string that is displayed above the map.
+    
+    /** 
+     * @return boolean
+     */
     // once per second is the maximum speed possible.
 
     public static boolean getHasAlreadyStarted() {
         return hasAlreadyStarted;
     }
 
+    
+    /** 
+     * @param b
+     */
     public static void setRunning(boolean b) {
         running = b;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public static boolean getRunning() {
         return running;
     }
 
     private static int marathonEnemiesToSpawn = 10;
     private static int marathonEnemiesWaves = 1;
+    
+    /** 
+     * @param marathon
+     */
     // once per second is the maximum speed possible.
 
     public static void setMarathon(boolean marathon) {
         isMarathon = marathon;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public static boolean getMarathon() {
         return isMarathon;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public static boolean isSpawning() {
         return spawning;
     }
@@ -119,6 +143,10 @@ public class GameState {
         }
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public static boolean updateWaveInfo() {
         getWaveInfo();
         if (isMarathon) {
@@ -156,6 +184,10 @@ public class GameState {
 
     }
 
+    
+    /** 
+     * @return int
+     */
     public static int getWave() {
         return wave;
     }
@@ -166,6 +198,12 @@ public class GameState {
     private static final ArrayList<Monsters> monsters = new ArrayList<>();
     private static final ArrayList<Slot> towers = new ArrayList<>();
 
+    
+    /** 
+     * @param tower
+     * @param x
+     * @param y
+     */
     public static void addTower(Towers tower, int x, int y) {
         if (gameMap[y][x] instanceof Slot && (!towers.contains(gameMap[y][x]))) {
             ((Slot) gameMap[y][x]).setTower(tower);
@@ -177,6 +215,11 @@ public class GameState {
         }
     }
 
+    
+    /** 
+     * @param x
+     * @param y
+     */
     public static void removeTower(int x, int y) {
         if (gameMap[y][x] instanceof Slot) {
             Towers tower = ((Slot) gameMap[y][x]).getTower();
@@ -191,6 +234,10 @@ public class GameState {
 
     private static Path initPath;
 
+    
+    /** 
+     * @param levelChoice
+     */
     public static void initGameState(int levelChoice) {
         Map.generateMap(levelChoice);
         level = levelChoice;
@@ -209,18 +256,34 @@ public class GameState {
         // loading path for the monsters
     }
 
+    
+    /** 
+     * @return ArrayList<Monsters>
+     */
     public static ArrayList<Monsters> getMonsters() {
         return monsters;
     }
 
+    
+    /** 
+     * @return ArrayList<Slot>
+     */
     public static ArrayList<Slot> getTowers() {
         return towers;
     }
 
+    
+    /** 
+     * @return Cell[][]
+     */
     public static Cell[][] getMap() {
         return gameMap;
     }
 
+    
+    /** 
+     * @param monsters
+     */
     public static void spawnMonster(Monsters monsters) {
 
         if (initPath.isEmpty()) {
@@ -279,6 +342,10 @@ public class GameState {
         spawning = true;
     }
 
+    
+    /** 
+     * @param timesUpdated
+     */
     public static void updateGameState(int timesUpdated) {
         // every time this function is called it is considered that one frame has passed
         // since the last update
@@ -376,6 +443,10 @@ public class GameState {
         }
     }
 
+    
+    /** 
+     * @param graphicVersion
+     */
     public static void setGraphicVersion(boolean graphicVersion) {
         GameState.graphicVersion = graphicVersion;
     }

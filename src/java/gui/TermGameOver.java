@@ -5,6 +5,10 @@ import java.util.Scanner;
 
 public class TermGameOver {
     private static final Scanner sc = new Scanner(System.in);
+    
+    /** 
+     * @param win
+     */
     public static void termGameOver(boolean win) {
         TermMainMenu.clearScreen();
 

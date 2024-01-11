@@ -42,6 +42,11 @@ public class Tile extends JLabel {
         this.cell = cell;
     }
 
+    
+    /** 
+     * @param cell
+     * @return ImageIcon
+     */
     public static ImageIcon getImage(Cell cell) {
         if (cell instanceof Slot) {
             if(((Slot) cell).getTower() == null){
@@ -105,6 +110,12 @@ public class Tile extends JLabel {
 
     }
 
+    
+    /** 
+     * @param cell
+     * @param i
+     * @return ImageIcon
+     */
     private static ImageIcon getBufferedImage(Cell cell, int i) {
         BufferedImage img = null;
         String type = cell.toString();

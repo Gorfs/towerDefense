@@ -15,32 +15,60 @@ public class Player {
         money = 70;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getMoney() {
         return money;
     }
 
+    
+    /** 
+     * @param w
+     */
     public void updateWave(int w){
         this.wave = w;
     }
 
+    
+    /** 
+     * @param money
+     */
     public void updateMoney(int money) {
         this.money += money;
     }
 
+    
+    /** 
+     * @param price
+     */
     public void removeMoney(int price) {
         Debug.out("Money removed");
         money -= price;
         Debug.out("money = " + money);
     }
 
+    
+    /** 
+     * @return int[]
+     */
     public int[] getHealth() {
         return health;
     }
 
+    
+    /** 
+     * @param health
+     */
     public void heal(int health) {
         this.health[1] += health;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getTimer() {
         String STimer;
         // Minutes
@@ -64,10 +92,18 @@ public class Player {
         return STimer;
     }
 
+    
+    /** 
+     * @param timer
+     */
     public void updateTimer(double timer) {
         this.timer += timer * 1E-9;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getWave() {
         return wave;
     }

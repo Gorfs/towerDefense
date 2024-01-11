@@ -4,6 +4,10 @@ import gui.TermGame;
 import model.GameState;
 
 public class TermMain {
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args){
         GameState.setGraphicVersion(false);
         System.out.println("mainTerm");

@@ -40,6 +40,11 @@ public class addTowerPopUp extends JPopupMenu {
     private int cellY = 0;
     private Slot cell;
 
+    
+    /** 
+     * @param x
+     * @param y
+     */
     public void setCell(int x, int y) {
         cellX = x;
         cellY = y;
@@ -134,10 +139,19 @@ public class addTowerPopUp extends JPopupMenu {
 
     }
 
+    
+    /** 
+     * @param e
+     */
     public void removeTower(MouseEvent e) {
         GameState.removeTower(cellX, cellY);
     }
 
+    
+    /** 
+     * @param e
+     * @param tower
+     */
     public void addTower(MouseEvent e, towerAddPanel tower) {
         Towers gameTower = tower.tower;
         gameTower.setPos(new IntCoordinates(cellX, cellY));

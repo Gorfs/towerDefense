@@ -51,6 +51,12 @@ public class LevelSelectMenu extends JPanel implements ActionListener {
         this.add(menuPanel, BorderLayout.CENTER);
     }
 
+    
+    /** 
+     * @param numLevels
+     * @param levelWaves
+     * @return ArrayList<LevelPanel>
+     */
     public ArrayList<LevelPanel> createLevelPanels(int numLevels, ArrayList<Integer> levelWaves) {
         ArrayList<LevelPanel> levelPanels = new ArrayList<>();
         for (int i = 0; i < numLevels; i++) {
@@ -59,6 +65,10 @@ public class LevelSelectMenu extends JPanel implements ActionListener {
         return levelPanels;
     }
 
+    
+    /** 
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
         // TODO set the action to start the level in the main game panel.
         for (LevelPanel levelPanel : levelPanels) {

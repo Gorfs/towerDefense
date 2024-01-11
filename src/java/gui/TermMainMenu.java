@@ -10,6 +10,10 @@ public class TermMainMenu {
     private static final Scanner sc = new Scanner(System.in);
     private static int levelSelect = 0;
 
+    
+    /** 
+     * @return int
+     */
     public static int getLevelSelect(){
         return levelSelect;
     }
@@ -64,6 +68,10 @@ public class TermMainMenu {
     }    
     
     
+    
+    /** 
+     * @return int
+     */
     public static int TermLevelMenu(){
         int levelChoice = 1;
         int counter = 1;

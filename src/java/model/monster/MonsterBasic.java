@@ -7,6 +7,10 @@ public class MonsterBasic extends Monsters{
         super(path, 10, 1, 20);
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return super.toString();

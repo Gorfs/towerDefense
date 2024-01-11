@@ -34,9 +34,17 @@ public class Path extends Cell {
         this(false, x, y);
         this.isBase = true;
     }
+    
+    /** 
+     * @return boolean
+     */
     public boolean isBase(){
         return isBase;
     }
+    
+    /** 
+     * @param next
+     */
     public void setNextPath(Cell next){
         this.nextPath =  next;
     }
@@ -45,24 +53,48 @@ public class Path extends Cell {
         this(false, x, y);
     }
 
+    
+    /** 
+     * @param isSpawn
+     */
     public void setSpawn(boolean isSpawn){
         this.isSpawn = isSpawn;
     }
+    
+    /** 
+     * @return boolean
+     */
     public boolean isSpawn(){
         return this.isSpawn;
     }
 
+    
+    /** 
+     * @return Cell
+     */
     public Cell getNextPath(){
         return this.nextPath;
     }
+    
+    /** 
+     * @return boolean
+     */
     public boolean isEmpty(){
         return this.isEmpty;
     }
+    
+    /** 
+     * @return Monsters
+     */
     public Monsters getMonster(){
         return this.monsters;
     }
 
 
+    
+    /** 
+     * @param monsters
+     */
     public void setMonster(Monsters monsters){
         this.isEmpty = false;
         this.monsters = monsters;
@@ -72,6 +104,10 @@ public class Path extends Cell {
         this.monsters = null;
     }   
 
+    
+    /** 
+     * @return String
+     */
     public String toString(){
         if(this.isEmpty()){
             return "   ";

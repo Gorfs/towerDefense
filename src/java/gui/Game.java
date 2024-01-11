@@ -49,9 +49,17 @@ public class Game {
         
         gameWindow.setVisible(true);
     }
+    
+    /** 
+     * @param n
+     */
     public static void setlevel(int n){
         levelSelect = n;
     }
+    
+    /** 
+     * @return int
+     */
     public static int getLevel(){
         return levelSelect;
     }
@@ -97,6 +105,10 @@ public class Game {
 
 
 
+    
+    /** 
+     * @param panelName
+     */
     public static void changePanel(String panelName) {
         Debug.out("Changing panel to " + panelName);
         switch(panelName) {

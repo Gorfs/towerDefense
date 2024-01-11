@@ -14,10 +14,18 @@ public class RealCoordinates {
         this.y = y;
     }
 
+    
+    /** 
+     * @return double
+     */
     public double getX() {
         return x;
     }
 
+    
+    /** 
+     * @return double
+     */
     public double getY() {
         return y;
     }
@@ -28,10 +36,20 @@ public class RealCoordinates {
     public static final RealCoordinates SOUTH_UNIT = new RealCoordinates(0, 1);
     public static final RealCoordinates WEST_UNIT = new RealCoordinates(-1, 0);
 
+    
+    /** 
+     * @param other
+     * @return RealCoordinates
+     */
     public RealCoordinates plus(RealCoordinates other) {
         return new RealCoordinates(x + other.x, y + other.y);
     }
 
+    
+    /** 
+     * @param multiplier
+     * @return RealCoordinates
+     */
     public RealCoordinates times(double multiplier) {
         return new RealCoordinates(x * multiplier, y * multiplier);
     }
@@ -48,22 +66,42 @@ public class RealCoordinates {
         ));
     }
 
+    
+    /** 
+     * @return IntCoordinates
+     */
     public IntCoordinates round() {
         return new IntCoordinates((int) Math.round(x), (int) Math.round(y));
     }
 
+    
+    /** 
+     * @return RealCoordinates
+     */
     public RealCoordinates floorX() {
         return new RealCoordinates((int) Math.floor(x), y);
     }
 
+    
+    /** 
+     * @return RealCoordinates
+     */
     public RealCoordinates floorY() {
         return new RealCoordinates(x, (int) Math.floor(y));
     }
 
+    
+    /** 
+     * @return RealCoordinates
+     */
     public RealCoordinates ceilX() {
         return new RealCoordinates((int) Math.ceil(x), y);
     }
 
+    
+    /** 
+     * @return RealCoordinates
+     */
     public RealCoordinates ceilY() {
         return new RealCoordinates(x, (int) Math.ceil(y));
     }

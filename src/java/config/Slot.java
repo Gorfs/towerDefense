@@ -15,9 +15,17 @@ public class Slot extends Cell{
         isEmpty = true;
     }
 
+    
+    /** 
+     * @return Towers
+     */
     public Towers getTower(){
         return tower;
     }
+    
+    /** 
+     * @param tower
+     */
     public void setTower(Towers tower){
         this.isEmpty = false;
         this.tower = tower;
@@ -28,6 +36,10 @@ public class Slot extends Cell{
         this.tower = null;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString(){
         if(isEmpty){

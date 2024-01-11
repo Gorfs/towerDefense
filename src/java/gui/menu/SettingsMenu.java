@@ -84,6 +84,10 @@ public class SettingsMenu extends JPanel implements ActionListener {
 
     }
 
+    
+    /** 
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == debugBtn) {
             Debug.out("Switching debug mode : " + String.valueOf(Debug.isDebugging()));

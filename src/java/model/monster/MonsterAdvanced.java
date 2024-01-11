@@ -7,6 +7,10 @@ public class MonsterAdvanced extends Monsters{
         super(path, 20, 1, 40);
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "() ";

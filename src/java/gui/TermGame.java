@@ -16,6 +16,10 @@ public class TermGame {
     private static long timeElapsedSinceLastUpdate = 10000; // is in nanoseconds, +1 to avoid division by zero errors
     public static boolean paused = false;
 
+    
+    /** 
+     * @return boolean
+     */
     public static boolean getRunning(){
         return running;
     }
@@ -28,10 +32,18 @@ public class TermGame {
         running = false;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getUpdates() {
         return updates;
     }
 
+    
+    /** 
+     * @param level
+     */
     public static void runGame(int level) {
         // Create a Scanner object
         GameState.initGameState(level);
@@ -111,6 +123,10 @@ public class TermGame {
             System.out.println(line);
     }
 
+    
+    /** 
+     * @return Cell[][]
+     */
     public Cell[][] getMap() {
         return map;
     }
