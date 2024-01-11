@@ -4,6 +4,8 @@ import model.*;
 import config.*;
 
 import model.tower.Towers;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import model.Player;
 
@@ -59,10 +61,9 @@ public class TermGame {
         // Update health percentage
         float healthPercent = (float) Player.INSTANCE.getHealth()[1] / Player.INSTANCE.getHealth()[0] * 100;
         String HPPercent;
-        if (healthPercent < 100.0f)
-            HPPercent = " " + healthPercent;
-        else
-            HPPercent = "" + healthPercent;
+        DecimalFormat df = new DecimalFormat("0.0");
+        if (healthPercent == 100.0f) HPPercent = "" + healthPercent;
+        else HPPercent = " " + df.format(healthPercent);
         // Update health bar
         StringBuilder HPBar = new StringBuilder();
         for (int i = 0; i < 10; i++) {
@@ -89,13 +90,12 @@ public class TermGame {
         String timer = "|       " + Player.INSTANCE.getTimer() + "       |";
         // Initialize wave
         StringBuilder wave = new StringBuilder("|      Wave n°");
-        if (Player.INSTANCE.getWave() < 1000)
-            wave.append(Player.INSTANCE.getWave());
+        if (GameState.getWave() < 1000) wave.append(GameState.getWave());
         else
             wave.append("999");
-        if (Player.INSTANCE.getWave() < 10)
+        if (GameState.getWave() < 10)
             n = 7;
-        else if (Player.INSTANCE.getWave() < 100)
+        else if (GameState.getWave() < 100)
             n = 6;
         else
             n = 5;
