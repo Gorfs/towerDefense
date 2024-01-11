@@ -66,12 +66,12 @@ public class Towers {
         return 
         Math.max(
             Math.max(
-                Math.abs(pos.getX() - mPos.getX()),
-                Math.abs(pos.getY() - mPos.getY())
+                Math.abs(pos.getX() - mPos.getY()),
+                Math.abs(pos.getY() - mPos.getX())
                 ), 
             Math.max(
-                Math.abs(mPos.getX() - pos.getX()),
-                Math.abs(mPos.getY() - pos.getY())
+                Math.abs(mPos.getX() - pos.getY()),
+                Math.abs(mPos.getY() - pos.getX())
                 ));
         // return Math.sqrt(Math.pow((mPos.getX() - pos.getX()), 2) +
         //         Math.pow((mPos.getY() - pos.getY()),2));

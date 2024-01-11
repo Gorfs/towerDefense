@@ -52,8 +52,12 @@ public class GameState {
         isMarathon = marathon;
     }
 
-    public static boolean getMarathon(){
+    public static boolean getMarathon() {
         return isMarathon;
+    }
+
+    public static boolean isSpawning() {
+        return spawning;
     }
 
     public static void getWaveInfo() {
@@ -205,9 +209,13 @@ public class GameState {
     }
 
     public static void waveEnded() {
+        Game.running = false;
         if (isMarathon) {
             marathonEnemiesWaves++;
+            setRunning(false);
+            updateWaveInfo();
         } else {
+
             if (wave == -1) {
                 wave = 0;
             }
@@ -218,12 +226,14 @@ public class GameState {
                 wave++;
                 Player.INSTANCE.updateWave(wave);
             }
+            updateWaveInfo();
         }
         spawning = false;
         if (wave > waveString.split(";").length) {
             win();
         } else {
             pauseGame();
+            updateWaveInfo();
             if (TermGame.getRunning()) {
                 TermGame.pause();
                 TermPrepMenu.startPreparationPhase();
@@ -234,7 +244,6 @@ public class GameState {
                 infoString = "Wave " + wave + " has ended, Press the play button to start the next wave.";
             }
             restartGame();
-            
 
         }
     }
@@ -245,13 +254,20 @@ public class GameState {
 
     public static void restartGame() {
         running = true;
+        spawning = true;
     }
 
     public static void updateGameState(int timesUpdated) {
         // every time this function is called it is considered that one frame has passed
         // since the last update
         // Debug.out(towers.toString());
-        infoString = "wave " + wave + " / " + waveString.split(";").length;
+
+        if (!isMarathon)
+            infoString = "wave " + wave + " / " + waveString.split(";").length;
+
+
+
+
         hasAlreadyStarted = true;
         if (running) {
             Debug.out("" + Player.INSTANCE.getHealth()[0]);
@@ -293,6 +309,8 @@ public class GameState {
                     for (Slot slot : towers) {
                         // TODO set factors to a variable rather than a constant 1.
                         if (slot.getTower().IsInRange(monsters.getPos(), 1)) {
+                            // Debug.out("monster in range" + monsters.getPos().x + " " + monsters.getPos().y + " "
+                                    // + slot.getX() + " " + slot.getY());
                             if (monsters.takeDamage(slot.getTower().getAttack(1))) {
                                 monstersToRemoveNextUpdate.add(monsters);
                             }

@@ -47,7 +47,7 @@ public class GamePlayPanel extends JPanel {
         if(GameState.getMarathon()){
             infoTitle.setText("Marathon mode");
         }else{
-            infoTitle.setText((Game.isPreperationPhase) ? "Preperation Phase" : ("Wave " + GameState.getWave()));
+            infoTitle.setText(GameState.infoString);
         }
         
     }
