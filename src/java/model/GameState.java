@@ -2,6 +2,7 @@ package model;
 
 import config.*;
 import gui.Game;
+import gui.TermGameOver;
 import gui.TermGame;
 import gui.TermPrepMenu;
 import misc.Debug;
@@ -17,6 +18,7 @@ import java.util.Random;
 
 public class GameState {
     private static int timesMonstersMoved = 0;
+    private static boolean graphicVersion = false;
     private static double gameSpeed = 2;
     private static int level = -1;
     public static int money = Player.INSTANCE.getMoney();
@@ -81,22 +83,39 @@ public class GameState {
         }
     }
 
+    public static void resetGame() {
+        System.out.println("aaaaaaa");
+        Player.INSTANCE.resetPlayer();
+        monstersToRemoveNextUpdate.addAll(monsters);
+        for (var tower: towers) tower.removeTower();
+        towers.clear();
+        wave = 0;
+    }
+
     public static void win() {
-        if (Game.running) {
-            Game.changePanel("won");
-            Game.running = false;
+        resetGame();
+        if (graphicVersion) {
+            if (Game.running) {
+                Game.changePanel("won");
+                Game.running = false;
+            } else {
+                TermGame.pause();
+            }
         } else {
-            TermGame.pause();
-            // TODO setup winning for terminal version of game.
+            TermGameOver.termGameOver(true);
         }
     }
 
     public static void lose() {
-        if (Game.running) {
-            Game.changePanel("lost");
-            Game.running = false;
+        resetGame();
+        if (graphicVersion) {
+            if (Game.running) {
+                Game.changePanel("lost");
+                Game.running = false;
+            }
         } else {
-            // TODO setup losing for terminal version of game.
+            TermGame.unpause();
+            TermGameOver.termGameOver(false);
         }
     }
 
@@ -226,7 +245,6 @@ public class GameState {
             if (wave > waveString.split(";").length) {
                 win();
             } else {
-                // Game.running = false;
                 wave++;
                 Player.INSTANCE.updateWave(wave);
             }
@@ -244,7 +262,7 @@ public class GameState {
                 // TermGame.run();
                 TermGame.unpause();
             } else {
-                Game.running = false;
+                if (graphicVersion) Game.running = false;
                 infoString = "Wave " + wave + " has ended, Press the play button to start the next wave.";
             }
             restartGame();
@@ -274,7 +292,7 @@ public class GameState {
 
         hasAlreadyStarted = true;
         // Choosing next monster to spawn randomly
-        
+
 
         if (running) {
             Debug.out("" + Player.INSTANCE.getHealth()[0]);
@@ -358,4 +376,7 @@ public class GameState {
         }
     }
 
+    public static void setGraphicVersion(boolean graphicVersion) {
+        GameState.graphicVersion = graphicVersion;
+    }
 }
