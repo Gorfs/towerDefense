@@ -37,7 +37,7 @@ public class UIPanel extends JPanel {
     }
     public void update(){
         Debug.out("UI updated");
-        this.lives = Player.INSTANCE.getHealth()[0];
+        this.lives = Player.INSTANCE.getHealth()[1];
         livesLabel.setText("Health: " + this.lives);
         this.money = Player.INSTANCE.getMoney();
         moneyLabel.setText("Money: " + this.money);

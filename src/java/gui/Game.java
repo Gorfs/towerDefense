@@ -44,6 +44,8 @@ public class Game {
         mainPanel.add(levelMenu, "level");
         mainPanel.add(settingsMenu, "settings");
         mainPanel.add(gamePanel, "game");
+        mainPanel.add(new GameWonPanel(), "won");
+        mainPanel.add(new GameLostPanel(), "lost");
         
         gameWindow.setVisible(true);
     }
@@ -81,7 +83,7 @@ public class Game {
         new Thread(()->{
             long priorTime = System.nanoTime();
             while(running){
-                if(System.nanoTime() - priorTime > 16600000){
+                if(System.nanoTime() - priorTime > 16600000*2){
                     // 1/60th of a second has passed, updating gameView
                     updates++;
                     Debug.out("fps -> " + 1.0f/((System.nanoTime() - priorTime)*1E-9)); 
@@ -110,6 +112,12 @@ public class Game {
             case "game":
                 cardLayout.show(mainPanel, "game");
                 isPreperationPhase = true;
+                break;
+            case "lost":
+                cardLayout.show(mainPanel, "lost");
+                break;
+            case "won":
+                cardLayout.show(mainPanel, "won");
                 break;
             default:
                 System.out.println("Error: panelName not found");

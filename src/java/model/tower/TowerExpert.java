@@ -1,10 +1,10 @@
-package model;
+package model.tower;
 
 import geometry.IntCoordinates;
 
 public class TowerExpert extends Towers {
     public TowerExpert(IntCoordinates pos) {
-        super(pos, 25, 1, 4, 100);
+        super(pos, 40, 1, 4, 100);
     }
 
     @Override

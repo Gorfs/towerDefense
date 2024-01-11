@@ -1,5 +1,5 @@
 package config;
-import model.Towers;
+import model.tower.Towers;
 
 public class Slot extends Cell{
     private boolean isEmpty;

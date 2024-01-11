@@ -8,13 +8,9 @@ import java.io.File;
 
 import config.*;
 import misc.Debug;
-import model.TowerAdvanced;
-import model.TowerBasic;
-import model.TowerExpert;
-import model.TowerMaster;
-import model.TowerUltimate;
+import model.monster.Monsters;
+import model.tower.*;
 
-import java.util.Random;
 import java.util.ArrayList;
 
 public class Tile extends JLabel {
@@ -30,6 +26,7 @@ public class Tile extends JLabel {
     static public ImageIcon tower3Img;
     static public ImageIcon tower4Img;
     static public ImageIcon tower5Img;
+    static public ImageIcon monsterImg;
 
     private static ArrayList<ImageIcon> images = new ArrayList<ImageIcon>();
 
@@ -41,7 +38,6 @@ public class Tile extends JLabel {
     }
 
     public static ImageIcon getImage(Cell cell) {
-        Random rd = new Random();
         if (cell instanceof Slot) {
             if(((Slot) cell).getTower() == null){
                 return grass1Img;
@@ -59,7 +55,11 @@ public class Tile extends JLabel {
             }
            
         } else if (cell instanceof Path) {
-            return pathImg;
+            if(((Path)cell).isEmpty()){
+                return pathImg;
+            }else{
+                return monsterImg;
+            }
         }
         return getBufferedImage(cell, 1);
 
@@ -81,6 +81,10 @@ public class Tile extends JLabel {
         tower4Img = getBufferedImage(slot, 0);
         slot.setTower(new TowerUltimate(null));
         tower5Img = getBufferedImage(slot, 0);
+        Path path = new Path(0, 0);
+        path.setMonster(new Monsters(path, 0, 0, 0));
+        monsterImg = getBufferedImage(path, 0);
+
 
     }
 
@@ -95,13 +99,13 @@ public class Tile extends JLabel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (type.matches(".*\\[\\].*")) {
+        } else if (type == "() ") {
             try {
-                img = ImageIO.read(new File("src/resources/art/assets/textures/dirt.png"));
+                img = ImageIO.read(new File("src/resources/art/assets/enemies/zombie.png"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (type.matches("BT.*")) {
+                } else if (type.matches("BT.*")) {
             try {
                 img = ImageIO.read(new File("src/resources/art/assets/towers/arrow.png"));
             } catch (Exception e) {
@@ -134,14 +138,15 @@ public class Tile extends JLabel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (type.matches(".*M.*")) {
+        } else if (type == "   ") {
             try {
-                img = ImageIO.read(new File("src/resources/art/assets/enemies/creeper.png"));
+                img = ImageIO.read(new File("src/resources/art/assets/textures/dirt.png"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            return null;
+        }else{
+
+            return grass1Img;
         }
         Debug.out(type);
         ImageIcon dImage = new ImageIcon(img.getScaledInstance(TILE_SIZE, TILE_SIZE, Image.SCALE_DEFAULT));
