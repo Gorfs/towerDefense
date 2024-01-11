@@ -13,7 +13,7 @@ public class Map {
     private static Path initPath;
 
     public static void generateMap(int file) {
-        String fileString = "level_" + file;
+        String fileString = "level" + file;
         // Get the file that contains the map
         File maze = new File("src/resources/map/" + fileString + ".txt");
         Scanner myReader;
