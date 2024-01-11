@@ -14,10 +14,8 @@ import model.tower.Towers;
 
 import java.util.ArrayList;
 import java.io.*;
-import java.util.Random;
 
 public class GameState {
-    private static int timesMonstersMoved = 0;
     private static boolean graphicVersion = false;
     private static double gameSpeed = 2;
     private static int level = -1;
@@ -121,6 +119,7 @@ public class GameState {
             while ((e = reader.readLine()) != null) {
                 waveString = e;
             }
+            reader.close();
             if (waveString == "") {
                 isMarathon = true;
             }
@@ -206,7 +205,6 @@ public class GameState {
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 // the game has been won
-                // TODO make this have a winning screen and go back to the main menu
                 return true;
 
             }
@@ -386,22 +384,15 @@ public class GameState {
             }
             if (monsters.isEmpty() && monstersLeftToSpawn == 0 && spawning) {
                 waveEnded();
-                updateToStartNextWave = ((int) Math.floor(timesUpdated + (3 * 2 * (30 / gameSpeed)))); // TODO set the 5
-                                                                                                       // as
-                                                                                                       // the time in
-                                                                                                       // seconds
-                                                                                                       // between waves
+                updateToStartNextWave = ((int) Math.floor(timesUpdated + (3 * 2 * (30 / gameSpeed))));
             }
             monstersToRemoveNextUpdate = new ArrayList<>();
-            // TODO make the timer based on difficulty rather then set at once per second
             if (timesUpdated % (15 / gameSpeed) == 0 && timesUpdated > 1) { // game speed is divided to basically invert
                                                                             // the
                                                                             // factor that multiplies the framerate
-                timesMonstersMoved++; // basic stats, not very useful.
                 for (Monsters monsters : GameState.monsters) {
 
                     for (Slot slot : towers) {
-                        // TODO set factors to a variable rather than a constant 1.
                         if (slot.getTower().IsInRange(monsters.getPos(), 1)) {
                             Debug.out("monster in range" + monsters.getPos().x + " " + monsters.getPos().y + " "
                                     + slot.getX() + " " + slot.getY());

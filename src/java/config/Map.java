@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import misc.Debug;
 
 public class Map {
     private static Cell[][] map = new Cell[10][13];
