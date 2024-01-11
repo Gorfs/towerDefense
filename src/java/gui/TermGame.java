@@ -1,9 +1,12 @@
 package gui;
 
+import main.TermMain;
 import model.*;
 import config.*;
 
 import model.tower.Towers;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import model.Player;
 
@@ -60,10 +63,9 @@ public class TermGame {
         // Update health percentage
         float healthPercent = (float) Player.INSTANCE.getHealth()[1] / Player.INSTANCE.getHealth()[0] * 100;
         String HPPercent;
-        if (healthPercent < 100.0f)
-            HPPercent = " " + healthPercent;
-        else
-            HPPercent = "" + healthPercent;
+        DecimalFormat df = new DecimalFormat("0.0");
+        if (healthPercent == 100.0f) HPPercent = "" + healthPercent;
+        else HPPercent = " " + df.format(healthPercent);
         // Update health bar
         StringBuilder HPBar = new StringBuilder();
         for (int i = 0; i < 10; i++) {
@@ -90,8 +92,7 @@ public class TermGame {
         String timer = "|       " + Player.INSTANCE.getTimer() + "       |";
         // Initialize wave
         StringBuilder wave = new StringBuilder("|      Wave n°");
-        if (GameState.getWave() < 1000)
-            wave.append(GameState.getWave());
+        if (GameState.getWave() < 1000) wave.append(GameState.getWave());
         else
             wave.append("999");
         if (GameState.getWave() < 10)
@@ -104,15 +105,16 @@ public class TermGame {
         // Display everything
         display[2] = String.format("%s%s%s", money, wave, timer);
         display[3] = "+---+----------------------------------------+-------------------+";
-        display[4] = "|///|  A  B  C  D  E  F  G  H  I  J  K  L  M | ";
-        display[5] = "+---+----------------------------------------+ ";
+        display[4] = "|///|  A  B  C  D  E  F  G  H  I  J  K  L  M | " + TermMain.log.getLog()[0];
+        display[5] = "+---+----------------------------------------+ " + TermMain.log.getLog()[1];
         display[16] = display[3];
 
         for (int x = 0; x < Map.getHeight(); x++) {
-            display[x + 6] = ("| " + (x + 1) + " | ");
+            if (x + 1 < 10) display[x + 6] = ("| " + (x + 1) + " | ");
+            else display[x + 6] = ("|" + (x + 1) + " | ");
             for (int y = 0; y < Map.getWidth(); y++)
                 display[x + 6] = display[x + 6] + Map.getCell(x, y);
-            display[x + 6] = display[x + 6] + "| ";
+            display[x + 6] = display[x + 6] + "| " + TermMain.log.getLog()[x + 2];
         }
 
         for (var line : display)

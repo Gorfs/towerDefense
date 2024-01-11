@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import config.Slot;
 import geometry.IntCoordinates;
+import main.TermMain;
 import misc.*;
 import model.*;
 import model.tower.*;
@@ -55,6 +56,7 @@ public class TermPrepMenu {
         int x = (Character.toUpperCase(choice.charAt(0))) - 'A';
         int y = Character.getNumericValue(choice.charAt(1)) - 1;
         if (!(model.GameState.getMap()[x][y] instanceof Slot)) {
+
             misc.Print.clearScreen();
             System.out.println("Error, not a valid slot");
             preparationMenu();
@@ -67,6 +69,7 @@ public class TermPrepMenu {
             } else {
                 misc.Print.clearScreen();
                 GameState.removeTower(x, y);
+                TermMain.log.addLog("remove " + pos + " |");
             }
         }
     }
@@ -76,6 +79,7 @@ public class TermPrepMenu {
         TermGame.printMap();
         System.out.println("where should we add the Tower? format = A7");
         String choice = sc.nextLine();
+
         int x = (Character.toUpperCase(choice.charAt(0))) - 'A';
         int y = Integer.parseInt(choice.substring(1)) - 1;
         Debug.out("x = " + x + " y = " + y);
@@ -143,6 +147,7 @@ public class TermPrepMenu {
             else
                 System.out.println("Error, not enough money to buy the tower");
             TermMainMenu.clearScreen();
+
         }
     }
 }

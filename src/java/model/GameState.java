@@ -5,6 +5,7 @@ import gui.Game;
 import gui.TermGameOver;
 import gui.TermGame;
 import gui.TermPrepMenu;
+import main.TermMain;
 import misc.Debug;
 import model.monster.MonsterAdvanced;
 import model.monster.MonsterBasic;
@@ -132,6 +133,7 @@ public class GameState {
     public static void resetGame() {
         System.out.println("aaaaaaa");
         Player.INSTANCE.resetPlayer();
+        TermMain.log.resetLog();
         monstersToRemoveNextUpdate.addAll(monsters);
         for (var tower : towers)
             tower.removeTower();
@@ -395,10 +397,15 @@ public class GameState {
 
                     for (Slot slot : towers) {
                         if (slot.getTower().IsInRange(monsters.getPos(), 1)) {
+                            String towerString = slot.toString().substring(0,slot.toString().length()-1);
+                            String monsterString = monsters.toString().substring(0,monsters.toString().length()-1);
+                            TermMain.log.addLog(towerString + "->" + monsterString + "-" + slot.getTower().getAttack(1) + " |");
                             Debug.out("monster in range" + monsters.getPos().x + " " + monsters.getPos().y + " "
                                     + slot.getX() + " " + slot.getY());
                             if (monsters.takeDamage(slot.getTower().getAttack(1))) {
                                 monstersToRemoveNextUpdate.add(monsters);
+                                TermMain.log.addLog(monsters + "died   |");
+                                TermMain.log.addLog("+10$      |");
                             }
                         }
                     }
