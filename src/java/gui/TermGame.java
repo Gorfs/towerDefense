@@ -7,8 +7,6 @@ import model.tower.Towers;
 import java.util.ArrayList;
 import model.Player;
 
-import misc.Debug;
-
 public class TermGame {
     private static int updates = 0;
     private static Cell[][] map;
@@ -19,20 +17,15 @@ public class TermGame {
     public static boolean paused = false;
 
     public static boolean getRunning(){
-        return isRunning;
+        return running;
     }
-
-    public static void setRunning(boolean b){
-        isRunning = b;
-    }
-
 
     public static void unpause(){
-        isRunning = true;
+        running = true;
     }
 
     public static void pause(){
-        isRunning = false;
+        running = false;
     }
 
     public int getUpdates() {
@@ -51,10 +44,6 @@ public class TermGame {
 
         // Debug.printMap(map);
 
-    }
-
-    public static void setRunning(boolean running) {
-        TermGame.running = running;
     }
 
     public static void printMap() {
@@ -93,13 +82,13 @@ public class TermGame {
         String timer = "|       " + Player.INSTANCE.getTimer() + "       |";
         // Initialize wave
         StringBuilder wave = new StringBuilder("|      Wave n°");
-        if (Player.INSTANCE.getWave() < 1000)
-            wave.append(Player.INSTANCE.getWave());
+        if (GameState.getWave() < 1000)
+            wave.append(GameState.getWave());
         else
             wave.append("999");
-        if (Player.INSTANCE.getWave() < 10)
+        if (GameState.getWave() < 10)
             n = 7;
-        else if (Player.INSTANCE.getWave() < 100)
+        else if (GameState.getWave() < 100)
             n = 6;
         else
             n = 5;
@@ -107,13 +96,12 @@ public class TermGame {
         // Display everything
         display[2] = String.format("%s%s%s", money, wave, timer);
         display[3] = "+---+----------------------------------------+-------------------+";
-        display[4] = "|///|  1  2  3  4  5  6  7  8  9 10 11 12 13 | ";
+        display[4] = "|///|  A  B  C  D  E  F  G  H  I  J  K  L  M | ";
         display[5] = "+---+----------------------------------------+ ";
         display[16] = display[3];
 
-        char[] chara = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M' };
         for (int x = 0; x < Map.getHeight(); x++) {
-            display[x + 6] = ("| " + chara[x] + " | ");
+            display[x + 6] = ("| " + (x + 1) + " | ");
             for (int y = 0; y < Map.getWidth(); y++)
                 display[x + 6] = display[x + 6] + Map.getCell(x, y);
             display[x + 6] = display[x + 6] + "| ";
@@ -132,7 +120,7 @@ public class TermGame {
         // TODO create a function in GameState that updates the gameState
         TermMainMenu.clearScreen();
 
-        if (GameState.getRunning()) {     GameState.updateGameState(updates);
+        if (GameState.getRunning()) {GameState.updateGameState(updates);
         printMap();
         System.out.println("fps -> " + 1.0f/(timeElapsedSinceLastUpdate*1E-9));
     }

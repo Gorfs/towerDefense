@@ -84,8 +84,10 @@ public class GameState {
     }
 
     public static void resetGame() {
+        System.out.println("aaaaaaa");
         Player.INSTANCE.resetPlayer();
         monstersToRemoveNextUpdate.addAll(monsters);
+        for (var tower: towers) tower.removeTower();
         towers.clear();
         wave = 0;
     }
@@ -96,15 +98,17 @@ public class GameState {
             if (Game.running) {
                 Game.changePanel("won");
                 Game.running = false;
+            } else {
+                TermGame.pause();
             }
         } else {
-            TermGame.pause();
             TermGameOver.termGameOver(true);
         }
     }
 
     public static void lose() {
         resetGame();
+        TermGame.unpause();
         if (graphicVersion) {
             if (Game.running) {
                 Game.changePanel("lose");
@@ -241,7 +245,6 @@ public class GameState {
             if (wave > waveString.split(";").length) {
                 win();
             } else {
-                // Game.running = false;
                 wave++;
                 Player.INSTANCE.updateWave(wave);
             }
@@ -259,7 +262,7 @@ public class GameState {
                 // TermGame.run();
                 TermGame.unpause();
             } else {
-                Game.running = false;
+                if (graphicVersion) Game.running = false;
                 infoString = "Wave " + wave + " has ended, Press the play button to start the next wave.";
             }
             restartGame();

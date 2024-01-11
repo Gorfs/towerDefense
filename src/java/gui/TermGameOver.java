@@ -7,7 +7,6 @@ public class TermGameOver {
     private static final Scanner sc = new Scanner(System.in);
     public static void termGameOver(boolean win) {
         TermMainMenu.clearScreen();
-        TermGame.setRunning(false);
 
         if (win) {
             System.out.println(
