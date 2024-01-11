@@ -207,25 +207,17 @@ public class GameState {
     public static void waveEnded() {
         if (isMarathon) {
             marathonEnemiesWaves++;
-<<<<<<< HEAD
-        }
-        if (wave == -1) {
-            wave = 0;
-        } else {
-            wave++;
-            Player.INSTANCE.updateWave(wave);
-=======
         } else {
             if (wave == -1) {
                 wave = 0;
             }
             spawning = false;
-            if (wave + 1 > waveString.split(";").length) {
+            if (wave > waveString.split(";").length) {
                 win();
             } else {
                 wave++;
+                Player.INSTANCE.updateWave(wave);
             }
->>>>>>> dd4a70b7beaa4d02b62a3ec0508f71ca71b15de6
         }
         spawning = false;
         if (wave > waveString.split(";").length) {
@@ -233,15 +225,16 @@ public class GameState {
         } else {
             pauseGame();
             if (TermGame.getRunning()) {
-                // TermGame.pause();
+                TermGame.pause();
                 TermPrepMenu.startPreparationPhase();
-                TermGame.setRunning(true);
-                // TermGame.unpause();
-                // TermGame.unpause();
+                // TermGame.run();
+                TermGame.unpause();
             } else {
                 Game.running = false;
                 infoString = "Wave " + wave + " has ended, Press the play button to start the next wave.";
             }
+            restartGame();
+            
 
         }
     }
