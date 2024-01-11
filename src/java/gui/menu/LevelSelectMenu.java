@@ -6,6 +6,8 @@ import gui.Game;
 
 import java.awt.color.*;
 import java.util.ArrayList;
+import java.util.Scanner; // Added import statement for Scanner
+
 import java.util.logging.Level;
 import java.awt.BorderLayout;
 import java.awt.LayoutManager;
@@ -17,10 +19,13 @@ import java.awt.Color;
 
 import misc.Debug;
 
-public class LevelSelectMenu extends JPanel implements ActionListener  {
+public class LevelSelectMenu extends JPanel implements ActionListener {
     private static JLabel title = new JLabel("Select a level:", SwingConstants.CENTER);
     private static JPanel menuPanel = new JPanel();
+    private static ArrayList<String> levelNames = new ArrayList<>();
+    private static ArrayList<Integer> levelWaves = new ArrayList<>();
     private static ArrayList<LevelPanel> levelPanels = new ArrayList<>();
+
     public LevelSelectMenu() {
         super();
         this.setLayout(new BorderLayout());
@@ -34,10 +39,10 @@ public class LevelSelectMenu extends JPanel implements ActionListener  {
         title.setFont(title.getFont().deriveFont(30.0f));
         title.setForeground(Color.white);
 
-
         this.add(title, BorderLayout.NORTH);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
-        levelPanels = createLevelPanels(TermLevelNums());
+        TermLevelNums();
+        levelPanels = createLevelPanels(levelNames.size(), levelWaves);
         for (LevelPanel levelPanel : levelPanels) {
             menuPanel.add(levelPanel);
             levelPanel.playBtn.addActionListener(this);
@@ -46,36 +51,52 @@ public class LevelSelectMenu extends JPanel implements ActionListener  {
         this.add(menuPanel, BorderLayout.CENTER);
     }
 
-    public ArrayList<LevelPanel> createLevelPanels(int numLevels) {
+    public ArrayList<LevelPanel> createLevelPanels(int numLevels, ArrayList<Integer> levelWaves) {
         ArrayList<LevelPanel> levelPanels = new ArrayList<>();
         for (int i = 0; i < numLevels; i++) {
-            levelPanels.add(new LevelPanel(i));
+            levelPanels.add(new LevelPanel(i, levelWaves.get(i)));
         }
         return levelPanels;
     }
 
     public void actionPerformed(ActionEvent e) {
         // TODO set the action to start the level in the main game panel.
-        for(LevelPanel levelPanel: levelPanels){
-            if(e.getSource() == levelPanel.playBtn){
+        for (LevelPanel levelPanel : levelPanels) {
+            if (e.getSource() == levelPanel.playBtn) {
                 Debug.out("Play button pressed");
                 Game.setlevel(levelPanel.getNum());
                 Game.start();
-                // try {Thread.sleep(1000);} catch (InterruptedException e1) {e1.printStackTrace();}
+                // try {Thread.sleep(1000);} catch (InterruptedException e1)
+                // {e1.printStackTrace();}
                 Game.changePanel("game");
             }
         }
         System.out.println("Action performed" + e.getSource());
     }
 
-    public static int TermLevelNums(){
+    public static void TermLevelNums() {
         // this is the menu that is called when we want to choose a level.
         int counter = 0;
         final File folder = new File("src/resources/map");
-        for(final File fileEntry: folder.listFiles()){
-            counter++;
+        for (final File fileEntry : folder.listFiles()) {
+            Debug.out(fileEntry.getName());
+            levelNames.add(fileEntry.getName());
+            File waveFile = new File("src/resources/mapInfo/" + fileEntry.getName());
+
+            try (Scanner scanner = new Scanner(waveFile)) {
+                if (!scanner.hasNextLine()) {
+                    levelWaves.add(-1);
+                } else {
+                    while (scanner.hasNextLine()) {
+                        String waveData = scanner.nextLine();
+                        levelWaves.add(waveData.split(";").length);
+
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
-        System.out.println("\n\n Votre Choix: ");
-        return counter;
-    }   
+    }
 }
