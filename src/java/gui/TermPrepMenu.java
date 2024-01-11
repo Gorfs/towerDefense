@@ -78,6 +78,10 @@ public class TermPrepMenu {
         TermGame.printMap();
         System.out.println("where should we add the Tower? format = A7");
         String choice = sc.nextLine();
+        if (choice.length() < 2) {
+            System.out.println("Invalid position");
+            return;
+        }
         int x = (Character.toUpperCase(choice.charAt(0))) - 'A';
         int y = Integer.parseInt(choice.substring(1)) - 1;
         String pos = Character.toUpperCase(choice.charAt(0)) + String.valueOf(y+1);
