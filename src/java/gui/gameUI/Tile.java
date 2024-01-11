@@ -101,11 +101,24 @@ public class Tile extends JLabel {
             }
         } else if (type == "() ") {
             try {
-                img = ImageIO.read(new File("src/resources/art/assets/enemies/zombie.png"));
+                img = ImageIO.read(new File("src/resources/art/assets/enemies/slime.png"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-                } else if (type.matches("BT.*")) {
+        }else if (type == "<> "){
+            try{
+                img = ImageIO.read(new File("src/resources/art/assets/enemies/zombie.png"));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else if (type == "[]") {
+            try{
+                img = ImageIO.read(new File("src/resources/art/assets/enemies/enderman.png"));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        } else if (type.matches("BT.*")) {
             try {
                 img = ImageIO.read(new File("src/resources/art/assets/towers/arrow.png"));
             } catch (Exception e) {
